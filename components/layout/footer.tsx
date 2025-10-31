@@ -84,19 +84,15 @@ export function Footer() {
               <li className="flex items-start">
                 <Phone className="w-4 h-4 mr-2 mt-0.5 text-odillon-lime flex-shrink-0" />
                 <div>
-                  <a href="tel:+24111454454" className="text-gray-300 hover:text-odillon-lime transition-colors">
-                    +241 11 45 45 54
-                  </a>
-                  <br />
-                  <a href="tel:+24174759515" className="text-gray-300 hover:text-odillon-lime transition-colors">
-                    +241 74 75 95 15
+                  <a href="tel:+24111747574" className="text-gray-300 hover:text-odillon-lime transition-colors">
+                    +241 11747574
                   </a>
                 </div>
               </li>
               <li className="flex items-start">
                 <Mail className="w-4 h-4 mr-2 mt-0.5 text-odillon-lime flex-shrink-0" />
-                <a href="mailto:odillon2017@gmail.com" className="text-gray-300 hover:text-odillon-lime transition-colors">
-                  odillon2017@gmail.com
+                <a href="mailto:contact@odillon.fr" className="text-gray-300 hover:text-odillon-lime transition-colors">
+                  contact@odillon.fr
                 </a>
               </li>
               <li className="flex items-start">

@@ -70,11 +70,11 @@ export function Header() {
           {/* Contact Info & CTA */}
           <div className="hidden lg:flex lg:items-center lg:space-x-4">
             <a
-              href="tel:+24111454454"
+              href="tel:+24111747574"
               className="flex items-center text-sm text-gray-600 hover:text-odillon-teal transition-colors"
             >
               <Phone className="w-4 h-4 mr-2" />
-              +241 11 45 45 54
+              +241 11747574
             </a>
             <Button
               asChild
@@ -125,18 +125,18 @@ export function Header() {
               ))}
               <div className="pt-4 space-y-2">
                 <a
-                  href="tel:+24111454454"
+                  href="tel:+24111747574"
                   className="flex items-center px-3 py-2 text-sm text-gray-600"
                 >
                   <Phone className="w-4 h-4 mr-2" />
-                  +241 11 45 45 54
+                  +241 11747574
                 </a>
                 <a
-                  href="mailto:odillon2017@gmail.com"
+                  href="mailto:contact@odillon.fr"
                   className="flex items-center px-3 py-2 text-sm text-gray-600"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  odillon2017@gmail.com
+                  contact@odillon.fr
                 </a>
                 <Button
                   asChild

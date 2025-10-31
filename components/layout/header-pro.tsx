@@ -72,13 +72,13 @@ export function HeaderPro() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-10 items-center justify-between text-sm">
             <div className="flex items-center space-x-6">
-              <a href="tel:+24111454454" className="flex items-center hover:text-odillon-lime transition-colors">
+              <a href="tel:+24111747574" className="flex items-center hover:text-odillon-lime transition-colors">
                 <Phone className="w-3.5 h-3.5 mr-1.5" />
-                +241 11 45 45 54
+                +241 11747574
               </a>
-              <a href="mailto:odillon2017@gmail.com" className="hidden md:flex items-center hover:text-odillon-lime transition-colors">
+              <a href="mailto:contact@odillon.fr" className="hidden md:flex items-center hover:text-odillon-lime transition-colors">
                 <Mail className="w-3.5 h-3.5 mr-1.5" />
-                odillon2017@gmail.com
+                contact@odillon.fr
               </a>
             </div>
             <div className="text-xs text-gray-300">
@@ -166,12 +166,19 @@ export function HeaderPro() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex">
-            <Button
-              asChild
-              className="bg-odillon-teal hover:bg-odillon-teal/90 text-white"
+            <div 
+              className="relative rounded-md p-[2px]"
+              style={{
+                background: 'linear-gradient(135deg, #1A9B8E, #C4D82E)',
+              }}
             >
-              <Link href="/contact">Nous contacter</Link>
-            </Button>
+              <Button
+                asChild
+                className="bg-odillon-teal hover:bg-odillon-teal/90 text-white rounded-[calc(0.375rem-2px)]"
+              >
+                <Link href="/contact">Nous contacter</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>

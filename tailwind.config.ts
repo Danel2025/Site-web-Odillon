@@ -67,55 +67,64 @@ const config = {
   				'serif'
   			]
   		},
-  		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			},
-  			aurora: {
-  				from: {
-  					backgroundPosition: '50% 50%, 50% 50%'
-  				},
-  				to: {
-  					backgroundPosition: '350% 50%, 350% 50%'
-  				}
-  			},
-  			grid: {
-  				'0%': {
-  					transform: 'translateY(-50%)'
-  				},
-  				'100%': {
-  					transform: 'translateY(0)'
-  				}
-  			},
-  			shimmer: {
-  				'0%': {
-  					backgroundPosition: '-200% 0'
-  				},
-  				'100%': {
-  					backgroundPosition: '200% 0'
-  				}
-  			}
-  		},
-  		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out',
-  			aurora: 'aurora 60s linear infinite',
-  			grid: 'grid 15s linear infinite',
-  			shimmer: 'shimmer 3s linear infinite'
-  		}
+		keyframes: {
+			'accordion-down': {
+				from: {
+					height: '0'
+				},
+				to: {
+					height: 'var(--radix-accordion-content-height)'
+				}
+			},
+			'accordion-up': {
+				from: {
+					height: 'var(--radix-accordion-content-height)'
+				},
+				to: {
+					height: '0'
+				}
+			},
+			aurora: {
+				from: {
+					backgroundPosition: '50% 50%, 50% 50%'
+				},
+				to: {
+					backgroundPosition: '350% 50%, 350% 50%'
+				}
+			},
+			grid: {
+				'0%': {
+					transform: 'translateY(-50%)'
+				},
+				'100%': {
+					transform: 'translateY(0)'
+				}
+			},
+			shimmer: {
+				'0%': {
+					backgroundPosition: '-200% 0'
+				},
+				'100%': {
+					backgroundPosition: '200% 0'
+				}
+			},
+			orbit: {
+				'0%': {
+					transform: 'rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg))'
+				},
+				'100%': {
+					transform: 'rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg))'
+				}
+			}
+		},
+		animation: {
+			'accordion-down': 'accordion-down 0.2s ease-out',
+			'accordion-up': 'accordion-up 0.2s ease-out',
+			aurora: 'aurora 60s linear infinite',
+			grid: 'grid 15s linear infinite',
+			shimmer: 'shimmer 3s linear infinite',
+			orbit: 'orbit calc(var(--duration) * 1s) linear infinite'
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

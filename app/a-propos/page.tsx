@@ -1,8 +1,4 @@
-import { HeaderPro } from "@/components/layout/header-pro"
-import { Footer } from "@/components/layout/footer"
-import { AboutDetailed } from "@/components/sections/about-detailed"
-import { ScrollProgress } from "@/components/magicui/scroll-progress"
-import { ScrollToTop } from "@/components/magicui/scroll-to-top"
+import { AboutPageClient } from "@/components/pages/about-page-client"
 
 export const metadata = {
   title: "À Propos | Odillon - Ingénierie d'Entreprises",
@@ -10,16 +6,6 @@ export const metadata = {
 }
 
 export default function AboutPage() {
-  return (
-    <>
-      <ScrollProgress />
-      <ScrollToTop />
-      <HeaderPro />
-      <main className="min-h-screen pt-[104px]">
-        <AboutDetailed />
-      </main>
-      <Footer />
-    </>
-  )
+  return <AboutPageClient />
 }
 

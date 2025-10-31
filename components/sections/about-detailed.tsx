@@ -1,323 +1,538 @@
 "use client"
 
 import { FadeIn } from "@/components/magicui/fade-in"
+import { BlurFade } from "@/components/magicui/blur-fade"
+import { ParticlesBackground } from "@/components/ui/particles-background"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Building2, Users, Trophy, Globe, Target, Heart, Lightbulb, Handshake, Award, CheckCircle } from "lucide-react"
+import { CountingNumber } from "@/components/ui/counting-number"
+import { Separator } from "@/components/ui/separator"
+import { DottedMap } from "@/components/ui/dotted-map"
+import { 
+  Building2, 
+  Users, 
+  Trophy, 
+  Globe, 
+  Target, 
+  Heart, 
+  Lightbulb, 
+  Award,
+  ArrowRight,
+  CheckCircle,
+  Sparkles,
+  TrendingUp,
+  Shield
+} from "lucide-react"
 import Link from "next/link"
 
 const stats = [
   {
     icon: Building2,
-    value: "15+",
+    value: 7,
+    suffix: "+",
     label: "Années d'expérience",
-    description: "Plus de 15 ans d'expertise en ingénierie d'entreprises"
+    description: "Plus de 7 ans d'expertise",
+    color: "#1A9B8E"
   },
   {
     icon: Users,
-    value: "50+",
-    label: "Clients accompagnés",
-    description: "Des entreprises de toutes tailles et secteurs"
+    value: 200,
+    suffix: "+",
+    label: "Projets réussis",
+    description: "Missions menées à bien",
+    color: "#C4D82E"
   },
   {
     icon: Trophy,
-    value: "100+",
-    label: "Projets réussis",
-    description: "Missions menées à bien avec succès"
+    value: 95,
+    suffix: "%",
+    label: "Satisfaction client",
+    description: "Taux de satisfaction moyen",
+    color: "#1A9B8E"
   },
   {
     icon: Globe,
-    value: "3",
+    value: 3,
+    suffix: "",
     label: "Pays couverts",
-    description: "Afrique Centrale et au-delà"
+    description: "Afrique Centrale et au-delà",
+    color: "#C4D82E"
   }
 ]
 
-const histoire = {
-  title: "Notre Histoire",
-  content: [
-    "Fondé avec la vision de transformer le paysage entrepreneurial en Afrique Centrale, Odillon - Ingénierie d'Entreprises s'est rapidement imposé comme un partenaire de référence pour les organisations en quête d'excellence.",
-    "Depuis nos débuts, nous avons accompagné des dizaines d'entreprises dans leur transformation, leur structuration et leur développement. Notre approche combine rigueur méthodologique, expertise sectorielle et compréhension profonde des enjeux locaux.",
-    "Aujourd'hui, nous sommes fiers de notre parcours et de la confiance que nos clients nous accordent. Chaque succès client renforce notre engagement à fournir des services d'excellence."
-  ]
-}
+const timeline = [
+  {
+    year: "2017",
+    title: "Fondation",
+    description: "Création d'Odillon avec la vision de transformer le paysage entrepreneurial en Afrique Centrale",
+    color: "#1A9B8E",
+    icon: Sparkles
+  },
+  {
+    year: "2019",
+    title: "Expansion",
+    description: "Extension de nos services et développement d'une équipe pluridisciplinaire d'experts",
+    color: "#C4D82E",
+    icon: TrendingUp
+  },
+  {
+    year: "2022",
+    title: "Reconnaissance",
+    description: "Obtention de certifications internationales et reconnaissance comme leader régional",
+    color: "#1A9B8E",
+    icon: Award
+  },
+  {
+    year: "2024",
+    title: "Innovation",
+    description: "Lancement de nouvelles solutions digitales et renforcement de notre présence régionale",
+    color: "#C4D82E",
+    icon: Lightbulb
+  }
+]
 
-const mission = {
-  icon: Target,
-  title: "Notre Mission",
-  description: "Accompagner les entreprises dans leur transformation et leur croissance",
-  details: [
-    "Apporter des solutions innovantes et personnalisées adaptées aux réalités locales",
-    "Transférer les compétences et renforcer les capacités internes de nos clients",
-    "Contribuer au développement économique durable en Afrique Centrale",
-    "Maintenir les plus hauts standards d'éthique professionnelle et de qualité"
-  ]
-}
+const valeurs = [
+  {
+    icon: Award,
+    title: "Excellence",
+    value: "Standards élevés",
+    description: "Nous visons l'excellence dans chaque mission avec une approche rigoureuse et des méthodologies éprouvées.",
+    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+  },
+  {
+    icon: Shield,
+    title: "Intégrité",
+    value: "Éthique totale",
+    description: "Transparence absolue, principes éthiques stricts et confidentialité garantie dans tous nos engagements.",
+    gradient: "from-[#C4D82E]/20 to-[#C4D82E]/5"
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+    value: "Approches créatives",
+    description: "Combinaison des meilleures pratiques internationales avec adaptation au contexte local unique.",
+    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+  },
+  {
+    icon: Heart,
+    title: "Partenariat",
+    value: "Collaboration étroite",
+    description: "Relations durables basées sur la confiance mutuelle et le transfert effectif de compétences.",
+    gradient: "from-[#C4D82E]/20 to-[#C4D82E]/5"
+  }
+]
 
-const vision = {
-  icon: Lightbulb,
-  title: "Notre Vision",
-  description: "Être le partenaire de référence en ingénierie d'entreprises en Afrique Centrale",
-  details: [
-    "Reconnu pour notre excellence opérationnelle et nos résultats tangibles",
-    "Leader dans l'innovation et l'adoption des meilleures pratiques internationales",
-    "Partenaire privilégié des organisations ambitieuses",
-    "Catalyseur du développement organisationnel et de la performance"
-  ]
-}
-
-const engagement = {
-  icon: Heart,
-  title: "Notre Engagement",
-  description: "Fournir des services de qualité supérieure",
-  details: [
-    "Respect des plus hauts standards d'éthique professionnelle et de déontologie",
-    "Approche centrée sur les résultats et la création de valeur durable",
-    "Disponibilité et réactivité face aux besoins de nos clients",
-    "Amélioration continue de nos méthodes et de notre expertise"
-  ]
-}
-
-const equipe = {
-  title: "Notre Équipe",
-  description: "Une équipe d'experts passionnés et expérimentés",
-  specialites: [
-    {
-      icon: Award,
-      name: "Consultants Seniors",
-      description: "Experts avec 10+ ans d'expérience dans différents secteurs"
-    },
-    {
-      icon: Users,
-      name: "Spécialistes RH",
-      description: "Experts en gestion des talents et développement organisationnel"
-    },
-    {
-      icon: Building2,
-      name: "Conseillers Juridiques",
-      description: "Avocats et juristes spécialisés en droit des affaires"
-    },
-    {
-      icon: Trophy,
-      name: "Analystes Financiers",
-      description: "Experts en finance d'entreprise et stratégie financière"
-    }
-  ]
-}
-
-const approche = {
-  title: "Notre Approche",
-  description: "Une méthodologie éprouvée pour garantir votre réussite",
-  principes: [
-    {
-      title: "Écoute Active",
-      description: "Nous prenons le temps de comprendre vos enjeux et vos objectifs avant de proposer des solutions"
-    },
-    {
-      title: "Sur-Mesure",
-      description: "Chaque organisation est unique. Nos solutions sont personnalisées et adaptées à votre contexte"
-    },
-    {
-      title: "Collaboration",
-      description: "Nous travaillons main dans la main avec vos équipes pour garantir l'appropriation des solutions"
-    },
-    {
-      title: "Résultats",
-      description: "Nous nous engageons sur des livrables concrets et mesurables avec des indicateurs de performance clairs"
-    }
-  ]
-}
+const approche = [
+  {
+    number: "01",
+    title: "Écoute Active",
+    description: "Compréhension approfondie de vos enjeux, contraintes et objectifs avant toute intervention",
+    icon: Target
+  },
+  {
+    number: "02",
+    title: "Solutions Sur-Mesure",
+    description: "Conception de stratégies personnalisées adaptées à votre contexte organisationnel unique",
+    icon: Lightbulb
+  },
+  {
+    number: "03",
+    title: "Collaboration",
+    description: "Travail main dans la main avec vos équipes pour garantir appropriation et pérennité",
+    icon: Users
+  },
+  {
+    number: "04",
+    title: "Résultats Mesurables",
+    description: "Engagement sur des livrables concrets avec indicateurs de performance clairs et transparents",
+    icon: CheckCircle
+  }
+]
 
 export function AboutDetailed() {
   return (
-    <section className="py-16 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <FadeIn delay={0.1}>
-            <Badge className="mb-4 bg-odillon-teal/10 text-odillon-teal hover:bg-odillon-teal/20">
+    <section className="relative py-20 overflow-hidden bg-gradient-to-b from-white/80 via-gray-50/60 to-white/80">
+      {/* Particles Background - Different from Aurora */}
+      <ParticlesBackground 
+        className="absolute inset-0" 
+        quantity={40} 
+        color="rgba(26, 155, 142, 0.2)"
+        staticity={50}
+        ease={50}
+      />
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Hero Section avec Dotted Map */}
+        <div className="relative mb-20">
+          {/* Dotted Map Background - Gabon */}
+          <div className="absolute inset-0 -inset-x-[50vw] left-1/2 -translate-x-1/2 w-screen opacity-40 pointer-events-none -z-10">
+            <DottedMap
+              width={1200}
+              height={900}
+              mapSamples={15000}
+              markers={[
+                {
+                  lat: 0.8037,
+                  lng: 11.6094,
+                  size: 8,
+                },
+              ]}
+              markerColor="#C4D82E"
+              dotColor="#1A9B8E"
+              dotRadius={0.6}
+              className="w-full h-full"
+            />
+          </div>
+
+          {/* Header with AnimatedGradient */}
+          <div className="text-center max-w-4xl mx-auto mb-20 relative z-10">
+          <BlurFade delay={0.1}>
+            <Badge className="mb-6 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-sm px-4 py-2">
               À Propos de Nous
             </Badge>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          </BlurFade>
+          
+          <BlurFade delay={0.2}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Votre partenaire de confiance en{" "}
-              <span className="text-odillon-teal">ingénierie d'entreprises</span>
+              <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent animate-gradient-x">
+                ingénierie d'entreprises
+              </span>
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <p className="text-base text-gray-600">
+          </BlurFade>
+          
+          <BlurFade delay={0.3}>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
               Découvrez qui nous sommes, nos valeurs et notre engagement envers l'excellence 
               et la réussite de nos clients.
             </p>
-          </FadeIn>
+          </BlurFade>
         </div>
 
-        {/* Stats */}
-        <FadeIn delay={0.4}>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {stats.map((stat) => {
+        {/* Stats with CountingNumber Animation */}
+        <BlurFade delay={0.4}>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+            {stats.map((stat, idx) => {
+              const StatIcon = stat.icon
               return (
-                <Card key={stat.label} className="border border-gray-200 text-center">
-                  <CardHeader>
-                    <div className="text-3xl font-bold text-odillon-teal">{stat.value}</div>
-                    <CardTitle className="text-base">{stat.label}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-600">{stat.description}</p>
-                  </CardContent>
-                </Card>
+                <FadeIn key={stat.label} delay={0.1 * (idx + 1)}>
+                  <Card className="border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-xl group relative overflow-hidden">
+                    {/* Gradient overlay on hover */}
+                    <div 
+                      className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
+                      style={{ background: `linear-gradient(135deg, ${stat.color} 0%, transparent 100%)` }}
+                    />
+                    <CardHeader className="text-center relative">
+                      <div 
+                        className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                        style={{ 
+                          background: `linear-gradient(135deg, ${stat.color}15, ${stat.color}05)`,
+                          border: `2px solid ${stat.color}30`
+                        }}
+                      >
+                        <StatIcon className="w-8 h-8" style={{ color: stat.color }} />
+                      </div>
+                      <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: stat.color }}>
+                        <CountingNumber value={stat.value} />
+                        {stat.suffix}
+                      </div>
+                      <CardTitle className="text-base font-semibold">{stat.label}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center relative">
+                      <p className="text-sm text-gray-600">{stat.description}</p>
+                    </CardContent>
+                  </Card>
+                </FadeIn>
               )
             })}
           </div>
-        </FadeIn>
+        </BlurFade>
+        </div>
 
-        {/* Histoire */}
-        <FadeIn delay={0.5}>
-          <Card className="border border-gray-200 mb-12">
-            <CardHeader>
-              <CardTitle className="text-2xl">{histoire.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {histoire.content.map((paragraph, idx) => (
-                <p key={idx} className="text-gray-600 leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </CardContent>
-          </Card>
-        </FadeIn>
+        {/* Timeline Verticale Interactive */}
+        <BlurFade delay={0.5}>
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Notre Parcours</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Une évolution constante au service de l'excellence et de l'innovation
+              </p>
+            </div>
 
-        {/* Mission, Vision, Engagement */}
-        <FadeIn delay={0.6}>
-          <Tabs defaultValue="mission" className="w-full mb-12">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="mission">Mission</TabsTrigger>
-              <TabsTrigger value="vision">Vision</TabsTrigger>
-              <TabsTrigger value="engagement">Engagement</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="mission">
-              <Card className="border border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-xl">{mission.title}</CardTitle>
-                  <CardDescription>{mission.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {mission.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-odillon-teal mt-1">•</span>
-                        <span className="text-sm text-gray-700">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="vision">
-              <Card className="border border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-xl">{vision.title}</CardTitle>
-                  <CardDescription>{vision.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {vision.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-odillon-lime mt-1">•</span>
-                        <span className="text-sm text-gray-700">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="engagement">
-              <Card className="border border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-xl">{engagement.title}</CardTitle>
-                  <CardDescription>{engagement.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {engagement.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-odillon-teal mt-1">•</span>
-                        <span className="text-sm text-gray-700">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </FadeIn>
-
-        {/* Notre Équipe */}
-        <FadeIn delay={0.7}>
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-3">{equipe.title}</h2>
-            <p className="text-center text-gray-600 mb-8">{equipe.description}</p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {equipe.specialites.map((spec) => {
+            <div className="max-w-4xl mx-auto">
+              {timeline.map((event, idx) => {
+                const EventIcon = event.icon
+                const isLeft = idx % 2 === 0
+                
                 return (
-                  <Card key={spec.name} className="border border-gray-200">
-                    <CardHeader>
-                      <CardTitle className="text-base">{spec.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">{spec.description}</p>
-                    </CardContent>
-                  </Card>
+                  <FadeIn key={event.year} delay={0.1 * (idx + 1)}>
+                    <div className="relative">
+                      {/* Timeline Line */}
+                      {idx < timeline.length - 1 && (
+                        <div 
+                          className="absolute left-1/2 top-20 -translate-x-1/2 w-1 h-full hidden md:block"
+                          style={{ 
+                            background: `linear-gradient(to bottom, ${event.color}, transparent)`,
+                            opacity: 0.3
+                          }}
+                        />
+                      )}
+
+                      <div className={`flex items-center gap-8 mb-12 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                        {/* Content Card */}
+                        <div className="flex-1">
+                          <Card className="border-2 hover:shadow-xl transition-all duration-300 group" style={{ borderColor: `${event.color}30` }}>
+                            <CardHeader>
+                              <div className="flex items-center gap-3 mb-2">
+                                <div 
+                                  className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform"
+                                  style={{ backgroundColor: `${event.color}20`, color: event.color }}
+                                >
+                                  <EventIcon className="w-6 h-6" />
+                                </div>
+                                <div>
+                                  <div className="text-sm font-semibold text-gray-500">{event.year}</div>
+                                  <CardTitle className="text-xl">{event.title}</CardTitle>
+                                </div>
+                              </div>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-gray-600 leading-relaxed">{event.description}</p>
+                            </CardContent>
+                          </Card>
+                        </div>
+
+                        {/* Central Icon */}
+                        <div className="hidden md:block flex-shrink-0">
+                          <div 
+                            className="w-20 h-20 rounded-full flex items-center justify-center relative z-10 bg-white shadow-lg border-4"
+                            style={{ borderColor: event.color }}
+                          >
+                            <div className="text-xl font-bold" style={{ color: event.color }}>
+                              {event.year.slice(2)}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Spacer for alternating layout */}
+                        <div className="flex-1 hidden md:block" />
+                      </div>
+                    </div>
+                  </FadeIn>
                 )
               })}
             </div>
           </div>
-        </FadeIn>
+        </BlurFade>
 
-        {/* Notre Approche */}
-        <FadeIn delay={0.8}>
-          <Card className="border border-gray-200 bg-gray-50">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center">{approche.title}</CardTitle>
-              <CardDescription className="text-center">{approche.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
-                {approche.principes.map((principe, idx) => (
-                  <div key={idx} className="flex gap-3">
-                    <div className="w-8 h-8 bg-odillon-teal rounded flex items-center justify-center flex-shrink-0 text-white font-bold">
-                      {idx + 1}
+        <Separator className="my-20" />
+
+        {/* Valeurs - Different Layout */}
+        <BlurFade delay={0.6}>
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white border-0">
+                Nos Valeurs Fondamentales
+              </Badge>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Ce qui nous définit
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Des principes qui guident chaque action et façonnent notre engagement envers l'excellence
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {valeurs.map((valeur, idx) => {
+                const ValeurIcon = valeur.icon
+                return (
+                  <FadeIn key={valeur.title} delay={0.1 * (idx + 1)}>
+                    <Card className="border-2 border-gray-200 hover:border-gray-400 transition-all duration-500 hover:shadow-2xl group relative overflow-hidden h-full">
+                      {/* Animated gradient background on hover */}
+                      <div 
+                        className={`absolute inset-0 bg-gradient-to-br ${valeur.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      />
+                      
+                      <CardContent className="p-8 relative">
+                        <div className="flex items-start gap-4 mb-4">
+                          <div 
+                            className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"
+                            style={{ 
+                              background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}20, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}10)`
+                            }}
+                          >
+                            <ValeurIcon className="w-8 h-8" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-1 group-hover:text-[#1A9B8E] transition-colors">
+                              {valeur.title}
+                            </h3>
+                            <div className="text-sm font-semibold mb-3" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
+                              {valeur.value}
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-gray-700 leading-relaxed">
+                          {valeur.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </FadeIn>
+                )
+              })}
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* Notre Approche - Horizontal Flow */}
+        <BlurFade delay={0.7}>
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Notre Approche</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Une méthodologie en 4 étapes pour garantir des résultats concrets et durables
+              </p>
+            </div>
+
+            {/* Horizontal Flow with Arrows */}
+            <div className="hidden lg:flex items-start justify-between gap-4 mb-12 relative">
+              {/* Connection Line Background */}
+              <div className="absolute top-12 left-0 right-0 h-0.5 bg-gray-200 opacity-30 -translate-y-1/2" />
+              
+              {/* Animated Progress Line */}
+              <div 
+                className="absolute top-12 left-0 h-0.5 bg-gradient-to-r from-[#1A9B8E] via-[#C4D82E] to-[#1A9B8E] -translate-y-1/2"
+                style={{ 
+                  width: '0%',
+                  animation: 'progressLine 5s ease-in-out 0.5s infinite'
+                }}
+              />
+              
+              {/* Animated Progress Indicator */}
+              <div 
+                className="absolute top-12 h-2 w-2 rounded-full bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] -translate-y-1/2 -translate-x-1/2 shadow-lg"
+                style={{ 
+                  left: '0%',
+                  animation: 'progressIndicator 5s ease-in-out 0.5s infinite'
+                }}
+              />
+              
+              {approche.map((etape, idx) => {
+                const EtapeIcon = etape.icon
+                return (
+                  <FadeIn key={etape.number} delay={0.1 * (idx + 1)}>
+                    <div className="flex-1 relative flex flex-col items-center">
+                      <div className="text-center w-full">
+                        <div 
+                          className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center relative z-10 bg-white shadow-lg border-4 hover:scale-110 transition-transform duration-300"
+                          style={{ borderColor: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}
+                        >
+                          <EtapeIcon className="w-10 h-10" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                        </div>
+                        <div className="text-sm font-bold text-gray-400 mb-2">{etape.number}</div>
+                        <h3 className="text-lg font-bold text-gray-900">{etape.title}</h3>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">{principe.title}</h4>
-                      <p className="text-sm text-gray-600">{principe.description}</p>
-                    </div>
-                  </div>
+                  </FadeIn>
+                )
+              })}
+            </div>
+
+            {/* Descriptions Below */}
+            <div className="grid lg:grid-cols-4 gap-6">
+              {approche.map((etape, idx) => (
+                <FadeIn key={`desc-${etape.number}`} delay={0.1 * (idx + 1)}>
+                  <Card className="border border-gray-200 hover:border-gray-300 transition-all h-full">
+                    <CardContent className="p-6">
+                      <div className="lg:hidden text-4xl font-bold mb-2 opacity-10" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
+                        {etape.number}
+                      </div>
+                      <h3 className="lg:hidden text-lg font-bold text-gray-900 mb-2">{etape.title}</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{etape.description}</p>
+                    </CardContent>
+                  </Card>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* Mission Statement - Centered Hero */}
+        <BlurFade delay={0.8}>
+          <Card className="border-2 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden mb-20" style={{ borderColor: '#1A9B8E30' }}>
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#1A9B8E]/10 to-transparent" />
+            <CardContent className="p-12 text-center relative">
+              <Target className="w-16 h-16 mx-auto mb-6 text-[#1A9B8E]" />
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Notre Mission</h2>
+              <p className="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8">
+                Accompagner les entreprises dans leur transformation et leur croissance en apportant 
+                des solutions innovantes, personnalisées et adaptées aux réalités locales tout en 
+                maintenant les plus hauts standards d'éthique professionnelle.
+              </p>
+              
+              <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+                {['Innovation', 'Excellence', 'Résultats', 'Partenariat'].map((mot, i) => (
+                  <Badge 
+                    key={mot}
+                    className="px-4 py-2"
+                    style={{ 
+                      backgroundColor: `${i % 2 === 0 ? '#1A9B8E' : '#C4D82E'}15`,
+                      color: i % 2 === 0 ? '#1A9B8E' : '#C4D82E',
+                      border: `1px solid ${i % 2 === 0 ? '#1A9B8E' : '#C4D82E'}30`
+                    }}
+                  >
+                    {mot}
+                  </Badge>
                 ))}
               </div>
             </CardContent>
           </Card>
-        </FadeIn>
+        </BlurFade>
 
-        {/* CTA */}
-        <FadeIn delay={0.9}>
-          <div className="mt-12 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">
-              Prêt à transformer votre entreprise ?
-            </h3>
-            <Button asChild size="lg" className="bg-odillon-teal hover:bg-odillon-teal/90 text-white">
-              <Link href="/contact">Contactez-nous</Link>
-            </Button>
-          </div>
-        </FadeIn>
+        {/* CTA Final */}
+        <BlurFade delay={0.9}>
+          <Card className="border-2 border-gray-300 bg-gradient-to-r from-gray-50 via-white to-gray-50">
+            <CardContent className="p-12 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Prêt à transformer votre entreprise ?
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Rencontrons-nous pour discuter de vos enjeux et découvrir comment nous pouvons 
+                vous accompagner vers l'excellence
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link 
+                  href="/contact"
+                  className="relative inline-flex items-center justify-center gap-2 h-12 px-8 rounded-md text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                  style={{ 
+                    backgroundColor: '#1A9B8E',
+                    color: '#ffffff'
+                  }}
+                >
+                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-15 transition-opacity duration-300"></span>
+                  <span className="relative" style={{ color: '#ffffff' }}>Contactez-nous</span>
+                  <ArrowRight className="w-5 h-5 relative" style={{ color: '#ffffff' }} />
+                </Link>
+                <Link 
+                  href="/services"
+                  className="relative inline-flex items-center justify-center gap-2 h-12 px-8 rounded-md text-base font-medium border-2 transition-all duration-300 overflow-hidden group"
+                  style={{ 
+                    borderColor: '#1A9B8E',
+                    color: '#1A9B8E'
+                  }}
+                >
+                  <span 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+                    style={{ backgroundColor: '#1A9B8E' }}
+                  ></span>
+                  <span className="relative" style={{ color: '#1A9B8E' }}>Nos services</span>
+                  <ArrowRight className="w-5 h-5 relative" style={{ color: '#1A9B8E' }} />
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </BlurFade>
       </div>
     </section>
   )
 }
-

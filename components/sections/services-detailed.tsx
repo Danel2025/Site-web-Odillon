@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/shadcn-io/marquee"
 import { 
   Shield, 
   Scale, 
@@ -531,18 +532,18 @@ export function ServicesDetailed() {
   return (
     <section className="relative py-20 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none opacity-20" />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <BlurFade delay={0.1} inView>
+          <BlurFade delay={0.1}>
             <Badge className="mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0">
               Excellence · Expertise · Innovation
             </Badge>
           </BlurFade>
           
-          <BlurFade delay={0.2} inView>
+          <BlurFade delay={0.2}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Des services qui transforment{" "}
               <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent">
@@ -551,7 +552,7 @@ export function ServicesDetailed() {
             </h1>
           </BlurFade>
           
-          <BlurFade delay={0.3} inView>
+          <BlurFade delay={0.3}>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
               Solutions complètes en ingénierie d'entreprises pour structurer, développer et pérenniser votre organisation.
               <br />
@@ -563,7 +564,7 @@ export function ServicesDetailed() {
         </div>
 
         {/* Tabs Navigation */}
-        <BlurFade delay={0.4} inView>
+        <BlurFade delay={0.4}>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 bg-transparent h-auto p-0 mb-12">
               {servicesData.map((service, index) => {
@@ -653,34 +654,35 @@ export function ServicesDetailed() {
                       <p className="text-gray-600">Un processus éprouvé en 4 étapes</p>
                     </div>
                     
-                    <div className="grid md:grid-cols-4 gap-4 relative">
-                      {/* Connection lines */}
-                      <div className="hidden md:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200" />
-                      
-                      {service.workflow.map((step, idx) => {
-                        const StepIcon = step.icon
-                        return (
-                          <div key={idx} className="relative">
-                            <Card className="border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg">
-                              <CardContent className="p-6 text-center">
-                                <div 
-                                  className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold relative z-10 bg-white shadow-lg"
-                                  style={{ 
-                                    color: service.color,
-                                    border: `3px solid ${service.color}30`
-                                  }}
-                                >
-                                  <StepIcon className="w-8 h-8" />
-                                </div>
-                                <div className="text-xs font-semibold text-gray-500 mb-2">ÉTAPE {step.step}</div>
-                                <h4 className="font-bold text-lg text-gray-900 mb-2">{step.title}</h4>
-                                <p className="text-sm text-gray-600">{step.description}</p>
-                              </CardContent>
-                            </Card>
-                          </div>
-                        )
-                      })}
-                    </div>
+                    <Marquee className="py-4">
+                      <MarqueeFade side="left" />
+                      <MarqueeFade side="right" />
+                      <MarqueeContent speed={40} pauseOnHover={true}>
+                        {service.workflow.map((step, idx) => {
+                          const StepIcon = step.icon
+                          return (
+                            <MarqueeItem key={idx} className="w-80">
+                              <Card className="border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg">
+                                <CardContent className="p-6 text-center">
+                                  <div 
+                                    className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold relative z-10 bg-white shadow-lg"
+                                    style={{ 
+                                      color: service.color,
+                                      border: `3px solid ${service.color}30`
+                                    }}
+                                  >
+                                    <StepIcon className="w-8 h-8" />
+                                  </div>
+                                  <div className="text-xs font-semibold text-gray-500 mb-2">ÉTAPE {step.step}</div>
+                                  <h4 className="font-bold text-lg text-gray-900 mb-2">{step.title}</h4>
+                                  <p className="text-sm text-gray-600">{step.description}</p>
+                                </CardContent>
+                              </Card>
+                            </MarqueeItem>
+                          )
+                        })}
+                      </MarqueeContent>
+                    </Marquee>
                   </div>
                 </FadeIn>
 

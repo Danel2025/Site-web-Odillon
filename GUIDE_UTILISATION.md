@@ -314,5 +314,5 @@ Pour toute question ou modification, consultez :
 
 **Site créé avec ❤️ pour Odillon - Ingénierie d'Entreprises**
 
-Libreville, Gabon | www.odillon.fr | odillon2017@gmail.com
+Libreville, Gabon | www.odillon.fr | contact@odillon.fr
 

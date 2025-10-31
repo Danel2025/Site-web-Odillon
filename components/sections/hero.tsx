@@ -14,10 +14,31 @@ import {
   ScrollVelocityContainer,
   ScrollVelocityRow,
 } from "@/components/magicui/scroll-based-velocity"
+import { DottedMap } from "@/components/ui/dotted-map"
 
 export function Hero() {
   return (
     <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+      {/* Dotted Map Background - Gabon */}
+      <div className="absolute inset-0 opacity-40 pointer-events-none z-0">
+        <DottedMap
+          width={1200}
+          height={900}
+          mapSamples={15000}
+          markers={[
+            {
+              lat: 0.8037,
+              lng: 11.6094,
+              size: 8,
+            },
+          ]}
+          markerColor="#C4D82E"
+          dotColor="#1A9B8E"
+          dotRadius={0.6}
+          className="w-full h-full"
+        />
+      </div>
+
       {/* Animated Grid Background - En Arrière-Plan */}
       <GridPattern
         width={60}
@@ -35,7 +56,7 @@ export function Hero() {
           [3, 6],
           [18, 4],
         ]}
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full opacity-30"
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
@@ -127,7 +148,7 @@ export function Hero() {
                   whileHover={{ scale: 1.02, y: -3 }}
                   className="bg-white p-6 rounded border border-gray-200"
                 >
-                  <div className="w-12 h-12 bg-odillon-teal/10 rounded flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-4">
                     <Shield className="w-6 h-6 text-odillon-teal" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900 mb-2">Gouvernance</h3>
@@ -143,7 +164,7 @@ export function Hero() {
                   className="bg-white p-6 rounded border border-gray-200 mt-8"
                   id="conseil"
                 >
-                  <div className="w-12 h-12 bg-odillon-lime/10 rounded flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-4">
                     <TrendingUp className="w-6 h-6 text-odillon-lime" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900 mb-2">Finances</h3>
@@ -159,7 +180,7 @@ export function Hero() {
                   className="bg-white p-6 rounded border border-gray-200"
                   id="administration"
                 >
-                  <div className="w-12 h-12 bg-odillon-teal/10 rounded flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-4">
                     <Users className="w-6 h-6 text-odillon-teal" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900 mb-2">RH</h3>
@@ -174,7 +195,7 @@ export function Hero() {
                   whileHover={{ scale: 1.02, y: -3 }}
                   className="bg-white p-6 rounded border border-gray-200 mt-8"
                 >
-                  <div className="w-12 h-12 bg-odillon-lime/10 rounded flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-4">
                     <Award className="w-6 h-6 text-odillon-lime" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900 mb-2">Juridique</h3>

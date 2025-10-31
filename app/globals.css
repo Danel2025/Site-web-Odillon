@@ -54,6 +54,9 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 173 72% 36%;
   }
+  .theme {
+    --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
+  }
 }
 
 @layer base {
@@ -66,7 +69,7 @@
     font-size: 15px;
     letter-spacing: -0.01em;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-baskvill), serif;
     letter-spacing: -0.02em;
@@ -104,3 +107,32 @@ html {
   }
 }
 
+@theme inline {
+  @keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+}
+
+/* Animation de progression pour la ligne d'étapes */
+@keyframes progressLine {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes progressIndicator {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}

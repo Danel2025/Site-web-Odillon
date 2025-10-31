@@ -304,8 +304,8 @@ Votre site web **Odillon - Ingénierie d'Entreprises** est :
 **Odillon - Ingénierie d'Entreprises**
 
 📍 BP- 13262 Libreville, Gabon  
-📞 +241 11 45 45 54 / +241 74 75 95 15  
-📧 odillon2017@gmail.com  
+📞 +241 11747574  
+📧 contact@odillon.fr  
 🌐 www.odillon.fr  
 
 ---

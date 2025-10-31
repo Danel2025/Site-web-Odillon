@@ -71,8 +71,8 @@ npm start
 
 ## Contact
 
-- **Téléphone** : +241 11 45 45 54 / +241 74 75 95 15
-- **Email** : odillon2017@gmail.com
+- **Téléphone** : +241 11747574
+- **Email** : contact@odillon.fr
 - **Adresse** : BP- 13262 Libreville, Gabon
 - **Site web** : www.odillon.fr
 
