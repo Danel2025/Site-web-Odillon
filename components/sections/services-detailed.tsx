@@ -530,21 +530,21 @@ export function ServicesDetailed() {
   const activeService = servicesData.find(s => s.id === activeTab)
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
+    <section className="relative py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none opacity-20" />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-16">
           <BlurFade delay={0.1}>
-            <Badge className="mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0">
+            <Badge className="mb-3 md:mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
               Excellence · Expertise · Innovation
             </Badge>
           </BlurFade>
           
           <BlurFade delay={0.2}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight px-4">
               Des services qui transforment{" "}
               <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent">
                 votre entreprise
@@ -553,10 +553,10 @@ export function ServicesDetailed() {
           </BlurFade>
           
           <BlurFade delay={0.3}>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed px-4">
               Solutions complètes en ingénierie d'entreprises pour structurer, développer et pérenniser votre organisation.
-              <br />
-              <span className="text-base text-gray-500 mt-2 inline-block">
+              <br className="hidden sm:block" />
+              <span className="text-sm md:text-base text-gray-500 mt-2 inline-block">
                 Chaque service est conçu pour répondre à vos enjeux avec finesse et expertise.
               </span>
             </p>
@@ -566,26 +566,26 @@ export function ServicesDetailed() {
         {/* Tabs Navigation */}
         <BlurFade delay={0.4}>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 bg-transparent h-auto p-0 mb-12">
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 bg-transparent h-auto p-0 mb-8 md:mb-12">
               {servicesData.map((service, index) => {
                 const Icon = service.icon
                 return (
                   <TabsTrigger
                     key={service.id}
                     value={service.id}
-                    className="relative group data-[state=active]:bg-white data-[state=active]:shadow-lg border border-gray-200 data-[state=active]:border-gray-300 rounded-xl p-4 h-auto transition-all duration-300 hover:scale-105"
+                    className="relative group data-[state=active]:bg-white data-[state=active]:shadow-lg border border-gray-200 data-[state=active]:border-gray-300 rounded-lg md:rounded-xl p-3 md:p-4 h-auto transition-all duration-300 hover:scale-105"
                   >
-                    <div className="flex flex-col items-center gap-2 text-center">
+                    <div className="flex flex-col items-center gap-1.5 md:gap-2 text-center">
                       <div 
-                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-data-[state=active]:scale-110"
+                        className="w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center transition-all duration-300 group-data-[state=active]:scale-110"
                         style={{ 
                           backgroundColor: `${service.color}15`,
                           color: service.color 
                         }}
                       >
-                        <Icon className="w-6 h-6" />
+                        <Icon className="w-5 h-5 md:w-6 md:h-6" />
                       </div>
-                      <div className="font-semibold text-sm">{service.title}</div>
+                      <div className="font-semibold text-xs md:text-sm leading-tight">{service.title}</div>
                     </div>
                     
                     {/* Active indicator */}
@@ -599,42 +599,42 @@ export function ServicesDetailed() {
             </TabsList>
 
             {servicesData.map((service) => (
-              <TabsContent key={service.id} value={service.id} className="space-y-12 mt-0">
+              <TabsContent key={service.id} value={service.id} className="space-y-8 md:space-y-12 mt-0">
                 {/* Service Header */}
                 <FadeIn>
                   <Card className="border-2 relative overflow-hidden" style={{ borderColor: `${service.color}30` }}>
                     <div 
                       className={`absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l ${service.gradient} pointer-events-none`}
                     />
-                    <CardHeader className="relative">
-                      <CardTitle className="text-3xl mb-2">{service.title}</CardTitle>
-                      <CardDescription className="text-lg font-medium" style={{ color: service.color }}>
+                    <CardHeader className="relative px-4 md:px-6 py-4 md:py-6">
+                      <CardTitle className="text-2xl md:text-3xl mb-2">{service.title}</CardTitle>
+                      <CardDescription className="text-base md:text-lg font-medium" style={{ color: service.color }}>
                         {service.tagline}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="relative">
-                      <p className="text-base text-gray-700 leading-relaxed mb-6">
+                    <CardContent className="relative px-4 md:px-6 pb-4 md:pb-6">
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4 md:mb-6">
                         {service.description}
                       </p>
                       
                       {/* Key Benefits */}
-                      <div className="grid sm:grid-cols-3 gap-4">
+                      <div className="grid sm:grid-cols-3 gap-3 md:gap-4">
                         {service.keyBenefits.map((benefit, idx) => {
                           const BenefitIcon = benefit.icon
                           return (
                             <div 
                               key={idx}
-                              className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 bg-white/50 backdrop-blur-sm"
+                              className="flex items-start gap-2 md:gap-3 p-2.5 md:p-3 rounded-lg border border-gray-200 bg-white/50 backdrop-blur-sm"
                             >
                               <div 
-                                className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                                className="w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                                 style={{ backgroundColor: `${service.color}15`, color: service.color }}
                               >
-                                <BenefitIcon className="w-5 h-5" />
+                                <BenefitIcon className="w-4 h-4 md:w-5 md:h-5" />
                               </div>
-                              <div>
-                                <div className="font-semibold text-sm text-gray-900">{benefit.text}</div>
-                                <div className="text-xs text-gray-600 mt-0.5">{benefit.detail}</div>
+                              <div className="min-w-0">
+                                <div className="font-semibold text-xs md:text-sm text-gray-900">{benefit.text}</div>
+                                <div className="text-[10px] md:text-xs text-gray-600 mt-0.5">{benefit.detail}</div>
                               </div>
                             </div>
                           )
@@ -647,11 +647,11 @@ export function ServicesDetailed() {
                 {/* Workflow */}
                 <FadeIn delay={0.1}>
                   <div>
-                    <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <div className="text-center mb-6 md:mb-8 px-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                         Notre méthode d'accompagnement
                       </h3>
-                      <p className="text-gray-600">Un processus éprouvé en 4 étapes</p>
+                      <p className="text-sm md:text-base text-gray-600">Un processus éprouvé en 4 étapes</p>
                     </div>
                     
                     <Marquee className="py-4">
@@ -689,38 +689,38 @@ export function ServicesDetailed() {
                 {/* Services Details */}
                 <FadeIn delay={0.2}>
                   <div>
-                    <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <div className="text-center mb-6 md:mb-8 px-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                         Nos prestations en détail
                       </h3>
-                      <p className="text-gray-600">Explorez chaque service pour comprendre comment nous pouvons vous aider</p>
+                      <p className="text-sm md:text-base text-gray-600">Explorez chaque service pour comprendre comment nous pouvons vous aider</p>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 gap-6">
+                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
                       {service.services.map((subService, idx) => {
                         const SubIcon = subService.icon
                         return (
                           <Card key={idx} className="border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 group">
-                            <CardHeader>
-                              <div className="flex items-start gap-3 mb-2">
+                            <CardHeader className="px-4 md:px-6 py-4 md:py-6">
+                              <div className="flex items-start gap-2 md:gap-3 mb-2">
                                 <div 
-                                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                                  className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
                                   style={{ backgroundColor: `${service.color}15`, color: service.color }}
                                 >
-                                  <SubIcon className="w-6 h-6" />
+                                  <SubIcon className="w-5 h-5 md:w-6 md:h-6" />
                                 </div>
-                                <div className="flex-1">
-                                  <CardTitle className="text-xl">{subService.name}</CardTitle>
-                                  <CardDescription className="text-sm font-medium mt-1" style={{ color: service.color }}>
+                                <div className="flex-1 min-w-0">
+                                  <CardTitle className="text-base md:text-xl">{subService.name}</CardTitle>
+                                  <CardDescription className="text-xs md:text-sm font-medium mt-1" style={{ color: service.color }}>
                                     {subService.tagline}
                                   </CardDescription>
                                 </div>
                               </div>
-                              <p className="text-sm text-gray-600 leading-relaxed">
+                              <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
                                 {subService.description}
                               </p>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="px-4 md:px-6 pb-4 md:pb-6">
                               <Accordion type="multiple" className="w-full">
                                 {subService.details.map((detail, detailIdx) => (
                                   <AccordionItem 
@@ -728,19 +728,19 @@ export function ServicesDetailed() {
                                     value={`item-${detailIdx}`}
                                     className="border-b border-gray-200 last:border-0"
                                   >
-                                    <AccordionTrigger className="hover:no-underline py-3 text-left">
-                                      <span className="text-sm font-medium text-gray-900">{detail.title}</span>
+                                    <AccordionTrigger className="hover:no-underline py-2.5 md:py-3 text-left">
+                                      <span className="text-xs md:text-sm font-medium text-gray-900">{detail.title}</span>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                      <div className="space-y-3 pt-2 pb-3">
-                                        <div className="bg-gray-50 p-3 border-l-2" style={{ borderColor: service.color }}>
-                                          <p className="text-sm text-gray-700 leading-relaxed">
+                                      <div className="space-y-2 md:space-y-3 pt-2 pb-3">
+                                        <div className="bg-gray-50 p-2.5 md:p-3 border-l-2" style={{ borderColor: service.color }}>
+                                          <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                                             {detail.content}
                                           </p>
                                         </div>
-                                        <div className="bg-gradient-to-r from-gray-50 to-white p-3 border-l-2 border-gray-300">
-                                          <div className="text-xs font-semibold text-gray-500 uppercase mb-1">Impact mesurable</div>
-                                          <p className="text-sm font-medium text-gray-900">{detail.impact}</p>
+                                        <div className="bg-gradient-to-r from-gray-50 to-white p-2.5 md:p-3 border-l-2 border-gray-300">
+                                          <div className="text-[10px] md:text-xs font-semibold text-gray-500 uppercase mb-1">Impact mesurable</div>
+                                          <p className="text-xs md:text-sm font-medium text-gray-900">{detail.impact}</p>
                                         </div>
                                       </div>
                                     </AccordionContent>
@@ -758,17 +758,17 @@ export function ServicesDetailed() {
                 {/* CTA Section */}
                 <FadeIn delay={0.3}>
                   <Card className="border-2 bg-gradient-to-br from-gray-50 to-white" style={{ borderColor: `${service.color}30` }}>
-                    <CardContent className="p-8 text-center">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <CardContent className="p-6 md:p-8 text-center">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 px-4">
                         Prêt à transformer votre {service.title.toLowerCase()} ?
                       </h3>
-                      <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                      <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto px-4">
                         Discutons de vos enjeux et découvrez comment nos solutions peuvent propulser votre organisation vers l'excellence.
                       </p>
-                      <div className="flex flex-wrap items-center justify-center gap-4">
+                      <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4">
                         <Link 
                           href="/contact"
-                          className="relative inline-flex items-center justify-center gap-2 h-11 px-8 rounded-md text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                          className="relative inline-flex items-center justify-center gap-2 h-10 md:h-11 px-6 md:px-8 rounded-md text-xs md:text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                           style={{ 
                             backgroundColor: service.color,
                             color: '#ffffff'
@@ -782,13 +782,13 @@ export function ServicesDetailed() {
                             Discutons de votre projet
                           </span>
                           <ArrowRight 
-                            className="w-5 h-5 relative" 
+                            className="w-4 h-4 md:w-5 md:h-5 relative" 
                             style={{ color: '#ffffff' }}
                           />
                         </Link>
                         <Link 
                           href="/#apropos"
-                          className="relative inline-flex items-center justify-center gap-2 h-11 px-8 rounded-md text-sm font-medium border-2 transition-all duration-300 overflow-hidden group"
+                          className="relative inline-flex items-center justify-center gap-2 h-10 md:h-11 px-6 md:px-8 rounded-md text-xs md:text-sm font-medium border-2 transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                           style={{ 
                             borderColor: service.color,
                             color: service.color
@@ -799,7 +799,7 @@ export function ServicesDetailed() {
                             style={{ backgroundColor: service.color }}
                           ></span>
                           <span className="relative" style={{ color: service.color }}>En savoir plus sur nous</span>
-                          <ChevronRight className="w-5 h-5 relative" style={{ color: service.color }} />
+                          <ChevronRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: service.color }} />
                         </Link>
                       </div>
                     </CardContent>

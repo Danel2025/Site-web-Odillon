@@ -73,17 +73,17 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="py-24 bg-white">
+    <section id="services" className="py-12 md:py-16 lg:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16 px-4">
           <FadeIn delay={0.1}>
-            <span className="inline-flex items-center rounded-full bg-odillon-teal/10 px-4 py-1.5 text-sm font-medium text-odillon-teal mb-4">
+            <span className="inline-flex items-center rounded-full bg-odillon-teal/10 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-medium text-odillon-teal mb-3 md:mb-4">
               Nos Domaines d'Expertise
             </span>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
               Des services complets pour votre{" "}
               <HighlightText className="text-odillon-teal" delay={0.5}>
                 réussite
@@ -91,7 +91,7 @@ export function Services() {
             </h2>
           </FadeIn>
           <FadeIn delay={0.3}>
-            <p className="text-lg text-gray-600">
+            <p className="text-base md:text-lg text-gray-600">
               Nous accompagnons les entreprises dans leur structuration, 
               leur gestion administrative, leurs relations publiques et le management des risques.
             </p>
@@ -99,30 +99,30 @@ export function Services() {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
               <FadeIn key={service.title} delay={0.1 * (index + 1)} fullWidth>
                 <Card className="h-full border border-gray-200 hover:border-odillon-teal transition-all duration-300 group">
-                  <CardHeader>
-                    <div className={`w-12 h-12 bg-${service.color}/10 rounded flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300`}>
-                      <Icon className={`w-6 h-6 text-${service.color}`} style={{ 
+                  <CardHeader className="px-4 md:px-6 py-4 md:py-6">
+                    <div className={`w-10 h-10 md:w-12 md:h-12 bg-${service.color}/10 rounded flex items-center justify-center mb-3 md:mb-4 group-hover:scale-105 transition-transform duration-300`}>
+                      <Icon className={`w-5 h-5 md:w-6 md:h-6 text-${service.color}`} style={{ 
                         color: service.color === 'odillon-teal' ? '#1A9B8E' : '#C4D82E' 
                       }} />
                     </div>
-                    <CardTitle className="text-xl text-gray-900">{service.title}</CardTitle>
-                    <CardDescription className="text-sm">{service.description}</CardDescription>
+                    <CardTitle className="text-lg md:text-xl text-gray-900">{service.title}</CardTitle>
+                    <CardDescription className="text-xs md:text-sm">{service.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
+                  <CardContent className="px-4 md:px-6 pb-4 md:pb-6">
+                    <ul className="space-y-2 md:space-y-3">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-start">
                           <CheckCircle2 
-                            className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" 
+                            className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3 flex-shrink-0 mt-0.5" 
                             style={{ color: service.color === 'odillon-teal' ? '#1A9B8E' : '#C4D82E' }}
                           />
-                          <span className="text-gray-700">{feature}</span>
+                          <span className="text-xs md:text-sm text-gray-700">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -135,15 +135,15 @@ export function Services() {
 
         {/* CTA */}
         <FadeIn delay={0.6}>
-          <div className="mt-16 text-center">
+          <div className="mt-12 md:mt-16 text-center">
             <Button
               asChild
               size="lg"
-              className="bg-odillon-teal hover:bg-odillon-teal/90 text-white text-lg px-8 py-6 group"
+              className="bg-odillon-teal hover:bg-odillon-teal/90 text-white text-base md:text-lg px-6 md:px-8 py-5 md:py-6 group w-full sm:w-auto"
             >
-              <Link href="#contact">
+              <Link href="/contact">
                 Discutons de votre projet
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </div>

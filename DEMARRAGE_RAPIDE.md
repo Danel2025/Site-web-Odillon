@@ -68,7 +68,7 @@ contact.tsx   → Formulaire de contact
 
 ### 3. Modifier le Logo
 
-**Logo** → Remplacer `public/logo.svg` par votre logo
+**Logo** → Le logo officiel `public/logo d'odillon corrigé.png` est déjà configuré
 
 ### 4. Ajouter des Composants shadcn/ui
 
@@ -99,7 +99,7 @@ Odillon site web/
 │   └── magicui/               ← Animations
 │
 ├── public/
-│   └── logo.svg               ← Logo à remplacer
+│   └── logo d'odillon corrigé.png  ← Logo officiel configuré
 │
 └── tailwind.config.ts         ← Couleurs et styles
 ```

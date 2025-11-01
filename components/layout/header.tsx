@@ -38,16 +38,16 @@ export function Header() {
       )}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 md:h-20 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3">
               <Image
-                src="/logo.svg"
+                src="/logo d'odillon corrigé.png"
                 alt="Odillon"
-                width={180}
-                height={50}
-                className="h-12 w-auto"
+                width={240}
+                height={70}
+                className="h-12 md:h-14 lg:h-16 w-auto"
                 priority
               />
             </Link>
@@ -89,13 +89,14 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-700 hover:text-odillon-teal"
+              className="p-2 text-gray-700 hover:text-odillon-teal transition-colors rounded-md hover:bg-gray-100"
+              aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
               <span className="sr-only">Ouvrir le menu</span>
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 md:h-6 md:w-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-5 w-5 md:h-6 md:w-6" />
               )}
             </button>
           </div>
@@ -110,37 +111,37 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t"
+            className="lg:hidden bg-white border-t shadow-lg"
           >
-            <div className="space-y-1 px-4 pb-3 pt-2">
+            <div className="space-y-1 px-4 pb-4 pt-3 max-h-[calc(100vh-5rem)] overflow-y-auto">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-odillon-teal"
+                  className="block rounded-lg px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-odillon-teal transition-colors"
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4 space-y-2">
+              <div className="pt-4 border-t border-gray-200 mt-4 space-y-3">
                 <a
                   href="tel:+24111747574"
-                  className="flex items-center px-3 py-2 text-sm text-gray-600"
+                  className="flex items-center px-4 py-2 text-sm text-gray-600 hover:text-odillon-teal transition-colors rounded-md hover:bg-gray-50"
                 >
-                  <Phone className="w-4 h-4 mr-2" />
-                  +241 11747574
+                  <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
+                  <span className="break-all">+241 11747574</span>
                 </a>
                 <a
                   href="mailto:contact@odillon.fr"
-                  className="flex items-center px-3 py-2 text-sm text-gray-600"
+                  className="flex items-center px-4 py-2 text-sm text-gray-600 hover:text-odillon-teal transition-colors rounded-md hover:bg-gray-50"
                 >
-                  <Mail className="w-4 h-4 mr-2" />
-                  contact@odillon.fr
+                  <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
+                  <span className="break-all">contact@odillon.fr</span>
                 </a>
                 <Button
                   asChild
-                  className="w-full bg-odillon-teal hover:bg-odillon-teal/90 text-white"
+                  className="w-full bg-odillon-teal hover:bg-odillon-teal/90 text-white mt-2"
                 >
                   <Link href="#contact" onClick={() => setMobileMenuOpen(false)}>
                     Nous contacter

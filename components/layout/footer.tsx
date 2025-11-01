@@ -6,18 +6,18 @@ import { Separator } from "@/components/ui/separator"
 export function Footer() {
   return (
     <footer className="bg-odillon-dark text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Logo et Description */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4 sm:col-span-2 lg:col-span-1">
             <Image
-              src="/logo.svg"
+              src="/logo d'odillon corrigé.png"
               alt="Odillon"
-              width={150}
-              height={40}
-              className="h-10 w-auto brightness-0 invert"
+              width={200}
+              height={60}
+              className="h-12 md:h-14 w-auto"
             />
-            <p className="text-sm text-gray-300 leading-relaxed">
+            <p className="text-xs md:text-sm text-gray-300 leading-relaxed max-w-xs">
               Cabinet de conseil en ingénierie d'entreprises, 
               spécialisé dans la structuration et le management stratégique.
             </p>
@@ -25,8 +25,8 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-odillon-lime">Nos Services</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-odillon-lime">Nos Services</h3>
+            <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
               <li>
                 <Link href="#services" className="text-gray-300 hover:text-odillon-lime transition-colors">
                   Gouvernance
@@ -52,8 +52,8 @@ export function Footer() {
 
           {/* Liens rapides */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-odillon-lime">Liens Rapides</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-odillon-lime">Liens Rapides</h3>
+            <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
               <li>
                 <Link href="#accueil" className="text-gray-300 hover:text-odillon-lime transition-colors">
                   Accueil
@@ -79,8 +79,8 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-odillon-lime">Contact</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-odillon-lime">Contact</h3>
+            <ul className="space-y-2 md:space-y-3 text-xs md:text-sm">
               <li className="flex items-start">
                 <Phone className="w-4 h-4 mr-2 mt-0.5 text-odillon-lime flex-shrink-0" />
                 <div>
@@ -105,11 +105,11 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="my-8 bg-gray-700" />
+        <Separator className="my-6 md:my-8 bg-gray-700" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Odillon - Ingénierie d'Entreprises. Tous droits réservés.</p>
-          <p className="mt-2 md:mt-0">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs md:text-sm text-gray-400">
+          <p className="text-center sm:text-left">&copy; {new Date().getFullYear()} Odillon - Ingénierie d'Entreprises. Tous droits réservés.</p>
+          <p className="text-center sm:text-right">
             Site web : <a href="https://www.odillon.fr" className="text-odillon-lime hover:underline">www.odillon.fr</a>
           </p>
         </div>

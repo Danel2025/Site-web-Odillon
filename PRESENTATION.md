@@ -262,7 +262,6 @@ vercel
 ✅ Performance optimale  
 
 ### Ce qui reste à personnaliser (optionnel)
-🔸 Logo (remplacer `public/logo.svg` par le vrai logo)  
 🔸 Images (ajouter de vraies photos si souhaité)  
 🔸 Formulaire contact (configurer l'envoi email)  
 🔸 Google Analytics (ajouter le tracking ID)  

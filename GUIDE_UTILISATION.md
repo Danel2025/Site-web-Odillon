@@ -63,7 +63,7 @@ Odillon site web/
 │   └── utils.ts              # Fonctions utilitaires
 │
 ├── public/                   # Fichiers statiques
-│   ├── logo.svg             # Logo Odillon
+│   ├── logo d'odillon corrigé.png  # Logo Odillon
 │   ├── robots.txt           # Configuration robots
 │   └── sitemap.xml          # Plan du site
 │

@@ -18,9 +18,9 @@ import { DottedMap } from "@/components/ui/dotted-map"
 
 export function Hero() {
   return (
-    <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    <section id="accueil" className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Dotted Map Background - Gabon */}
-      <div className="absolute inset-0 opacity-40 pointer-events-none z-0">
+      <div className="absolute inset-0 opacity-30 md:opacity-40 pointer-events-none z-0">
         <DottedMap
           width={1200}
           height={900}
@@ -59,21 +59,21 @@ export function Hero() {
         className="absolute inset-0 h-full w-full opacity-30"
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <FadeIn delay={0.1}>
               <div className="inline-block">
-                <span className="inline-flex items-center rounded-full bg-odillon-teal/10 px-4 py-1.5 text-sm font-medium text-odillon-teal">
-                  <Award className="w-4 h-4 mr-2" />
-                  <TextShimmer>Excellence en Ingénierie d'Entreprises</TextShimmer>
+                <span className="inline-flex items-center rounded-full bg-odillon-teal/10 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-medium text-odillon-teal">
+                  <Award className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
+                  <TextShimmer className="text-xs md:text-sm">Excellence en Ingénierie d'Entreprises</TextShimmer>
                 </span>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
                 Structurez votre{" "}
                 <HighlightText className="text-odillon-teal" delay={0.5}>
                   entreprise
@@ -86,29 +86,29 @@ export function Hero() {
             </FadeIn>
 
             <FadeIn delay={0.3}>
-              <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl">
                 Cabinet de conseil en ingénierie d'entreprises spécialisé dans la structuration, 
                 la gestion administrative, les relations publiques et le management des risques.
               </p>
             </FadeIn>
 
             <FadeIn delay={0.4}>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-odillon-teal hover:bg-odillon-teal/90 text-white text-lg px-8 py-6 group"
+                  className="bg-odillon-teal hover:bg-odillon-teal/90 text-white text-base md:text-lg px-6 md:px-8 py-5 md:py-6 group"
                 >
                   <Link href="#contact">
                     Démarrer un projet
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 <Button
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-2 border-odillon-teal text-odillon-teal hover:bg-odillon-teal hover:text-white text-lg px-8 py-6"
+                  className="border-2 border-odillon-teal text-odillon-teal hover:bg-odillon-teal hover:text-white text-base md:text-lg px-6 md:px-8 py-5 md:py-6"
                 >
                   <Link href="#services">Nos services</Link>
                 </Button>
@@ -117,42 +117,42 @@ export function Hero() {
 
             {/* Stats */}
             <FadeIn delay={0.5}>
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t" id="gouvernance">
+              <div className="grid grid-cols-3 gap-3 md:gap-6 pt-6 md:pt-8 border-t" id="gouvernance">
                 <div>
-                  <div className="text-3xl font-bold text-odillon-teal">
+                  <div className="text-2xl md:text-3xl font-bold text-odillon-teal">
                     <CountingNumber value={15} suffix="+" duration={2} />
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">Années d'expérience</div>
+                  <div className="text-xs md:text-sm text-gray-600 mt-1">Années d'expérience</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-odillon-teal">
+                  <div className="text-2xl md:text-3xl font-bold text-odillon-teal">
                     <CountingNumber value={100} suffix="+" duration={2.5} />
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">Projets réalisés</div>
+                  <div className="text-xs md:text-sm text-gray-600 mt-1">Projets réalisés</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-odillon-teal">
+                  <div className="text-2xl md:text-3xl font-bold text-odillon-teal">
                     <CountingNumber value={50} suffix="+" duration={2.3} />
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">Clients satisfaits</div>
+                  <div className="text-xs md:text-sm text-gray-600 mt-1">Clients satisfaits</div>
                 </div>
               </div>
             </FadeIn>
           </div>
 
           {/* Right Content - Feature Cards */}
-          <div className="relative" id="services">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="relative mt-8 lg:mt-0" id="services">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               <BlurFade delay={0.2}>
                 <motion.div
                   whileHover={{ scale: 1.02, y: -3 }}
-                  className="bg-white p-6 rounded border border-gray-200"
+                  className="bg-white p-4 md:p-6 rounded border border-gray-200"
                 >
-                  <div className="w-12 h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-4">
-                    <Shield className="w-6 h-6 text-odillon-teal" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
+                    <Shield className="w-5 h-5 md:w-6 md:h-6 text-odillon-teal" />
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">Gouvernance</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1 md:mb-2">Gouvernance</h3>
+                  <p className="text-xs md:text-sm text-gray-600">
                     Structuration et mise en place de politiques efficaces
                   </p>
                 </motion.div>
@@ -161,14 +161,14 @@ export function Hero() {
               <BlurFade delay={0.3}>
                 <motion.div
                   whileHover={{ scale: 1.02, y: -3 }}
-                  className="bg-white p-6 rounded border border-gray-200 mt-8"
+                  className="bg-white p-4 md:p-6 rounded border border-gray-200 mt-4 md:mt-8"
                   id="conseil"
                 >
-                  <div className="w-12 h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-4">
-                    <TrendingUp className="w-6 h-6 text-odillon-lime" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
+                    <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-odillon-lime" />
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">Finances</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1 md:mb-2">Finances</h3>
+                  <p className="text-xs md:text-sm text-gray-600">
                     Conseil financier et levée de fonds stratégique
                   </p>
                 </motion.div>
@@ -177,14 +177,14 @@ export function Hero() {
               <BlurFade delay={0.4}>
                 <motion.div
                   whileHover={{ scale: 1.02, y: -3 }}
-                  className="bg-white p-6 rounded border border-gray-200"
+                  className="bg-white p-4 md:p-6 rounded border border-gray-200"
                   id="administration"
                 >
-                  <div className="w-12 h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-4">
-                    <Users className="w-6 h-6 text-odillon-teal" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
+                    <Users className="w-5 h-5 md:w-6 md:h-6 text-odillon-teal" />
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">RH</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1 md:mb-2">RH</h3>
+                  <p className="text-xs md:text-sm text-gray-600">
                     Gestion des talents et développement organisationnel
                   </p>
                 </motion.div>
@@ -193,13 +193,13 @@ export function Hero() {
               <BlurFade delay={0.5}>
                 <motion.div
                   whileHover={{ scale: 1.02, y: -3 }}
-                  className="bg-white p-6 rounded border border-gray-200 mt-8"
+                  className="bg-white p-4 md:p-6 rounded border border-gray-200 mt-4 md:mt-8"
                 >
-                  <div className="w-12 h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-4">
-                    <Award className="w-6 h-6 text-odillon-lime" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
+                    <Award className="w-5 h-5 md:w-6 md:h-6 text-odillon-lime" />
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">Juridique</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1 md:mb-2">Juridique</h3>
+                  <p className="text-xs md:text-sm text-gray-600">
                     Accompagnement juridique et contractuel complet
                   </p>
                 </motion.div>
@@ -210,8 +210,8 @@ export function Hero() {
 
         {/* Scroll Velocity Section */}
         <FadeIn delay={0.6}>
-          <div className="mt-20 relative">
-            <ScrollVelocityContainer className="text-3xl font-bold tracking-[-0.02em] text-gray-300 md:text-5xl md:leading-[4rem]">
+          <div className="mt-12 md:mt-16 lg:mt-20 relative">
+            <ScrollVelocityContainer className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-[-0.02em] text-gray-300 md:leading-[4rem]">
               <ScrollVelocityRow baseVelocity={5} direction={1}>
                 Gouvernance • Finances • Ressources Humaines • Juridique
               </ScrollVelocityRow>

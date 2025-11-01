@@ -15,7 +15,7 @@ export default function ExpertisePage() {
       <ScrollProgress />
       <ScrollToTop />
       <HeaderPro />
-      <main className="min-h-screen pt-[104px]">
+      <main className="min-h-screen pt-[88px] md:pt-[104px]">
         <ExpertiseDetailed />
       </main>
       <Footer />

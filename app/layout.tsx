@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Odillon" }],
   creator: "Odillon",
   publisher: "Odillon",
+  icons: {
+    icon: "/favicon logo d'odillon.png",
+    shortcut: "/favicon logo d'odillon.png",
+    apple: "/favicon logo d'odillon.png",
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
