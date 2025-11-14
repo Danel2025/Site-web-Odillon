@@ -97,7 +97,7 @@ Contenu :
 
 ---
 
-### 5. 🔧 [README.md](./README.md)
+### 5. 🔧 [README.md](../README.md)
 **Temps de lecture : 5 minutes**
 
 Contenu :
@@ -194,13 +194,14 @@ Contenu :
 ```
 Odillon site web/
 │
-├── 📚 DOCUMENTATION
+├── 📚 docs/
 │   ├── INDEX_DOCUMENTATION.md       ← Vous êtes ici !
-│   ├── DEMARRAGE_RAPIDE.md          ← Start here (5 min)
+│   ├── DEMARRAGE_RAPIDE.md         ← Start here (5 min)
 │   ├── PRESENTATION.md              ← Vue d'ensemble (10 min)
 │   ├── FONCTIONNALITES.md           ← Features détaillées (15 min)
-│   ├── GUIDE_UTILISATION.md         ← Guide complet (20 min)
-│   └── README.md                    ← Doc technique (5 min)
+│   └── GUIDE_UTILISATION.md         ← Guide complet (20 min)
+│
+├── 📜 README.md                     ← Doc technique (5 min)
 │
 ├── 🎨 CODE SOURCE
 │   ├── app/                         ← Pages Next.js
@@ -306,7 +307,7 @@ Votre site web ultra-professionnel vous attend sur **http://localhost:3000** !
 - 🎉 [Présentation](./PRESENTATION.md)
 - ✨ [Fonctionnalités](./FONCTIONNALITES.md)
 - 📘 [Guide d'Utilisation](./GUIDE_UTILISATION.md)
-- 🔧 [README Technique](./README.md)
+- 🔧 [README Technique](../README.md)
 
 ---
 

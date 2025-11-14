@@ -532,13 +532,13 @@ export function ServicesDetailed() {
   return (
     <section className="relative py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none opacity-20" />
+      <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none opacity-5" />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-10 md:mb-16">
           <BlurFade delay={0.1}>
-            <Badge className="mb-3 md:mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
+            <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
               Excellence · Expertise · Innovation
             </Badge>
           </BlurFade>

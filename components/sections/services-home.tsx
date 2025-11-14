@@ -70,7 +70,7 @@ export function ServicesHome() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
           <BlurFade delay={0.1}>
-            <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
+            <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
               <Sparkles className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
               Nos Services
             </Badge>
@@ -102,8 +102,8 @@ export function ServicesHome() {
                   {/* Gradient background */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   
-                  <CardContent className={`relative ${idx === 0 ? 'p-6 md:p-8 lg:p-10' : 'p-5 md:p-6'}`}>
-                    <div className={`flex ${idx === 0 ? 'flex-col md:flex-row' : 'flex-col'} gap-4 md:gap-6 items-start`}>
+                  <CardContent className="relative p-5 md:p-6">
+                    <div className="flex flex-col gap-4 md:gap-6 items-start">
                       <div 
                         className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"
                         style={{ 

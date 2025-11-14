@@ -56,13 +56,13 @@ export function ContactHome() {
   return (
     <section id="contact" className="relative py-12 md:py-16 lg:py-24 overflow-hidden">
       {/* Interactive Grid Background */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 opacity-30">
         <InteractiveGridPattern
           width={50}
           height={50}
           squares={[80, 80]}
           className="w-full h-full"
-          squaresClassName="fill-gray-200/40 stroke-gray-300/60 hover:fill-[#1A9B8E]/30 hover:stroke-[#1A9B8E]/70 transition-all duration-300"
+          squaresClassName="fill-gray-200/2 stroke-gray-300/3 hover:fill-[#1A9B8E]/30 hover:stroke-[#1A9B8E]/70 transition-all duration-300"
         />
       </div>
       
@@ -74,7 +74,7 @@ export function ContactHome() {
           {/* Left - Contact Info */}
           <div>
             <BlurFade delay={0.1}>
-              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
+              <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
                 <Send className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
                 Parlons de votre projet
               </Badge>

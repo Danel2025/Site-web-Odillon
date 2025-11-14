@@ -104,7 +104,7 @@ export function Contact() {
             {/* Left - Content */}
             <div className="space-y-6 md:space-y-8">
               <BlurFade delay={0.1}>
-                <Badge className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-sm md:text-base px-4 md:px-6 py-2 md:py-3 inline-flex items-center gap-2">
+                <Badge className="bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-sm md:text-base px-4 md:px-6 py-2 md:py-3 inline-flex items-center gap-2 font-medium">
                   <Send className="w-3 h-3 md:w-4 md:h-4" />
                   Contactez-nous
                 </Badge>

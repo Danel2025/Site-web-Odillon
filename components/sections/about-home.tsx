@@ -8,28 +8,18 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { GlassmorphismIcon } from "@/components/ui/glassmorphism-icon"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/marquee"
-import { 
-  Award, 
-  Shield, 
-  Lightbulb, 
+import {
+  Award,
+  Shield,
+  Lightbulb,
   Heart,
-  Building2,
-  Users,
-  Trophy,
   ArrowRight,
   Rocket,
   TrendingUp,
+  Trophy,
   Zap
 } from "lucide-react"
 import Link from "next/link"
-import { NumberTicker } from "@/components/ui/number-ticker"
-
-const companyStats = [
-  { icon: Building2, value: 7, suffix: "+", label: "Années", color: "#1A9B8E" },
-  { icon: Users, value: 50, suffix: "+", label: "Clients", color: "#C4D82E" },
-  { icon: Trophy, value: 200, suffix: "+", label: "Projets", color: "#1A9B8E" }
-]
-
 const coreValues = [
   {
     icon: Award,
@@ -100,41 +90,10 @@ export function AboutHome() {
           </BlurFade>
         </div>
 
-        {/* Stats Bar */}
-        <BlurFade delay={0.4}>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-10 md:mb-16">
-            {companyStats.map((stat, idx) => {
-              const StatIcon = stat.icon
-              return (
-                <FadeIn key={stat.label} delay={0.1 * (idx + 1)}>
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <div 
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center"
-                      style={{ 
-                        background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                        border: `2px solid ${stat.color}40`
-                      }}
-                    >
-                      <StatIcon className="w-6 h-6 md:w-8 md:h-8" style={{ color: stat.color }} />
-                    </div>
-                    <div>
-                      <div className="text-3xl md:text-4xl font-bold" style={{ color: stat.color }}>
-                        <NumberTicker value={stat.value} delay={0.5 + idx * 0.1} />
-                        {stat.suffix}
-                      </div>
-                      <div className="text-xs md:text-sm text-gray-600">{stat.label}</div>
-                    </div>
-                  </div>
-                </FadeIn>
-              )
-            })}
-          </div>
-        </BlurFade>
-
         <Separator className="mb-10 md:mb-16" />
 
         {/* Journey Timeline Horizontal */}
-        <BlurFade delay={0.5}>
+        <BlurFade delay={0.4}>
           <div className="mb-10 md:mb-16">
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center mb-6 md:mb-8">
               Notre Évolution
@@ -170,7 +129,7 @@ export function AboutHome() {
         </BlurFade>
 
         {/* Core Values - Marquee */}
-        <BlurFade delay={0.6}>
+        <BlurFade delay={0.5}>
           <div className="mb-8 md:mb-12">
             <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center mb-4 md:mb-6">
               Nos Valeurs Fondamentales
@@ -226,11 +185,11 @@ export function AboutHome() {
         </BlurFade>
 
         {/* CTA */}
-        <BlurFade delay={0.7}>
+        <BlurFade delay={0.6}>
           <div className="text-center">
             <Link 
               href="/a-propos"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold text-sm md:text-base hover:opacity-90 transition-opacity group shadow-lg"
+              className="inline-flex items-center gap-2 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold text-sm md:text-base transition-all group shadow-lg"
             >
               Découvrir notre histoire complète
               <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />

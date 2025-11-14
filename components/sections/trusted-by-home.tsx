@@ -1,48 +1,107 @@
 "use client"
 
+import { useState } from "react"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/marquee"
 import { Badge } from "@/components/ui/badge"
-import { Award, Shield, TrendingUp } from "lucide-react"
-import { NumberTicker } from "@/components/ui/number-ticker"
+import Image from "next/image"
 
-// Logos d'entreprises (remplacer par de vrais logos)
+// Fonction pour obtenir le chemin du logo (essaie .png puis .jpg)
+function getLogoPath(basePath: string): string[] {
+  const base = basePath.replace(/\.(png|jpg|jpeg)$/i, '')
+  return [`${base}.png`, `${base}.jpg`, `${base}.jpeg`]
+}
+
+// Composant pour afficher un logo avec fallback
+function LogoItem({ company }: { company: { name: string; logo: string; fallback: string; color: string } }) {
+  const [imageError, setImageError] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const logoPaths = getLogoPath(company.logo)
+  
+  const handleImageError = () => {
+    if (currentImageIndex < logoPaths.length - 1) {
+      // Essayer le format suivant
+      setCurrentImageIndex(currentImageIndex + 1)
+    } else {
+      // Tous les formats ont échoué, afficher le fallback
+      setImageError(true)
+    }
+  }
+  
+  return (
+    <div className="flex items-center justify-center w-32 h-24 md:w-40 md:h-28 transition-all duration-300 hover:scale-105 group">
+      {!imageError ? (
+        <div className="relative w-full h-full flex items-center justify-center">
+          <Image
+            src={logoPaths[currentImageIndex]}
+            alt={`${company.name} logo`}
+            width={120}
+            height={80}
+            className="object-contain max-w-full max-h-full"
+            onError={handleImageError}
+            unoptimized
+          />
+        </div>
+      ) : (
+        <div className="text-center w-full">
+          <div 
+            className="text-2xl md:text-3xl font-bold mb-1 transition-colors duration-300"
+            style={{ color: company.color }}
+          >
+            {company.fallback}
+          </div>
+          <div className="text-xs md:text-sm text-gray-600 font-medium group-hover:text-odillon-teal transition-colors">
+            {company.name}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Logos d'entreprises gabonaises
 const trustedCompanies = [
-  { name: "TechCorp", logo: "TC", color: "#1A9B8E" },
-  { name: "InnoSoft", logo: "IS", color: "#C4D82E" },
-  { name: "DataFlow", logo: "DF", color: "#1A9B8E" },
-  { name: "CloudBase", logo: "CB", color: "#C4D82E" },
-  { name: "SecureNet", logo: "SN", color: "#1A9B8E" },
-  { name: "SmartHub", logo: "SH", color: "#C4D82E" },
-  { name: "WebCraft", logo: "WC", color: "#1A9B8E" },
-  { name: "CodeMaster", logo: "CM", color: "#C4D82E" },
-  { name: "DigitalEdge", logo: "DE", color: "#1A9B8E" },
-  { name: "FutureNet", logo: "FN", color: "#C4D82E" },
-  { name: "ProSystems", logo: "PS", color: "#1A9B8E" },
-  { name: "TechVision", logo: "TV", color: "#C4D82E" }
-]
-
-const trustStats = [
   { 
-    icon: Award, 
-    value: 50, 
-    suffix: "+", 
-    label: "Entreprises",
-    color: "#1A9B8E"
+    name: "CDC", 
+    fullName: "Caisse des Dépôts et Consignations",
+    logo: "/images/logos/cdc.png",
+    fallback: "CDC",
+    color: "#1A9B8E" 
   },
   { 
-    icon: Shield, 
-    value: 98, 
-    suffix: "%", 
-    label: "Satisfaction",
-    color: "#C4D82E"
+    name: "CAISTAB", 
+    fullName: "Caisse de Stabilisation",
+    logo: "/images/logos/caistab.png",
+    fallback: "CAISTAB",
+    color: "#C4D82E" 
   },
   { 
-    icon: TrendingUp, 
-    value: 200, 
-    suffix: "+", 
-    label: "Projets réussis",
-    color: "#1A9B8E"
+    name: "SEEG", 
+    fullName: "Société d'Énergie et d'Eau du Gabon",
+    logo: "/images/logos/seeg.png",
+    fallback: "SEEG",
+    color: "#1A9B8E" 
+  },
+  { 
+    name: "UBA", 
+    fullName: "United Bank for Africa",
+    logo: "/images/logos/uba.png",
+    fallback: "UBA",
+    color: "#C4D82E" 
+  },
+  { 
+    name: "SEM", 
+    fullName: "Société d'Economie Mixte",
+    logo: "/images/logos/sem.png",
+    fallback: "SEM",
+    color: "#1A9B8E" 
+  },
+  { 
+    name: "EDG", 
+    fullName: "Energie du Gabon",
+    logo: "/images/logos/edg.png",
+    fallback: "EDG",
+    color: "#C4D82E" 
   }
 ]
 
@@ -79,42 +138,8 @@ export function TrustedByHome() {
           </div>
         </BlurFade>
 
-        {/* Stats */}
-        <BlurFade delay={0.4}>
-          <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto mb-10 md:mb-16">
-            {trustStats.map((stat, idx) => {
-              const StatIcon = stat.icon
-              return (
-                <div 
-                  key={idx}
-                  className="text-center p-4 md:p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-200 hover:border-odillon-teal transition-all duration-300 hover:shadow-xl hover:scale-105"
-                >
-                  <div className="flex justify-center mb-3">
-                    <div 
-                      className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg"
-                      style={{ 
-                        background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                        border: `2px solid ${stat.color}30`
-                      }}
-                    >
-                      <StatIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: stat.color }} />
-                    </div>
-                  </div>
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 flex items-center justify-center gap-1">
-                    <NumberTicker value={stat.value} />
-                    <span>{stat.suffix}</span>
-                  </div>
-                  <div className="text-xs md:text-sm text-gray-600 font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </BlurFade>
-
         {/* Logos Marquee */}
-        <BlurFade delay={0.6}>
+        <BlurFade delay={0.4}>
           <div className="mb-8">
             <Marquee>
               <MarqueeContent speed={30} pauseOnHover>
@@ -123,20 +148,7 @@ export function TrustedByHome() {
                     key={company.name}
                     className="mx-3 md:mx-4"
                   >
-                    <div className="flex items-center justify-center w-32 h-24 md:w-40 md:h-28 bg-white rounded-xl border-2 border-gray-200 hover:border-odillon-teal transition-all duration-300 hover:shadow-xl hover:scale-105 group">
-                      {/* Logo Placeholder */}
-                      <div className="text-center">
-                        <div 
-                          className="text-3xl md:text-4xl font-bold mb-1 transition-colors duration-300"
-                          style={{ color: company.color }}
-                        >
-                          {company.logo}
-                        </div>
-                        <div className="text-xs md:text-sm text-gray-600 font-medium group-hover:text-odillon-teal transition-colors">
-                          {company.name}
-                        </div>
-                      </div>
-                    </div>
+                    <LogoItem company={company} />
                   </MarqueeItem>
                 ))}
               </MarqueeContent>
@@ -147,10 +159,10 @@ export function TrustedByHome() {
         </BlurFade>
 
         {/* Bottom Message */}
-        <BlurFade delay={0.8}>
+        <BlurFade delay={0.6}>
           <div className="text-center">
             <p className="text-sm md:text-base text-gray-600">
-              <span className="font-semibold text-odillon-teal">Plus de 50 entreprises</span> nous font confiance pour transformer leur gouvernance
+              Des <span className="font-semibold text-odillon-teal">entreprises leaders</span> nous font confiance pour transformer leur gouvernance
             </p>
           </div>
         </BlurFade>

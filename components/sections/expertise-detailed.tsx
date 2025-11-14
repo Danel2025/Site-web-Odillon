@@ -234,7 +234,7 @@ export function ExpertiseDetailed() {
           {/* Contenu par-dessus le Globe */}
           <div className="relative z-10 pt-6 md:pt-8 pb-6 md:pb-8 px-4">
             <BlurFade delay={0.1}>
-              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white hover:opacity-90 border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
+              <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
                 Domaines d'Expertise
               </Badge>
             </BlurFade>
@@ -489,7 +489,7 @@ export function ExpertiseDetailed() {
         <BlurFade delay={0.7}>
           <div className="mb-12 md:mb-16 lg:mb-20">
             <div className="text-center mb-8 md:mb-12 px-4">
-              <Badge className="mb-3 md:mb-4 bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] text-white border-0 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2">
+              <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
                 Nos Valeurs
               </Badge>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">

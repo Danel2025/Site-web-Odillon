@@ -18,7 +18,7 @@ export default function ServicesPage() {
           height={40}
           squares={[100, 100]}
           className="w-full h-full"
-          squaresClassName="fill-gray-300/50 stroke-gray-400/80 hover:fill-[#1A9B8E]/60 hover:stroke-[#1A9B8E] transition-all duration-200"
+          squaresClassName="fill-gray-300/10 stroke-gray-400/15 hover:fill-[#1A9B8E]/60 hover:stroke-[#1A9B8E] transition-all duration-200"
         />
       </div>
       

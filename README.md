@@ -45,6 +45,17 @@ npm start
 - ✅ SEO optimisé
 - ✅ Performance optimisée
 
+## 📚 Documentation
+
+La documentation complète du projet se trouve dans le dossier [`docs/`](./docs/) :
+
+- 📖 **[Index de la documentation](./docs/INDEX_DOCUMENTATION.md)** - Point d'entrée complet
+- 👋 **[Lisez en premier](./docs/LIRE_EN_PREMIER.md)** - Guide de démarrage rapide
+- 🚀 **[Démarrage rapide](./docs/DEMARRAGE_RAPIDE.md)** - Pour démarrer immédiatement
+- 🎉 **[Présentation](./docs/PRESENTATION.md)** - Vue d'ensemble du projet
+- ✨ **[Fonctionnalités](./docs/FONCTIONNALITES.md)** - Liste détaillée des features
+- 📘 **[Guide d'utilisation](./docs/GUIDE_UTILISATION.md)** - Guide complet
+
 ## Structure du projet
 
 ```
@@ -59,6 +70,8 @@ npm start
 │   └── ui/               # Composants shadcn/ui
 ├── lib/
 │   └── utils.ts          # Utilitaires
+├── docs/                  # Documentation complète
+├── scripts/               # Scripts utilitaires
 └── public/               # Fichiers statiques
 ```
 

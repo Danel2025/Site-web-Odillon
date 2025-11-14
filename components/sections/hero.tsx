@@ -238,8 +238,8 @@ export function Hero() {
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
                       <Shield className="w-5 h-5 md:w-6 md:h-6 text-odillon-teal" />
                     </div>
-                    <h3 className="text-sm md:text-base font-semibold text-gray-900 drop-shadow-sm mb-1 md:mb-2">Gouvernance</h3>
-                    <p className="text-xs md:text-sm text-gray-800 drop-shadow-sm">
+                    <h3 className="text-sm md:text-base font-semibold text-white drop-shadow-sm mb-1 md:mb-2">Gouvernance</h3>
+                    <p className="text-xs md:text-sm text-white drop-shadow-sm">
                       Structuration et mise en place de politiques efficaces
                     </p>
                   </div>
@@ -280,8 +280,8 @@ export function Hero() {
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
                       <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-odillon-lime" />
                     </div>
-                    <h3 className="text-sm md:text-base font-semibold text-gray-900 drop-shadow-sm mb-1 md:mb-2">Finances</h3>
-                    <p className="text-xs md:text-sm text-gray-800 drop-shadow-sm">
+                    <h3 className="text-sm md:text-base font-semibold text-white drop-shadow-sm mb-1 md:mb-2">Finances</h3>
+                    <p className="text-xs md:text-sm text-white drop-shadow-sm">
                       Conseil financier et levée de fonds stratégique
                     </p>
                   </div>
@@ -322,8 +322,8 @@ export function Hero() {
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-teal/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
                       <Users className="w-5 h-5 md:w-6 md:h-6 text-odillon-teal" />
                     </div>
-                    <h3 className="text-sm md:text-base font-semibold text-gray-900 drop-shadow-sm mb-1 md:mb-2">RH</h3>
-                    <p className="text-xs md:text-sm text-gray-800 drop-shadow-sm">
+                    <h3 className="text-sm md:text-base font-semibold text-white drop-shadow-sm mb-1 md:mb-2">RH</h3>
+                    <p className="text-xs md:text-sm text-white drop-shadow-sm">
                       Gestion des talents et développement organisationnel
                     </p>
                   </div>
@@ -363,8 +363,8 @@ export function Hero() {
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-odillon-lime/10 rounded-sm flex items-center justify-center mb-3 md:mb-4">
                       <Award className="w-5 h-5 md:w-6 md:h-6 text-odillon-lime" />
                     </div>
-                    <h3 className="text-sm md:text-base font-semibold text-gray-900 drop-shadow-sm mb-1 md:mb-2">Juridique</h3>
-                    <p className="text-xs md:text-sm text-gray-800 drop-shadow-sm">
+                    <h3 className="text-sm md:text-base font-semibold text-white drop-shadow-sm mb-1 md:mb-2">Juridique</h3>
+                    <p className="text-xs md:text-sm text-white drop-shadow-sm">
                       Accompagnement juridique et contractuel complet
                     </p>
                   </div>
