@@ -39,11 +39,11 @@ npm run lint
 
 ### Multi-Domain Setup
 
-The site supports subdomain routing via middleware:
+The site supports subdomain routing via Next.js 16 proxy:
 - **odillon.fr / www.odillon.fr** - Main public site
 - **admin.odillon.fr** - Admin panel (automatically redirects /admin/* paths from main domain)
 
-The middleware in `middleware.ts:5-29` handles domain-based routing and redirects.
+The proxy in `proxy.ts` handles domain-based routing and redirects using Next.js 16 conventions.
 
 ### Routing Structure
 
