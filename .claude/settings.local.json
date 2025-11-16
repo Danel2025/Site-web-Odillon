@@ -30,7 +30,9 @@
       "Bash(npx:*)",
       "Bash(del \"C:\\Users\\nexon\\Odillon site web\\middleware.ts\")",
       "Bash(git restore:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "mcp__next-devtools__browser_eval",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

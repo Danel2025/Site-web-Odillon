@@ -19,6 +19,9 @@ export async function proxy(request: NextRequest) {
     // Normaliser le hostname (enlever le port si présent)
     const host = hostname.split(':')[0].toLowerCase()
 
+    // En développement local (localhost, 127.0.0.1), autoriser l'accès direct aux routes /admin
+    const isLocalDev = host === 'localhost' || host === '127.0.0.1'
+
     // Gestion du sous-domaine admin.odillon.fr
     if (host === 'admin.odillon.fr' || host.startsWith('admin.odillon.')) {
       // Rediriger la racine vers /admin/login
@@ -39,7 +42,8 @@ export async function proxy(request: NextRequest) {
     }
 
     // Si on est sur le domaine principal (odillon.fr ou www.odillon.fr)
-    if (host === 'odillon.fr' || host === 'www.odillon.fr') {
+    // ET qu'on n'est pas en développement local
+    if (!isLocalDev && (host === 'odillon.fr' || host === 'www.odillon.fr')) {
       // Rediriger les accès /admin vers admin.odillon.fr
       if (pathname.startsWith('/admin')) {
         const adminUrl = new URL(request.url)
