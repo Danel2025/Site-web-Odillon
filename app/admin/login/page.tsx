@@ -31,6 +31,8 @@ export default function LoginPage() {
       setError(error.message)
       setLoading(false)
     } else {
+      // Rediriger vers /admin/photos
+      // Le proxy (proxy.ts) gère automatiquement le sous-domaine admin.odillon.fr
       router.push("/admin/photos")
       router.refresh()
     }

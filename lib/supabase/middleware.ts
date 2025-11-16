@@ -1,6 +1,14 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Met à jour la session Supabase et protège les routes admin
+ * 
+ * Bonnes pratiques :
+ * - Vérifie l'authentification pour les routes /admin/* (sauf /admin/login)
+ * - Met à jour les cookies de session automatiquement
+ * - Redirige vers /admin/login si non authentifié
+ */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
@@ -54,7 +62,27 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  // Mettre à jour la session
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Protéger les routes admin (sauf /admin/login)
+  const { pathname } = request.nextUrl
+  const isAdminRoute = pathname.startsWith('/admin')
+  const isLoginPage = pathname === '/admin/login'
+
+  if (isAdminRoute && !isLoginPage && !user) {
+    // Rediriger vers la page de login si l'utilisateur n'est pas authentifié
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/login'
+    return NextResponse.redirect(url)
+  }
+
+  // Si l'utilisateur est authentifié et essaie d'accéder à /admin/login, rediriger vers /admin/photos
+  if (isLoginPage && user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/photos'
+    return NextResponse.redirect(url)
+  }
 
   return response
 }
