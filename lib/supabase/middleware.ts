@@ -62,27 +62,10 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // Mettre à jour la session
-  const { data: { user } } = await supabase.auth.getUser()
-
-  // Protéger les routes admin (sauf /admin/login)
-  const { pathname } = request.nextUrl
-  const isAdminRoute = pathname.startsWith('/admin')
-  const isLoginPage = pathname === '/admin/login'
-
-  if (isAdminRoute && !isLoginPage && !user) {
-    // Rediriger vers la page de login si l'utilisateur n'est pas authentifié
-    const url = request.nextUrl.clone()
-    url.pathname = '/admin/login'
-    return NextResponse.redirect(url)
-  }
-
-  // Si l'utilisateur est authentifié et essaie d'accéder à /admin/login, rediriger vers /admin/photos
-  if (isLoginPage && user) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/admin/photos'
-    return NextResponse.redirect(url)
-  }
+  // Mettre à jour la session (rafraîchit le token si nécessaire)
+  // Note: La protection des routes est gérée au niveau des pages (Server Components)
+  // et non dans le proxy pour éviter les boucles de redirection
+  await supabase.auth.getUser()
 
   return response
 }
