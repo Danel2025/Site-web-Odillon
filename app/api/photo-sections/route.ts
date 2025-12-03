@@ -1,18 +1,15 @@
-import { createClient } from '@/lib/supabase/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from "next/server"
+import { createClient } from "@/lib/supabase/server"
 
-// GET - Récupérer toutes les photos
+// GET - Récupérer toutes les sections photos
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const month = searchParams.get('month')
-  const theme = searchParams.get('theme')
   const active = searchParams.get('active')
-  const section = searchParams.get('section')
 
   const supabase = await createClient()
   
   let query = supabase
-    .from('photos')
+    .from('photo_sections')
     .select('*')
     .order('display_order', { ascending: true })
 
@@ -21,31 +18,16 @@ export async function GET(request: Request) {
     query = query.eq('is_active', true)
   }
 
-  // Filtrer par mois
-  if (month) {
-    query = query.eq('month', parseInt(month))
-  }
-
-  // Filtrer par thématique
-  if (theme) {
-    query = query.eq('theme_id', theme)
-  }
-
-  // Filtrer par section
-  if (section) {
-    query = query.eq('section_id', section)
-  }
-
   const { data, error } = await query
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json({ photos: data })
+  return NextResponse.json({ sections: data || [] })
 }
 
-// POST - Créer une nouvelle photo
+// POST - Créer une nouvelle section photo
 export async function POST(request: Request) {
   const supabase = await createClient()
 
@@ -58,8 +40,11 @@ export async function POST(request: Request) {
   const body = await request.json()
   
   const { data, error } = await supabase
-    .from('photos')
-    .insert([body])
+    .from('photo_sections')
+    .insert([{
+      ...body,
+      created_by: user.id
+    }])
     .select()
     .single()
 
@@ -67,6 +52,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json({ photo: data }, { status: 201 })
+  return NextResponse.json({ section: data }, { status: 201 })
 }
-
