@@ -32,7 +32,8 @@
       "Bash(git restore:*)",
       "Bash(git branch:*)",
       "mcp__next-devtools__browser_eval",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(git remote add:*)"
     ],
     "deny": [],
     "ask": []
