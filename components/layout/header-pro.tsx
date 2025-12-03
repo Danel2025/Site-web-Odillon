@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Logo } from "@/components/ui/logo"
 import { Phone, Mail, ChevronDown, Home, Briefcase, Award, Users, Send, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -76,7 +76,7 @@ export function HeaderPro() {
       }}
     >
       {/* Top Bar */}
-      <div className="bg-odillon-dark/95 backdrop-blur-sm text-white">
+      <div className="bg-black/95 backdrop-blur-sm text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-8 md:h-10 items-center justify-between text-xs md:text-sm">
             <div className="flex items-center space-x-3 md:space-x-6">
@@ -102,10 +102,12 @@ export function HeaderPro() {
         <div className="flex h-14 md:h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center min-w-0">
-            <Logo
-              width={350}
-              height={100}
-              className="h-14 md:h-16 lg:h-20 w-auto"
+            <Image
+              src="/Logo plein formatlogo de chronodil pour fond clair.webp"
+              alt="Odillon - Ingénierie d'Entreprises"
+              width={200}
+              height={60}
+              className="h-8 md:h-10 lg:h-12 w-auto"
               priority
             />
           </Link>
@@ -179,22 +181,18 @@ export function HeaderPro() {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:flex">
-            <div 
-              className="relative rounded-md p-[2px]"
+            <Button
+              asChild
+              className="bg-odillon-teal hover:bg-black text-white transition-colors"
               style={{
-                background: 'linear-gradient(135deg, #1A9B8E, #C4D82E)',
+                boxShadow: 'inset 0 0 0 2px rgba(10, 31, 44, 0.5)',
               }}
             >
-              <Button
-                asChild
-                className="bg-odillon-teal hover:bg-odillon-teal/90 text-white rounded-[calc(0.375rem-2px)]"
-              >
-                <Link href="/contact" className="flex items-center gap-2">
-                  <Send className="w-4 h-4" />
-                  Nous contacter
-                </Link>
-              </Button>
-            </div>
+              <Link href="/contact" className="flex items-center gap-2">
+                <Send className="w-4 h-4" />
+                Nous contacter
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile menu button */}

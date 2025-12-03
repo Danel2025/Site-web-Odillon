@@ -1,20 +1,21 @@
 import Link from "next/link"
-import { Logo } from "@/components/ui/logo"
+import Image from "next/image"
 import { Phone, Mail, MapPin } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
 export function Footer() {
   return (
-    <footer className="bg-odillon-dark text-white">
+    <footer className="bg-black text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Logo et Description */}
           <div className="space-y-3 md:space-y-4 sm:col-span-2 lg:col-span-1">
-            <Logo
+            <Image
+              src="/Logo-blanclogo-de-chronodil-pour-fond-sombre.webp"
+              alt="Odillon - Ingénierie d'Entreprises"
               width={200}
               height={60}
               className="h-12 md:h-14 w-auto"
-              alt="Odillon"
               priority={false}
             />
             <p className="text-xs md:text-sm text-gray-300 leading-relaxed max-w-xs">

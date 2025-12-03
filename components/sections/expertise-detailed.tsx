@@ -1,16 +1,19 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Separator } from "@/components/ui/separator"
-import { AuroraBackground } from "@/components/ui/aurora-background"
 import { TextShimmer } from "@/components/ui/text-shimmer"
 import { CountingNumber } from "@/components/ui/counting-number"
 import { Globe } from "@/components/ui/globe"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/shadcn-io/marquee"
+import { VideosSection } from "@/components/sections/videos-section"
+import type { VideoItem } from "@/components/sections/videos-section"
 import { 
   Target, 
   Briefcase,
@@ -28,7 +31,10 @@ import {
   ShieldCheck,
   Rocket,
   Clock,
-  TrendingDown
+  TrendingDown,
+  Star,
+  CheckCircle2,
+  Users
 } from "lucide-react"
 import Link from "next/link"
 
@@ -194,6 +200,71 @@ const coreValues = [
 ]
 
 export function ExpertiseDetailed() {
+  const [presentationVideos, setPresentationVideos] = useState<VideoItem[]>([])
+  const [testimonialVideos, setTestimonialVideos] = useState<VideoItem[]>([])
+
+  // Charger les vidéos depuis Supabase
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        // Charger les vidéos de présentation
+        const presentationRes = await fetch('/api/videos?category=presentation&active=true')
+        if (presentationRes.ok) {
+          const presentationData = await presentationRes.json()
+          setPresentationVideos(
+            (presentationData.videos || []).map((v: any) => {
+              // Détecter automatiquement le type si l'URL ne correspond pas au type enregistré
+              let videoType = v.type as 'youtube' | 'vimeo' | 'direct'
+              if (v.url.includes("youtube.com") || v.url.includes("youtu.be")) {
+                videoType = "youtube"
+              } else if (v.url.includes("vimeo.com")) {
+                videoType = "vimeo"
+              }
+              
+              return {
+                id: v.id,
+                title: v.title,
+                description: v.description || undefined,
+                url: v.url,
+                type: videoType,
+                thumbnail: v.thumbnail || undefined
+              }
+            })
+          )
+        }
+
+        // Charger les vidéos de témoignages
+        const testimonialRes = await fetch('/api/videos?category=testimonial&active=true')
+        if (testimonialRes.ok) {
+          const testimonialData = await testimonialRes.json()
+          setTestimonialVideos(
+            (testimonialData.videos || []).map((v: any) => {
+              // Détecter automatiquement le type si l'URL ne correspond pas au type enregistré
+              let videoType = v.type as 'youtube' | 'vimeo' | 'direct'
+              if (v.url.includes("youtube.com") || v.url.includes("youtu.be")) {
+                videoType = "youtube"
+              } else if (v.url.includes("vimeo.com")) {
+                videoType = "vimeo"
+              }
+              
+              return {
+                id: v.id,
+                title: v.title,
+                description: v.description || undefined,
+                url: v.url,
+                type: videoType,
+                thumbnail: v.thumbnail || undefined
+              }
+            })
+          )
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des vidéos:", error)
+      }
+    }
+
+    loadVideos()
+  }, [])
   // Configuration du Globe avec les couleurs Odillon
   const globeConfig = {
     width: 800,
@@ -222,7 +293,7 @@ export function ExpertiseDetailed() {
   }
 
   return (
-    <AuroraBackground className="relative py-12 md:py-16 lg:py-20">
+    <div className="relative py-12 md:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Header avec Globe */}
         <div className="relative text-center max-w-4xl mx-auto mb-12 md:mb-16 lg:mb-20">
@@ -257,35 +328,198 @@ export function ExpertiseDetailed() {
 
             {/* Stats Row */}
             <BlurFade delay={0.4}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#1A9B8E]">
-                    <CountingNumber value={15} />+
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Années d'expérience</div>
+              <div className="relative">
+                {/* Animated Zigzag Curve Background */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1, height: '100%' }}>
+                  <svg 
+                    className="w-full" 
+                    viewBox="0 0 1200 300" 
+                    preserveAspectRatio="xMidYMid meet"
+                    style={{ position: 'absolute', top: '50%', left: 0, transform: 'translateY(-50%)', width: '100%', height: '300px' }}
+                  >
+                    {/* Main zigzag curve that tapers - goes from left to right */}
+                    <motion.path
+                      d="M 0 150 L 80 130 L 160 170 L 240 110 L 320 190 L 400 90 L 480 210 L 560 70 L 640 230 L 720 50 L 800 250 L 880 30 L 960 270 L 1040 10 L 1120 290 L 1200 -10"
+                      fill="none"
+                      stroke="#1A9B8E"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0, strokeWidth: 3, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        strokeWidth: [3, 0.8, 3],
+                        opacity: [0.4, 0.6, 0.4],
+                      }}
+                      transition={{ 
+                        pathLength: { duration: 5, ease: "easeInOut", repeat: Infinity },
+                        strokeWidth: { duration: 3, ease: "easeInOut", repeat: Infinity },
+                        opacity: { duration: 2, ease: "easeInOut", repeat: Infinity }
+                      }}
+                    />
+                    {/* Secondary zigzag with different pattern and tapering */}
+                    <motion.path
+                      d="M 0 150 L 100 170 L 200 130 L 300 190 L 400 110 L 500 210 L 600 90 L 700 230 L 800 70 L 900 250 L 1000 50 L 1100 270 L 1200 30"
+                      fill="none"
+                      stroke="#C4D82E"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeDasharray="8,4"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        opacity: [0.3, 0.5, 0.3],
+                        strokeWidth: [2, 0.5, 2],
+                      }}
+                      transition={{ 
+                        pathLength: { duration: 6, ease: "easeInOut", repeat: Infinity },
+                        opacity: { duration: 2.5, ease: "easeInOut", repeat: Infinity },
+                        strokeWidth: { duration: 4, ease: "easeInOut", repeat: Infinity },
+                        delay: 0.8
+                      }}
+                    />
+                  </svg>
                 </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#C4D82E]">
-                    <CountingNumber value={200} />+
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Projets réalisés</div>
+                
+                <div className="relative z-10">
+                {/* Desktop: Horizontal layout with separators */}
+                <div className="hidden lg:flex items-center justify-between gap-8 max-w-6xl mx-auto">
+                  {[
+                    { icon: Building2, value: 15, suffix: "+", label: "Années d'expérience", description: "Plus de 15 ans d'expertise", color: "#1A9B8E" },
+                    { icon: CheckCircle2, value: 200, suffix: "+", label: "Projets réalisés", description: "Missions menées à bien", color: "#C4D82E" },
+                    { icon: Star, value: 95, suffix: "%", label: "Satisfaction client", description: "Taux de satisfaction moyen", color: "#1A9B8E" },
+                    { icon: Target, value: 4, suffix: "", label: "Domaines d'expertise", description: "Spécialisations clés", color: "#C4D82E" }
+                  ].map((stat, idx) => {
+                    const StatIcon = stat.icon
+                    const isLast = idx === 3
+                    return (
+                      <div key={stat.label} className="flex-1 flex items-center">
+                        <FadeIn delay={0.1 * (idx + 1)} className="flex-1">
+                          <div className="bg-white/80 backdrop-blur-sm border-2 border-gray-200/60 hover:border-gray-300/80 hover:shadow-xl transition-all duration-300 group relative overflow-hidden rounded-2xl p-6 md:p-8 text-center">
+                            {/* Gradient overlay on hover */}
+                            <div 
+                              className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
+                              style={{ background: `linear-gradient(135deg, ${stat.color} 0%, transparent 100%)` }}
+                            />
+                            
+                            {/* Icon */}
+                            <div 
+                              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 relative z-10"
+                              style={{ 
+                                background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
+                                border: `2px solid ${stat.color}40`
+                              }}
+                            >
+                              <StatIcon className="w-7 h-7 md:w-8 md:h-8" style={{ color: stat.color }} />
+                            </div>
+                            
+                            {/* Value */}
+                            <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 relative z-10" style={{ color: stat.color }}>
+                              <CountingNumber value={stat.value} />
+                              <span className="text-2xl md:text-3xl ml-1">{stat.suffix}</span>
+                            </div>
+                            
+                            {/* Label */}
+                            <div className="text-sm md:text-base font-semibold text-gray-900 mb-1 relative z-10">
+                              {stat.label}
+                            </div>
+                            
+                            {/* Description */}
+                            <div className="text-xs md:text-sm text-gray-600 relative z-10">
+                              {stat.description}
+                            </div>
+                            
+                            {/* Progress bar at bottom */}
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100/50 rounded-b-2xl overflow-hidden">
+                              <div 
+                                className="h-full transition-all duration-1000 ease-out"
+                                style={{ 
+                                  width: `${(idx + 1) * 25}%`,
+                                  background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)`
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </FadeIn>
+                        
+                        {/* Separator */}
+                        {!isLast && (
+                          <div className="mx-4 flex-shrink-0">
+                            <div 
+                              className="w-px h-24 bg-gradient-to-b from-transparent via-gray-300 to-transparent opacity-50"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#1A9B8E]">
-                    <CountingNumber value={95} />%
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Satisfaction client</div>
-                </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#C4D82E]">
-                    <CountingNumber value={4} />
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Domaines d'expertise</div>
+
+                {/* Mobile/Tablet: Grid layout */}
+                <div className="lg:hidden grid grid-cols-2 gap-4 md:gap-6">
+                  {[
+                    { icon: Building2, value: 15, suffix: "+", label: "Années d'expérience", description: "Plus de 15 ans d'expertise", color: "#1A9B8E" },
+                    { icon: CheckCircle2, value: 200, suffix: "+", label: "Projets réalisés", description: "Missions menées à bien", color: "#C4D82E" },
+                    { icon: Star, value: 95, suffix: "%", label: "Satisfaction client", description: "Taux de satisfaction moyen", color: "#1A9B8E" },
+                    { icon: Target, value: 4, suffix: "", label: "Domaines d'expertise", description: "Spécialisations clés", color: "#C4D82E" }
+                  ].map((stat, idx) => {
+                    const StatIcon = stat.icon
+                    return (
+                      <FadeIn key={stat.label} delay={0.1 * (idx + 1)}>
+                        <div className="bg-white/80 backdrop-blur-sm border-2 border-gray-200/60 hover:border-gray-300/80 hover:shadow-xl transition-all duration-300 group relative overflow-hidden rounded-2xl p-4 md:p-6 text-center">
+                          {/* Gradient overlay on hover */}
+                          <div 
+                            className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
+                            style={{ background: `linear-gradient(135deg, ${stat.color} 0%, transparent 100%)` }}
+                          />
+                          
+                          {/* Icon */}
+                          <div 
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative z-10"
+                            style={{ 
+                              background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
+                              border: `2px solid ${stat.color}40`
+                            }}
+                          >
+                            <StatIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: stat.color }} />
+                          </div>
+                          
+                          {/* Value */}
+                          <div className="text-3xl md:text-4xl font-bold mb-1 relative z-10" style={{ color: stat.color }}>
+                            <CountingNumber value={stat.value} />
+                            <span className="text-xl md:text-2xl ml-1">{stat.suffix}</span>
+                          </div>
+                          
+                          {/* Label */}
+                          <div className="text-xs md:text-sm font-semibold text-gray-900 mb-1 relative z-10 leading-tight">
+                            {stat.label}
+                          </div>
+                          
+                          {/* Progress bar at bottom */}
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100/50 rounded-b-2xl overflow-hidden">
+                            <div 
+                              className="h-full transition-all duration-1000 ease-out"
+                              style={{ 
+                                width: `${(idx + 1) * 25}%`,
+                                background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)`
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </FadeIn>
+                    )
+                  })}
                 </div>
               </div>
+            </div>
             </BlurFade>
           </div>
         </div>
+
+        {/* Section Vidéos de Présentation */}
+        <VideosSection
+          title="Nos Vidéos de Présentation"
+          badge="Vidéos"
+          videos={presentationVideos}
+        />
 
         {/* Expertise Domains - Bento Grid Layout */}
         <div className="mb-12 md:mb-16 lg:mb-20">
@@ -483,6 +717,13 @@ export function ExpertiseDetailed() {
           </div>
         </BlurFade>
 
+        {/* Section Vidéos de Témoignages */}
+        <VideosSection
+          title="Témoignages Clients"
+          badge="Témoignages"
+          videos={testimonialVideos}
+        />
+
         <Separator className="my-20" />
 
         {/* Core Values - Cards Layout */}
@@ -589,6 +830,6 @@ export function ExpertiseDetailed() {
           </Card>
         </BlurFade>
       </div>
-    </AuroraBackground>
+    </div>
   )
 }
