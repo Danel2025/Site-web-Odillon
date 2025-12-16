@@ -91,5 +91,8 @@ La documentation complète du projet se trouve dans le dossier [`docs/`](./docs/
 
 ## License
 
-© 2024 Odillon - Ingénierie d'Entreprises. Tous droits réservés.
+Le contenu de ce site est protégé par le droit d'auteur et est la propriété exclusive de Odillon - Ingénierie d'Entreprises, sauf mention contraire.
 
+Toute reproduction, distribution ou utilisation partielle ou totale des contenus (textes, images, code source, graphismes, logos, etc.) sans autorisation écrite préalable de Odillon est strictement interdite.
+
+© 2025 Odillon - Ingénierie d'Entreprises. Tous droits réservés.
