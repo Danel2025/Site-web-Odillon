@@ -39,11 +39,11 @@ npm run lint
 
 ### Multi-Domain Setup
 
-The site supports subdomain routing via middleware:
+The site supports subdomain routing via Next.js 16 proxy:
 - **odillon.fr / www.odillon.fr** - Main public site
 - **admin.odillon.fr** - Admin panel (automatically redirects /admin/* paths from main domain)
 
-The middleware in `middleware.ts:5-29` handles domain-based routing and redirects.
+The proxy in `proxy.ts` handles domain-based routing and redirects using Next.js 16 conventions.
 
 ### Routing Structure
 
@@ -203,7 +203,7 @@ Standard Next.js deployment works out of the box. Ensure environment variables a
 
 ## Known Issues & Patterns
 
-- **Middleware Matcher**: The middleware must run on every request except static files (see `middleware.ts:35-39` config)
+- **Proxy Matcher**: The proxy must run on every request except static files (see `proxy.ts:69-80` config)
 - **Async Cookies**: Server Components that use `cookies()` must be async in Next.js 16+ (see `lib/supabase/server.ts:5`)
 - **Photo Fallbacks**: `lib/photo-themes.ts` includes default Unsplash photos as fallbacks
 - **Backup Files**: Multiple backup/temp component files exist in `components/sections/` (suffixed with `-backup`, `-temp`, etc.) - these are not used in production
@@ -227,3 +227,38 @@ Recent work has focused on:
 - Multi-domain subdomain routing
 - Responsive improvements
 - New sections (calendar, trusted-by, etc.)
+- # Error Type
+Runtime Error
+
+## Error Message
+You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.
+
+
+    at invariant (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_f97b38a8._.js:5645:19)
+    at useStrictMode (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_43f3460c._.js:9732:408)
+    at MotionComponent (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_43f3460c._.js:9692:13)
+    at Object.react_stack_bottom_frame (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:14816:24)
+    at renderWithHooks (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:4645:24)
+    at updateForwardRef (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:5933:21)
+    at beginWork (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:6777:24)
+    at runWithFiberInDEV (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:959:74)
+    at performUnitOfWork (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9556:97)
+    at workLoopSync (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9450:40)
+    at renderRootSync (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9434:13)
+    at performWorkOnRoot (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9099:47)
+    at performWorkOnRootViaSchedulerTask (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10224:9)
+    at MessagePort.performWorkUntilDeadline (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/node_modules_next_dist_compiled_a0e4c7b4._.js:2647:64)
+    at ScrollProgress (file://C:/Users/nexon/Odillon site web/.next/dev/static/chunks/_c278279d._.js:5423:214)
+    at Home (app\page.tsx:24:7)
+
+## Code Frame
+  22 |   return (
+  23 |     <>
+> 24 |       <ScrollProgress />
+     |       ^
+  25 |       <ScrollToTop />
+  26 |       <HeaderPro />
+  27 |       <main className="min-h-screen pt-[88px] md:pt-[104px]">
+
+Next.js version: 16.0.8 (Turbopack)
+#

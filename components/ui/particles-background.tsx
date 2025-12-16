@@ -28,7 +28,7 @@ export function ParticlesBackground({
   staticity = 50,
   ease = 50,
   refresh = false,
-  color = "rgba(26, 155, 142, 0.5)",
+  color = "rgba(57, 131, 122, 0.5)",
   vx = 0,
   vy = 0,
 }: ParticlesBackgroundProps) {

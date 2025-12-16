@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useAnimationFrame, useMotionValue, useTransform } from "framer-motion"
+import { m, useAnimationFrame, useMotionValue, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { cn } from "@/lib/utils"
 import { wrap } from "@motionone/utils"
@@ -51,7 +51,7 @@ export function ScrollVelocityRow({
 
   return (
     <div className="relative m-0 flex flex-nowrap overflow-hidden">
-      <motion.div
+      <m.div
         className={cn("flex whitespace-nowrap", className)}
         style={{ x }}
       >
@@ -60,7 +60,7 @@ export function ScrollVelocityRow({
             {children}
           </span>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

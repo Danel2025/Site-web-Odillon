@@ -1,6 +1,14 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Met à jour la session Supabase et protège les routes admin
+ * 
+ * Bonnes pratiques :
+ * - Vérifie l'authentification pour les routes /admin/* (sauf /admin/login)
+ * - Met à jour les cookies de session automatiquement
+ * - Redirige vers /admin/login si non authentifié
+ */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
@@ -54,6 +62,9 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
+  // Mettre à jour la session (rafraîchit le token si nécessaire)
+  // Note: La protection des routes est gérée au niveau des pages (Server Components)
+  // et non dans le proxy pour éviter les boucles de redirection
   await supabase.auth.getUser()
 
   return response

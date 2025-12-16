@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   const month = searchParams.get('month')
   const theme = searchParams.get('theme')
   const active = searchParams.get('active')
+  const section = searchParams.get('section')
 
   const supabase = await createClient()
   
@@ -28,6 +29,11 @@ export async function GET(request: Request) {
   // Filtrer par thématique
   if (theme) {
     query = query.eq('theme_id', theme)
+  }
+
+  // Filtrer par section
+  if (section) {
+    query = query.eq('section_id', section)
   }
 
   const { data, error } = await query

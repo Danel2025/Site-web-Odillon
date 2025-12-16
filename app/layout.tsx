@@ -1,10 +1,8 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
-import { baskvill } from "./fonts"
-
-const inter = Inter({ subsets: ["latin"] })
+import { petrovSans } from "./fonts"
+import { MotionProvider } from "@/components/providers/motion-provider"
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.odillon.fr'),
@@ -15,9 +13,9 @@ export const metadata: Metadata = {
   creator: "Odillon",
   publisher: "Odillon",
   icons: {
-    icon: "/favicon-odillon.png",
-    shortcut: "/favicon-odillon.png",
-    apple: "/favicon-odillon.png",
+    icon: "/favicon-odillon.webp",
+    shortcut: "/favicon-odillon.webp",
+    apple: "/favicon-odillon.webp",
   },
   openGraph: {
     type: "website",
@@ -49,7 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
-      <body className={cn(inter.className, baskvill.variable, "antialiased")}>{children}</body>
+      <body className={cn(petrovSans.className, petrovSans.variable, "antialiased")} suppressHydrationWarning>
+        <MotionProvider>
+          {children}
+        </MotionProvider>
+      </body>
     </html>
   )
 }

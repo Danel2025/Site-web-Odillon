@@ -24,8 +24,8 @@ const mainServices = [
     icon: Shield,
     title: "Gouvernance d'Entreprise",
     tagline: "Structurez votre organisation",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 to-[#39837a]/5",
     highlights: ["Conseil d'administration", "Politique de gouvernance", "Contrôle interne"]
   },
   {
@@ -40,8 +40,8 @@ const mainServices = [
     icon: TrendingUp,
     title: "Conseil Financier",
     tagline: "Optimisez votre croissance",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 to-[#39837a]/5",
     highlights: ["Business plan", "Levée de fonds", "Tableaux de bord"]
   },
   {
@@ -70,7 +70,7 @@ export function ServicesHome() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
           <BlurFade delay={0.1}>
-            <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+            <Badge variant="odillon" className="mb-4 md:mb-6">
               <Sparkles className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
               Nos Services
             </Badge>
@@ -79,7 +79,7 @@ export function ServicesHome() {
           <BlurFade delay={0.2}>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight px-4">
               Solutions complètes pour{" "}
-              <span className="bg-gradient-to-r from-[#1A9B8E] via-[#C4D82E] to-[#1A9B8E] bg-clip-text text-transparent animate-gradient-x">
+              <span className="bg-gradient-to-r from-[#39837a] via-[#C4D82E] to-[#39837a] bg-clip-text text-transparent animate-gradient-x">
                 votre réussite
               </span>
             </h2>
@@ -157,13 +157,13 @@ export function ServicesHome() {
                         <div 
                           className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ 
-                            background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}20, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}10)`
+                            background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#39837a' : '#C4D82E'}20, ${idx % 2 === 0 ? '#39837a' : '#C4D82E'}10)`
                           }}
                         >
-                          <BenefitIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                          <BenefitIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: idx % 2 === 0 ? '#39837a' : '#C4D82E' }} />
                         </div>
                         <div className="flex-1">
-                          <div className="text-2xl md:text-3xl font-bold mb-1" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
+                          <div className="text-2xl md:text-3xl font-bold mb-1" style={{ color: idx % 2 === 0 ? '#39837a' : '#C4D82E' }}>
                             <NumberTicker value={parseInt(benefit.metric)} delay={0.5 + idx * 0.2} />
                             {benefit.metric.replace(/\d+/g, '')}
                           </div>

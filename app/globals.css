@@ -29,7 +29,7 @@
     --white: rgba(255, 255, 255, 0.05);
     --black: rgba(0, 0, 0, 0.05);
     --transparent: rgba(255, 255, 255, 0);
-    --odillon-teal: rgba(26, 155, 142, 0.5);
+    --odillon-teal: rgba(57, 131, 122, 0.5);
     --odillon-lime: rgba(196, 216, 46, 0.5);
   }
 
@@ -71,7 +71,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-baskvill), serif;
+    font-family: var(--font-petrov-sans), sans-serif;
     letter-spacing: -0.02em;
   }
 }

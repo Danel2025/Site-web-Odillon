@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useId, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface GridPatternProps {
@@ -56,7 +56,7 @@ export function GridPattern({
       {squares && (
         <svg x={x} y={y} className="overflow-visible">
           {squares.map(([x, y], index) => (
-            <motion.rect
+            <m.rect
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{

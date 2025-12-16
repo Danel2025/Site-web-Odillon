@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { ArrowRight, Shield, TrendingUp, Users, Award } from "lucide-react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { AuroraBackground } from "@/components/ui/aurora-background"
 
 export function HeroWithAurora() {
@@ -87,7 +87,7 @@ export function HeroWithAurora() {
             <div className="relative" id="services">
               <div className="grid grid-cols-2 gap-4">
                 <BlurFade delay={0.2}>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     className="bg-white/80 backdrop-blur-sm p-6 rounded border border-gray-200"
                   >
@@ -98,11 +98,11 @@ export function HeroWithAurora() {
                     <p className="text-sm text-gray-600">
                       Structuration et mise en place de politiques efficaces
                     </p>
-                  </motion.div>
+                  </m.div>
                 </BlurFade>
 
                 <BlurFade delay={0.3}>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     className="bg-white/80 backdrop-blur-sm p-6 rounded border border-gray-200 mt-8"
                     id="conseil"
@@ -114,11 +114,11 @@ export function HeroWithAurora() {
                     <p className="text-sm text-gray-600">
                       Conseil financier et levée de fonds stratégique
                     </p>
-                  </motion.div>
+                  </m.div>
                 </BlurFade>
 
                 <BlurFade delay={0.4}>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     className="bg-white/80 backdrop-blur-sm p-6 rounded border border-gray-200"
                     id="administration"
@@ -130,11 +130,11 @@ export function HeroWithAurora() {
                     <p className="text-sm text-gray-600">
                       Gestion des talents et développement organisationnel
                     </p>
-                  </motion.div>
+                  </m.div>
                 </BlurFade>
 
                 <BlurFade delay={0.5}>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     className="bg-white/80 backdrop-blur-sm p-6 rounded border border-gray-200 mt-8"
                   >
@@ -145,7 +145,7 @@ export function HeroWithAurora() {
                     <p className="text-sm text-gray-600">
                       Accompagnement juridique et contractuel complet
                     </p>
-                  </motion.div>
+                  </m.div>
                 </BlurFade>
               </div>
             </div>

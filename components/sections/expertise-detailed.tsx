@@ -1,16 +1,19 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import { m } from "framer-motion"
 import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Separator } from "@/components/ui/separator"
-import { AuroraBackground } from "@/components/ui/aurora-background"
 import { TextShimmer } from "@/components/ui/text-shimmer"
 import { CountingNumber } from "@/components/ui/counting-number"
-import { Globe } from "@/components/ui/globe"
+import { AnimatedStatCard } from "@/components/ui/animated-stat-card"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/shadcn-io/marquee"
+import { VideosSection } from "@/components/sections/videos-section"
+import type { VideoItem } from "@/components/sections/videos-section"
 import { 
   Target, 
   Briefcase,
@@ -20,6 +23,9 @@ import {
   Award,
   Lightbulb,
   Users2,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
   BarChart3,
   FileText,
   Zap,
@@ -28,16 +34,23 @@ import {
   ShieldCheck,
   Rocket,
   Clock,
-  TrendingDown
+  TrendingDown,
+  Star,
+  CheckCircle2,
+  Users,
+  Search
 } from "lucide-react"
 import Link from "next/link"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 const expertiseDomains = [
   {
     id: "structuration",
     icon: Target,
     title: "Structuration & Restructuration",
-    color: "#1A9B8E",
+    color: "#39837a",
     shortDesc: "Optimisez votre organisation",
     description: "Transformez votre structure organisationnelle en un modèle d'efficacité aligné sur vos objectifs stratégiques.",
     stats: { value: 35, suffix: "%", label: "d'efficacité en plus" },
@@ -85,7 +98,7 @@ const expertiseDomains = [
     id: "relations-publiques",
     icon: Globe2,
     title: "Relations Publiques",
-    color: "#1A9B8E",
+    color: "#39837a",
     shortDesc: "Construisez votre influence",
     description: "Développement stratégique de votre réputation et relations avec les parties prenantes clés pour maximiser votre impact.",
     stats: { value: 60, suffix: "%", label: "de visibilité en plus" },
@@ -194,110 +207,493 @@ const coreValues = [
 ]
 
 export function ExpertiseDetailed() {
-  // Configuration du Globe avec les couleurs Odillon
-  const globeConfig = {
-    width: 800,
-    height: 800,
-    onRender: () => {},
-    devicePixelRatio: 2,
-    phi: 0,
-    theta: 0.3,
-    dark: 0,
-    diffuse: 0.4,
-    mapSamples: 16000,
-    mapBrightness: 1.2,
-    baseColor: [1, 1, 1] as [number, number, number],
-    markerColor: [26 / 255, 155 / 255, 142 / 255] as [number, number, number], // Couleur Odillon #1A9B8E
-    glowColor: [196 / 255, 216 / 255, 46 / 255] as [number, number, number], // Couleur Odillon #C4D82E
-    markers: [
-      { location: [0.3807, 9.4547] as [number, number], size: 0.1 }, // Libreville, Gabon (siège)
-      { location: [48.8566, 2.3522] as [number, number], size: 0.08 }, // Paris
-      { location: [51.5074, -0.1278] as [number, number], size: 0.07 }, // London
-      { location: [40.7128, -74.006] as [number, number], size: 0.08 }, // New York
-      { location: [-23.5505, -46.6333] as [number, number], size: 0.07 }, // São Paulo
-      { location: [30.0444, 31.2357] as [number, number], size: 0.06 }, // Cairo
-      { location: [35.6762, 139.6503] as [number, number], size: 0.07 }, // Tokyo
-      { location: [1.3521, 103.8198] as [number, number], size: 0.06 }, // Singapore
-    ],
+  const [presentationVideos, setPresentationVideos] = useState<VideoItem[]>([])
+  const [testimonialVideos, setTestimonialVideos] = useState<VideoItem[]>([])
+  const [testimonials, setTestimonials] = useState<Array<{
+    quote: string
+    name: string
+    position: string
+    avatar: string
+  }>>([])
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+  // Charger les vidéos et témoignages depuis Supabase
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        // Charger les vidéos de présentation
+        const presentationRes = await fetch('/api/videos?category=presentation&active=true')
+        if (presentationRes.ok) {
+          const presentationData = await presentationRes.json()
+          setPresentationVideos(
+            (presentationData.videos || []).map((v: any) => {
+              // Détecter automatiquement le type si l'URL ne correspond pas au type enregistré
+              let videoType = v.type as 'youtube' | 'vimeo' | 'direct'
+              if (v.url.includes("youtube.com") || v.url.includes("youtu.be")) {
+                videoType = "youtube"
+              } else if (v.url.includes("vimeo.com")) {
+                videoType = "vimeo"
+              }
+              
+              return {
+                id: v.id,
+                title: v.title,
+                description: v.description || undefined,
+                url: v.url,
+                type: videoType,
+                thumbnail: v.thumbnail || undefined
+              }
+            })
+          )
+        }
+
+        // Charger les vidéos de témoignages
+        const testimonialRes = await fetch('/api/videos?category=testimonial&active=true')
+        if (testimonialRes.ok) {
+          const testimonialData = await testimonialRes.json()
+          setTestimonialVideos(
+            (testimonialData.videos || []).map((v: any) => {
+              // Détecter automatiquement le type si l'URL ne correspond pas au type enregistré
+              let videoType = v.type as 'youtube' | 'vimeo' | 'direct'
+              if (v.url.includes("youtube.com") || v.url.includes("youtu.be")) {
+                videoType = "youtube"
+              } else if (v.url.includes("vimeo.com")) {
+                videoType = "vimeo"
+              }
+              
+              return {
+                id: v.id,
+                title: v.title,
+                description: v.description || undefined,
+                url: v.url,
+                type: videoType,
+                thumbnail: v.thumbnail || undefined
+              }
+            })
+          )
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des vidéos:", error)
+      }
+    }
+
+    const loadTestimonials = async () => {
+      try {
+        const res = await fetch('/api/testimonials?active=true')
+        if (res.ok) {
+          const data = await res.json()
+          setTestimonials(
+            (data.testimonials || []).map((t: any) => ({
+              quote: t.quote,
+              name: t.name,
+              position: t.position,
+              avatar: t.avatar_url
+            }))
+          )
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des témoignages:", error)
+        // Fallback vers les témoignages par défaut si la base de données n'est pas disponible
+        setTestimonials([
+          {
+            quote: "Compréhension approfondie de vos enjeux, contraintes et objectifs avant toute intervention",
+            name: "Écoute Active",
+            position: "Notre Approche - Étape 1",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&w=100&q=80"
+          },
+          {
+            quote: "Conception de stratégies personnalisées adaptées à votre contexte organisationnel unique",
+            name: "Solutions Sur-Mesure",
+            position: "Notre Approche - Étape 2",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&w=100&q=80"
+          },
+          {
+            quote: "Travail main dans la main avec vos équipes pour garantir appropriation et pérennité",
+            name: "Collaboration",
+            position: "Notre Approche - Étape 3",
+            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&w=100&q=80"
+          },
+          {
+            quote: "Engagement sur des livrables concrets avec indicateurs de performance clairs et transparents",
+            name: "Résultats Mesurables",
+            position: "Notre Approche - Étape 4",
+            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&w=100&q=80"
+          }
+        ])
+      }
+    }
+
+    loadVideos()
+    loadTestimonials()
+  }, [])
+
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null)
+
+  // Filtrer les domaines d'expertise basés sur la recherche et le filtre
+  const filteredDomains = expertiseDomains.filter((domain) => {
+    // Filtre par domaine sélectionné
+    if (selectedDomain && domain.id !== selectedDomain) {
+      return false
+    }
+    
+    // Filtre par recherche textuelle
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      return (
+        domain.title.toLowerCase().includes(query) ||
+        domain.shortDesc.toLowerCase().includes(query) ||
+        domain.description.toLowerCase().includes(query) ||
+        domain.highlights.some(h => h.toLowerCase().includes(query))
+      )
+    }
+    
+    return true
+  })
+
+  // Fonction pour scroller vers la section des domaines
+  const scrollToDomains = () => {
+    const domainsSection = document.getElementById('expertise-domains-section')
+    if (domainsSection) {
+      domainsSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
   }
 
+  // Gérer la recherche
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim() || selectedDomain) {
+      // Scroll seulement lors de la soumission du formulaire
+      setTimeout(() => scrollToDomains(), 100)
+    }
+  }
+
+  // Gérer le changement de filtre
+  const handleFilterChange = (domainId: string | null) => {
+    setSelectedDomain(domainId)
+    if (domainId) {
+      setTimeout(() => scrollToDomains(), 100)
+    }
+  }
+
+  // Effet pour scroller automatiquement seulement lors du changement de filtre (pas pendant la saisie)
+  useEffect(() => {
+    if (selectedDomain && filteredDomains.length > 0) {
+      const timer = setTimeout(() => {
+        scrollToDomains()
+      }, 300)
+      return () => clearTimeout(timer)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDomain])
+
   return (
-    <AuroraBackground className="relative py-12 md:py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-        {/* Header avec Globe */}
-        <div className="relative text-center max-w-4xl mx-auto mb-12 md:mb-16 lg:mb-20">
-          {/* Globe en arrière-plan - bien visible, réduit sur mobile */}
-          <div className="absolute -top-20 md:-top-32 left-1/2 -translate-x-1/2 pointer-events-none w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[700px] md:h-[700px] z-0">
-            <Globe config={globeConfig} className="opacity-30 md:opacity-40" />
+    <div className="relative overflow-hidden bg-white">
+      {/* Hero Section with Background */}
+      <div className="relative py-8 md:py-12 lg:py-16 overflow-hidden bg-white">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          {/* Soft gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-odillon-teal/5 via-white to-odillon-lime/5" />
+
+          {/* Large circle patterns */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 border border-odillon-teal/10 rounded-full" />
+          <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] border border-odillon-lime/10 rounded-full" />
+
+          {/* Smaller decorative circles */}
+          <div className="absolute top-1/4 right-1/3 w-32 h-32 border border-odillon-teal/20 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-1/3 left-1/4 w-24 h-24 border border-odillon-lime/20 rounded-full animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+
+          {/* Simple grid overlay */}
+          <div className="absolute inset-0 opacity-[0.15]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="expertise-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 50 0 L 0 0 0 50"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
+                    className="text-odillon-teal"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#expertise-grid)" />
+            </svg>
           </div>
-          
-          {/* Contenu par-dessus le Globe */}
-          <div className="relative z-10 pt-6 md:pt-8 pb-6 md:pb-8 px-4">
+
+          {/* Subtle dots pattern */}
+          <div className="absolute inset-0 opacity-[0.08]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="expertise-dots" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.5" fill="currentColor" className="text-odillon-lime" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#expertise-dots)" />
+            </svg>
+          </div>
+
+          {/* Floating squares */}
+          <div className="absolute top-1/3 left-1/4 w-20 h-20 border-2 border-odillon-teal/15 transform rotate-12 animate-pulse" style={{ animationDuration: '6s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-16 h-16 border-2 border-odillon-lime/15 transform -rotate-12 animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+
+          {/* Subtle light beams effect */}
+          <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-odillon-teal/10 to-transparent" />
+          <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-odillon-lime/10 to-transparent" />
+
+          {/* Radial fade overlay */}
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-white/30 to-white/80 p-0" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
             <BlurFade delay={0.1}>
-              <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+              <Badge variant="odillon" className="mb-6">
                 Domaines d'Expertise
               </Badge>
             </BlurFade>
             
             <BlurFade delay={0.2}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+              <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-gray-900">
                 Expertise reconnue pour{" "}
-                <TextShimmer className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
+                <span className="bg-gradient-to-r from-odillon-teal to-odillon-lime bg-clip-text text-transparent">
                   transformer votre organisation
-                </TextShimmer>
+                </span>
               </h1>
             </BlurFade>
             
             <BlurFade delay={0.3}>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
+              <p className="mx-auto mb-10 max-w-xl text-lg text-gray-600">
                 Depuis notre création, nous accompagnons les entreprises dans leur transformation 
                 avec des solutions sur mesure, une méthodologie éprouvée et des résultats mesurables.
               </p>
             </BlurFade>
 
-            {/* Stats Row */}
+            {/* Barre de recherche */}
             <BlurFade delay={0.4}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#1A9B8E]">
-                    <CountingNumber value={15} />+
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Années d'expérience</div>
+              <form 
+                className="mx-auto mb-6 max-w-2xl"
+                onSubmit={handleSearch}
+              >
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Rechercher un domaine d'expertise..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-14 rounded-full pl-12 pr-32 text-lg shadow-lg border-gray-200 focus:border-odillon-teal focus:ring-odillon-teal"
+                  />
+                  <Button
+                    type="submit"
+                    className="absolute right-2 top-1/2 h-10 -translate-y-1/2 rounded-full bg-odillon-teal hover:bg-odillon-teal/90 text-white px-4"
+                  >
+                    Rechercher
+                  </Button>
                 </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#C4D82E]">
-                    <CountingNumber value={200} />+
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Projets réalisés</div>
-                </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#1A9B8E]">
-                    <CountingNumber value={95} />%
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Satisfaction client</div>
-                </div>
-                <div className="text-center p-3 md:p-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-[#C4D82E]">
-                    <CountingNumber value={4} />
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-600 mt-1">Domaines d'expertise</div>
+              </form>
+            </BlurFade>
+
+            {/* Filtres par domaine */}
+            <BlurFade delay={0.5}>
+              <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
+                <Button
+                  variant={selectedDomain === null ? "default" : "outline"}
+                  onClick={() => handleFilterChange(null)}
+                  className={`h-8 rounded-full ${
+                    selectedDomain === null 
+                      ? "bg-odillon-teal text-white hover:bg-odillon-teal/90" 
+                      : "border-gray-200 hover:bg-gray-50"
+                  }`}
+                >
+                  Tous
+                </Button>
+                {expertiseDomains.map((domain) => {
+                  const DomainIcon = domain.icon
+                  return (
+                    <Button
+                      key={domain.id}
+                      variant={selectedDomain === domain.id ? "default" : "outline"}
+                      onClick={() => handleFilterChange(domain.id)}
+                      className={`h-8 rounded-full gap-1.5 ${
+                        selectedDomain === domain.id
+                          ? "bg-odillon-teal text-white hover:bg-odillon-teal/90"
+                          : "border-gray-200 hover:bg-gray-50"
+                      }`}
+                    >
+                      <DomainIcon className="h-3 w-3" style={{ color: selectedDomain === domain.id ? "white" : domain.color }} />
+                      {domain.title.split(" ")[0]}
+                    </Button>
+                  )
+                })}
+              </div>
+            </BlurFade>
+
+            {/* Recherches populaires */}
+            <BlurFade delay={0.6}>
+              <div className="border-t pt-8">
+                <p className="mb-4 text-sm text-gray-500">Recherches populaires</p>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  {[
+                    { label: "Structuration organisationnelle", domainId: "structuration" },
+                    { label: "Gestion administrative", domainId: "gestion" },
+                    { label: "Relations publiques", domainId: "relations-publiques" },
+                    { label: "Management des risques", domainId: "risques" },
+                  ].map((item) => (
+                    <Button
+                      key={item.domainId}
+                      variant="ghost"
+                      onClick={() => {
+                        setSelectedDomain(item.domainId)
+                        setSearchQuery("")
+                        setTimeout(() => scrollToDomains(), 100)
+                      }}
+                      className="h-8 rounded-md px-3 gap-1 text-gray-600 hover:text-odillon-teal hover:bg-odillon-teal/10"
+                    >
+                      {item.label}
+                      <ArrowRight className="h-3 w-3" />
+                    </Button>
+                  ))}
                 </div>
               </div>
             </BlurFade>
           </div>
+
+          {/* Stats Row - Below Hero */}
+          <BlurFade delay={0.5}>
+            <div className="relative mt-8 md:mt-12 lg:mt-16">
+              {/* Animated Zigzag Curve Background */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1, height: '100%' }}>
+                <svg 
+                  className="w-full" 
+                  viewBox="0 0 1200 300" 
+                  preserveAspectRatio="xMidYMid meet"
+                  style={{ position: 'absolute', top: '50%', left: 0, transform: 'translateY(-50%)', width: '100%', height: '300px' }}
+                >
+                  {/* Main zigzag curve that tapers - goes from left to right */}
+                  <m.path
+                    d="M 0 150 L 80 130 L 160 170 L 240 110 L 320 190 L 400 90 L 480 210 L 560 70 L 640 230 L 720 50 L 800 250 L 880 30 L 960 270 L 1040 10 L 1120 290 L 1200 -10"
+                    fill="none"
+                    stroke="#39837a"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, strokeWidth: 3, opacity: 0 }}
+                    animate={{ 
+                      pathLength: 1,
+                      strokeWidth: [3, 0.8, 3],
+                      opacity: [0.4, 0.6, 0.4],
+                    }}
+                    transition={{ 
+                      pathLength: { duration: 5, ease: "easeInOut", repeat: Infinity },
+                      strokeWidth: { duration: 3, ease: "easeInOut", repeat: Infinity },
+                      opacity: { duration: 2, ease: "easeInOut", repeat: Infinity }
+                    }}
+                  />
+                  {/* Secondary zigzag with different pattern and tapering */}
+                  <m.path
+                    d="M 0 150 L 100 170 L 200 130 L 300 190 L 400 110 L 500 210 L 600 90 L 700 230 L 800 70 L 900 250 L 1000 50 L 1100 270 L 1200 30"
+                    fill="none"
+                    stroke="#C4D82E"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeDasharray="8,4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ 
+                      pathLength: 1,
+                      opacity: [0.3, 0.5, 0.3],
+                      strokeWidth: [2, 0.5, 2],
+                    }}
+                    transition={{ 
+                      pathLength: { duration: 6, ease: "easeInOut", repeat: Infinity },
+                      opacity: { duration: 2.5, ease: "easeInOut", repeat: Infinity },
+                      strokeWidth: { duration: 4, ease: "easeInOut", repeat: Infinity },
+                      delay: 0.8
+                    }}
+                  />
+                </svg>
+              </div>
+              
+              <div className="relative z-10">
+                {/* Desktop: Horizontal layout with animated stat cards */}
+                <div className="hidden lg:grid grid-cols-4 gap-6 max-w-6xl mx-auto">
+                  {[
+                    { icon: Building2, value: 8, suffix: "", label: "Années d'expérience", description: "Plus de 8 ans d'expertise", color: "#39837a" },
+                    { icon: CheckCircle2, value: 50, suffix: "+", label: "Projets réalisés", description: "Missions menées à bien", color: "#C4D82E" },
+                    { icon: Star, value: 95, suffix: "%", label: "Satisfaction client", description: "Taux de satisfaction moyen", color: "#39837a" },
+                    { icon: Target, value: 4, suffix: "", label: "Domaines d'expertise", description: "Spécialisations clés", color: "#C4D82E" }
+                  ].map((stat, idx) => (
+                    <AnimatedStatCard
+                      key={stat.label}
+                      icon={stat.icon}
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      label={stat.label}
+                      description={stat.description}
+                      color={stat.color}
+                      delay={idx}
+                    />
+                  ))}
+                </div>
+
+                {/* Mobile/Tablet: Grid layout with animated stat cards */}
+                <div className="lg:hidden grid grid-cols-2 gap-4 md:gap-6">
+                  {[
+                    { icon: Building2, value: 8, suffix: "", label: "Années d'expérience", description: "Plus de 8 ans d'expertise", color: "#39837a" },
+                    { icon: CheckCircle2, value: 50, suffix: "+", label: "Projets réalisés", description: "Missions menées à bien", color: "#C4D82E" },
+                    { icon: Star, value: 95, suffix: "%", label: "Satisfaction client", description: "Taux de satisfaction moyen", color: "#39837a" },
+                    { icon: Target, value: 4, suffix: "", label: "Domaines d'expertise", description: "Spécialisations clés", color: "#C4D82E" }
+                  ].map((stat, idx) => (
+                    <AnimatedStatCard
+                      key={stat.label}
+                      icon={stat.icon}
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      label={stat.label}
+                      description={stat.description}
+                      color={stat.color}
+                      delay={idx}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </BlurFade>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Section Vidéos de Présentation */}
+        <VideosSection
+          title="Nos Vidéos de Présentation"
+          badge="Vidéos"
+          videos={presentationVideos}
+        />
 
         {/* Expertise Domains - Bento Grid Layout */}
-        <div className="mb-12 md:mb-16 lg:mb-20">
+        <div id="expertise-domains-section" className="mb-12 md:mb-16 lg:mb-20 scroll-mt-20">
           <BlurFade delay={0.5}>
             <div className="text-center mb-8 md:mb-12 px-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-3">Nos Domaines d'Expertise</h2>
-              <p className="text-sm md:text-base text-gray-600">Passez votre souris sur chaque domaine pour en savoir plus</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-3">
+                Nos Domaines d'Expertise
+                {(searchQuery || selectedDomain) && (
+                  <span className="text-base md:text-lg font-normal text-gray-500 ml-2">
+                    ({filteredDomains.length} résultat{filteredDomains.length > 1 ? 's' : ''})
+                  </span>
+                )}
+              </h2>
+              <p className="text-sm md:text-base text-gray-600">
+                {searchQuery || selectedDomain 
+                  ? "Résultats de votre recherche" 
+                  : "Passez votre souris sur chaque domaine pour en savoir plus"}
+              </p>
             </div>
           </BlurFade>
 
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-            {expertiseDomains.map((domain, idx) => {
+          {filteredDomains.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              {filteredDomains.map((domain, idx) => {
               const DomainIcon = domain.icon
               return (
                 <BlurFade key={domain.id} delay={0.1 * (idx + 1)}>
@@ -322,7 +718,7 @@ export function ExpertiseDetailed() {
                               Expertise clé
                             </Badge>
                           </div>
-                          <CardTitle className="text-lg md:text-2xl mb-1 md:mb-2 group-hover:text-[#1A9B8E] transition-colors">
+                          <CardTitle className="text-lg md:text-2xl mb-1 md:mb-2 group-hover:text-[#39837a] transition-colors">
                             {domain.title}
                           </CardTitle>
                           <CardDescription className="text-xs md:text-sm font-medium" style={{ color: domain.color }}>
@@ -424,7 +820,32 @@ export function ExpertiseDetailed() {
                 </BlurFade>
               )
             })}
-          </div>
+            </div>
+          ) : (
+            <div className="text-center py-12 md:py-16">
+              <div className="max-w-md mx-auto">
+                <Search className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Aucun résultat trouvé
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  {searchQuery 
+                    ? `Aucun domaine ne correspond à "${searchQuery}"`
+                    : "Aucun domaine ne correspond à votre filtre"}
+                </p>
+                <Button
+                  onClick={() => {
+                    setSearchQuery("")
+                    setSelectedDomain(null)
+                  }}
+                  variant="outline"
+                  className="border-odillon-teal text-odillon-teal hover:bg-odillon-teal/10"
+                >
+                  Réinitialiser les filtres
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Methodology Section - Horizontal Timeline */}
@@ -437,7 +858,7 @@ export function ExpertiseDetailed() {
 
             <div className="relative">
               {/* Timeline Line */}
-              <div className="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-[#1A9B8E] via-[#C4D82E] to-[#1A9B8E] opacity-20" />
+              <div className="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-[#39837a] via-[#C4D82E] to-[#39837a] opacity-20" />
 
               <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                 {methodology.steps.map((step, idx) => {
@@ -449,10 +870,10 @@ export function ExpertiseDetailed() {
                         <div className="flex justify-center mb-3 md:mb-4">
                           <div className="relative">
                             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white border-3 md:border-4 flex items-center justify-center shadow-lg relative z-10"
-                              style={{ borderColor: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}
+                              style={{ borderColor: idx % 2 === 0 ? '#39837a' : '#C4D82E' }}
                             >
                               <div className="text-center">
-                                <StepIcon className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-0.5 md:mb-1" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                                <StepIcon className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-0.5 md:mb-1" style={{ color: idx % 2 === 0 ? '#39837a' : '#C4D82E' }} />
                                 <div className="text-[10px] md:text-xs font-bold text-gray-500">{step.number}</div>
                               </div>
                             </div>
@@ -468,7 +889,7 @@ export function ExpertiseDetailed() {
                           <div className="space-y-0.5 md:space-y-1">
                             {step.deliverables.map((deliverable, i) => (
                               <div key={i} className="text-[10px] md:text-xs text-gray-500 flex items-center justify-center gap-1">
-                                <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                                <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: idx % 2 === 0 ? '#39837a' : '#C4D82E' }} />
                                 <span className="line-clamp-1">{deliverable}</span>
                               </div>
                             ))}
@@ -483,13 +904,20 @@ export function ExpertiseDetailed() {
           </div>
         </BlurFade>
 
+        {/* Section Vidéos de Témoignages */}
+        <VideosSection
+          title="Témoignages Clients"
+          badge="Témoignages"
+          videos={testimonialVideos}
+        />
+
         <Separator className="my-20" />
 
         {/* Core Values - Cards Layout */}
         <BlurFade delay={0.7}>
           <div className="mb-12 md:mb-16 lg:mb-20">
             <div className="text-center mb-8 md:mb-12 px-4">
-              <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+              <Badge variant="odillon" className="mb-3 md:mb-4">
                 Nos Valeurs
               </Badge>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
@@ -500,52 +928,78 @@ export function ExpertiseDetailed() {
               </p>
             </div>
 
-            <Marquee className="py-4">
-              <MarqueeFade side="left" />
-              <MarqueeFade side="right" />
-              <MarqueeContent speed={40} pauseOnHover={true}>
-                {coreValues.map((value, idx) => {
-                  const ValueIcon = value.icon
-                  return (
-                    <MarqueeItem key={idx} className="w-80">
-                      <Card className="border-2 border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-xl group relative overflow-hidden h-full">
-                        {/* Gradient overlay on hover */}
-                        <div 
-                          className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
-                          style={{ 
-                            background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'} 0%, transparent 100%)` 
-                          }}
-                        />
-                        
-                        <CardContent className="p-6 text-center relative">
-                          <div 
-                            className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md"
-                            style={{ 
-                              background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}15, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}05)`,
-                              border: `2px solid ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}30`
-                            }}
-                          >
-                            <ValueIcon className="w-8 h-8" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
-                          </div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-2">{value.title}</h3>
-                          <div className="text-sm font-semibold mb-3" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
-                            {value.value}
-                          </div>
-                          <p className="text-sm text-gray-600 leading-relaxed">{value.description}</p>
-                        </CardContent>
-                      </Card>
-                    </MarqueeItem>
-                  )
-                })}
-              </MarqueeContent>
-            </Marquee>
+            {/* Testimonials Carousel */}
+            {testimonials.length > 0 && (
+              <section className="container mx-auto px-4 py-6">
+                <div className="mb-6 text-center">
+                  <h1 className="text-3xl font-bold tracking-tight">Ce que les gens disent</h1>
+                </div>
+                <div className="mx-auto w-[700px] max-w-full">
+                  <Card className="flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
+                    <CardContent className="p-8">
+                      <div className="mb-6 flex justify-center">
+                        <Quote className="h-10 w-10 text-muted-foreground/30" aria-hidden="true" />
+                      </div>
+                      <blockquote className="mb-8 text-center text-xl font-medium leading-relaxed">
+                        "{testimonials[currentTestimonial].quote}"
+                      </blockquote>
+                      <div className="flex flex-col items-center">
+                        <Avatar className="mb-3 h-14 w-14">
+                          <AvatarImage
+                            src={testimonials[currentTestimonial].avatar}
+                            alt={testimonials[currentTestimonial].name}
+                          />
+                          <AvatarFallback>{testimonials[currentTestimonial].name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="text-center">
+                          <p className="font-semibold">{testimonials[currentTestimonial].name}</p>
+                          <p className="text-sm text-muted-foreground">{testimonials[currentTestimonial].position}</p>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex items-center justify-center gap-4">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+                          className="h-9 w-9"
+                        >
+                          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                        </Button>
+                        <div className="flex items-center gap-2">
+                          {testimonials.map((_, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentTestimonial(idx)}
+                              className={`h-2 w-2 rounded-full border transition-colors ${
+                                idx === currentTestimonial
+                                  ? "bg-primary border-primary"
+                                  : "bg-background border-border"
+                              }`}
+                              aria-label={`Aller au témoignage ${idx + 1}`}
+                            />
+                          ))}
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
+                          className="h-9 w-9"
+                        >
+                          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </section>
+            )}
           </div>
         </BlurFade>
 
         {/* CTA Final */}
         <BlurFade delay={0.8}>
-          <Card className="border-2 border-gray-300 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#1A9B8E]/10 to-transparent pointer-events-none" />
+          <Card className="border-2 border-gray-300 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden mb-8 md:mb-12 lg:mb-16">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#39837a]/10 to-transparent pointer-events-none" />
             <CardContent className="p-6 md:p-10 lg:p-12 text-center relative">
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 px-4">
@@ -560,7 +1014,7 @@ export function ExpertiseDetailed() {
                     href="/contact"
                     className="relative inline-flex items-center justify-center gap-2 h-10 md:h-12 px-6 md:px-8 rounded-md text-sm md:text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                     style={{ 
-                      backgroundColor: '#1A9B8E',
+                      backgroundColor: '#39837a',
                       color: '#ffffff'
                     }}
                   >
@@ -572,16 +1026,16 @@ export function ExpertiseDetailed() {
                     href="/services"
                     className="relative inline-flex items-center justify-center gap-2 h-10 md:h-12 px-6 md:px-8 rounded-md text-sm md:text-base font-medium border-2 transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                     style={{ 
-                      borderColor: '#1A9B8E',
-                      color: '#1A9B8E'
+                      borderColor: '#39837a',
+                      color: '#39837a'
                     }}
                   >
                     <span 
                       className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                      style={{ backgroundColor: '#1A9B8E' }}
+                      style={{ backgroundColor: '#39837a' }}
                     ></span>
-                    <span className="relative" style={{ color: '#1A9B8E' }}>Découvrir nos services</span>
-                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: '#1A9B8E' }} />
+                    <span className="relative" style={{ color: '#39837a' }}>Découvrir nos services</span>
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: '#39837a' }} />
                   </Link>
                 </div>
               </div>
@@ -589,6 +1043,6 @@ export function ExpertiseDetailed() {
           </Card>
         </BlurFade>
       </div>
-    </AuroraBackground>
+    </div>
   )
 }

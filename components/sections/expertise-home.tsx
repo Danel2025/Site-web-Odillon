@@ -10,10 +10,8 @@ import {
   Briefcase, 
   Globe2, 
   TrendingUp,
-  CheckCircle,
-  ArrowRight
+  CheckCircle
 } from "lucide-react"
-import Link from "next/link"
 import { NumberTicker } from "@/components/ui/number-ticker"
 
 const expertiseDomains = [
@@ -23,7 +21,7 @@ const expertiseDomains = [
     subtitle: "& Restructuration",
     impact: "35%",
     metric: "d'efficacité en plus",
-    color: "#1A9B8E",
+    color: "#39837a",
     features: ["Diagnostic complet", "Optimisation", "Accompagnement"]
   },
   {
@@ -41,7 +39,7 @@ const expertiseDomains = [
     subtitle: "Image & Influence",
     impact: "60%",
     metric: "de visibilité en plus",
-    color: "#1A9B8E",
+    color: "#39837a",
     features: ["Communication", "Médias", "Lobbying"]
   },
   {
@@ -143,22 +141,6 @@ export function ExpertiseHome() {
             )
           })}
         </div>
-
-        {/* CTA */}
-        <BlurFade delay={0.6}>
-          <div className="text-center bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl p-6 md:p-8">
-            <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
-              Découvrez notre expertise approfondie et nos méthodologies éprouvées
-            </p>
-            <Link 
-              href="/expertise"
-              className="inline-flex items-center gap-2 text-odillon-teal hover:text-odillon-teal/80 font-semibold text-sm md:text-base group"
-            >
-              En savoir plus sur notre expertise
-              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </BlurFade>
       </div>
     </section>
   )

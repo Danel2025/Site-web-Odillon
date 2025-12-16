@@ -52,7 +52,7 @@ const config = {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
   			},
-  			'odillon-teal': '#1A9B8E',
+  			'odillon-teal': '#39837a',
   			'odillon-lime': '#C4D82E',
   			'odillon-dark': '#0A1F2C'
   		},
@@ -62,10 +62,13 @@ const config = {
   			sm: 'calc(var(--radius) - 2px)'
   		},
   		fontFamily: {
-  			baskvill: [
-  				'var(--font-baskvill)',
-  				'serif'
+  			'petrov-sans': [
+  				'var(--font-petrov-sans)',
+  				'sans-serif'
   			]
+  		},
+  		backgroundImage: {
+  			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   		},
 		keyframes: {
 			'accordion-down': {

@@ -1,31 +1,24 @@
 "use client"
 
+import { useState, useRef } from "react"
 import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { BubbleBackground } from "@/components/ui/shadcn-io/bubble-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { OrbitingCircles } from "@/components/ui/orbiting-circles"
-import { Icon3D } from "@/components/ui/icon-3d"
-import { NumberTicker } from "@/components/ui/number-ticker"
-import { 
-  Phone, 
-  MapPin, 
-  Clock, 
+import { ContactHeroBackground } from "@/components/ui/contact-hero-background"
+import {
+  Phone,
+  MapPin,
+  Clock,
   Send,
-  Star,
   Mail,
-  Calendar,
-  FolderOpen,
-  MessageSquare,
-  Shield,
-  FileText,
-  Users,
   CheckCircle2,
-  ExternalLink
+  ExternalLink,
+  Loader2,
+  AlertCircle
 } from "lucide-react"
 
 type ContactItem = {
@@ -48,7 +41,7 @@ const contactInfo: ContactInfo[] = [
     items: [
       { label: "+241 11747574", link: "tel:+24111747574" }
     ],
-    color: "#1A9B8E"
+    color: "#39837a"
   },
   {
     icon: Mail,
@@ -66,226 +59,102 @@ const contactInfo: ContactInfo[] = [
       { label: "Libreville, Gabon" }
     ],
     link: "https://www.google.com/maps/search/?api=1&query=Libreville,+Gabon",
-    color: "#1A9B8E"
+    color: "#39837a"
   }
 ]
 
-const stats = [
-  { value: 24, suffix: "h", label: "Temps de réponse", icon: Clock },
-  { value: 95, suffix: "%", label: "Satisfaction client", icon: Star },
-  { value: 200, suffix: "+", label: "Projets réalisés", icon: CheckCircle2 },
-  { value: 50, suffix: "+", label: "Clients accompagnés", icon: Users }
-]
-
 export function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      company: formData.get('company') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Une erreur est survenue')
+      }
+
+      // Succès
+      setSubmitStatus({
+        type: 'success',
+        message: result.message || 'Votre message a été envoyé avec succès. Nous vous recontacterons rapidement.'
+      })
+
+      // Réinitialiser le formulaire de manière sécurisée
+      if (formRef.current) {
+        formRef.current.reset()
+      }
+
+      // Masquer le message de succès après 5 secondes
+      setTimeout(() => {
+        setSubmitStatus({ type: null, message: '' })
+      }, 5000)
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Hero Section with Bubble Background */}
-      <div className="relative overflow-hidden py-16 md:py-24 lg:py-32 bg-white">
-        <BubbleBackground
-          interactive={true}
-          className="absolute inset-0 opacity-20"
-          colors={{
-            first: '26,155,142',      // odillon-teal
-            second: '196,216,46',     // odillon-lime
-            third: '26,155,142',      // odillon-teal
-            fourth: '196,216,46',     // odillon-lime
-            fifth: '26,155,142',      // odillon-teal
-            sixth: '196,216,46'       // odillon-lime
-          }}
-          transition={{ stiffness: 150, damping: 25 }}
-        />
-        
-        {/* Gradient overlay vers le blanc en bas */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white pointer-events-none" />
-        
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 md:mb-16">
-            {/* Left - Content */}
-            <div className="space-y-6 md:space-y-8">
-              <BlurFade delay={0.1}>
-                <Badge className="bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-sm md:text-base px-4 md:px-6 py-2 md:py-3 inline-flex items-center gap-2 font-medium">
-                  <Send className="w-3 h-3 md:w-4 md:h-4" />
-                  Contactez-nous
-                </Badge>
-              </BlurFade>
-              
-              <BlurFade delay={0.2}>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                  Transformons ensemble votre{" "}
-                  <span className="bg-gradient-to-r from-[#1A9B8E] via-[#C4D82E] to-[#1A9B8E] bg-clip-text text-transparent animate-gradient-x">
-                    vision en réalité
-                  </span>
-                </h1>
-              </BlurFade>
-              
-              <BlurFade delay={0.3}>
-                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                  Notre équipe d'experts est à votre écoute pour comprendre vos enjeux 
-                  et vous proposer des solutions innovantes adaptées à vos besoins
-                </p>
-              </BlurFade>
+      {/* Simple Hero Header */}
+      <div className="relative py-12 md:py-16 lg:py-20">
+        {/* Background Pattern */}
+        <ContactHeroBackground />
 
-              {/* Stats Grid */}
-              <BlurFade delay={0.4}>
-                <div className="grid grid-cols-2 gap-4 md:gap-6 pt-6 md:pt-8">
-                  {stats.map((stat, idx) => {
-                    const StatIcon = stat.icon
-                    return (
-                      <FadeIn key={stat.label} delay={0.1 * (idx + 1)}>
-                        <div>
-                          <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-sm mb-2 md:mb-3 border border-gray-200"
-                               style={{ 
-                                 background: `linear-gradient(135deg, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}20, ${idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'}10)`
-                               }}
-                          >
-                            <StatIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
-                          </div>
-                          <div className="text-xl md:text-2xl font-bold mb-1" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
-                            <NumberTicker 
-                              value={stat.value} 
-                              delay={0.5 + idx * 0.1}
-                              className="inline"
-                            />
-                            {stat.suffix}
-                          </div>
-                          <div className="text-xs md:text-sm text-gray-600">{stat.label}</div>
-                        </div>
-                      </FadeIn>
-                    )
-                  })}
-                </div>
-              </BlurFade>
-            </div>
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <FadeIn delay={0.1}>
+              <Badge variant="odillon" className="mb-4 md:mb-6">
+                <Send className="w-4 h-4 mr-2" />
+                Contactez-nous
+              </Badge>
+            </FadeIn>
 
-            {/* Right - Orbiting Circles */}
-            <BlurFade delay={0.5}>
-              <div className="relative flex h-[300px] md:h-[400px] lg:h-[500px] w-full items-center justify-center">
-                {/* Center Logo/Icon */}
-                <div className="absolute z-10 flex items-center justify-center">
-                  <Icon3D
-                    src="/icons/3d/mail.png" 
-                    alt="Email"
-                    width={60}
-                    height={60}
-                    fallbackIcon={Mail}
-                    className="drop-shadow-lg text-odillon-teal md:w-[80px] md:h-[80px]"
-                  />
-                </div>
+            <FadeIn delay={0.2}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
+                Parlons de votre projet
+              </h1>
+            </FadeIn>
 
-                {/* Inner Circle Mobile - Services principaux */}
-                <OrbitingCircles radius={70} duration={20} iconSize={40} className="md:hidden">
-                  <Icon3D
-                    src="/icons/3d/calendar.png" 
-                    alt="Calendrier"
-                    width={40}
-                    height={40}
-                    fallbackIcon={Calendar}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                  <Icon3D
-                    src="/icons/3d/folder.png" 
-                    alt="Stockage"
-                    width={40}
-                    height={40}
-                    fallbackIcon={FolderOpen}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                  <Icon3D
-                    src="/icons/3d/chat.png" 
-                    alt="Messages"
-                    width={40}
-                    height={40}
-                    fallbackIcon={MessageSquare}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                </OrbitingCircles>
-
-                {/* Inner Circle Desktop - Services principaux */}
-                <OrbitingCircles radius={100} duration={20} iconSize={60} className="hidden md:flex">
-                  <Icon3D
-                    src="/icons/3d/calendar.png" 
-                    alt="Calendrier"
-                    width={60}
-                    height={60}
-                    fallbackIcon={Calendar}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                  <Icon3D
-                    src="/icons/3d/folder.png" 
-                    alt="Stockage"
-                    width={60}
-                    height={60}
-                    fallbackIcon={FolderOpen}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                  <Icon3D
-                    src="/icons/3d/chat.png" 
-                    alt="Messages"
-                    width={60}
-                    height={60}
-                    fallbackIcon={MessageSquare}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                </OrbitingCircles>
-
-                {/* Outer Circle Mobile - Services additionnels */}
-                <OrbitingCircles radius={120} duration={25} reverse iconSize={40} className="md:hidden">
-                  <Icon3D
-                    src="/icons/3d/shield.png" 
-                    alt="Sécurité"
-                    width={40}
-                    height={40}
-                    fallbackIcon={Shield}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                  <Icon3D
-                    src="/icons/3d/users.png" 
-                    alt="Collaboration"
-                    width={40}
-                    height={40}
-                    fallbackIcon={Users}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                </OrbitingCircles>
-
-                {/* Outer Circle Desktop - Services additionnels */}
-                <OrbitingCircles radius={180} duration={25} reverse iconSize={60} className="hidden md:flex">
-                  <Icon3D
-                    src="/icons/3d/shield.png" 
-                    alt="Sécurité"
-                    width={60}
-                    height={60}
-                    fallbackIcon={Shield}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                  <Icon3D
-                    src="/icons/3d/document.png" 
-                    alt="Documents"
-                    width={60}
-                    height={60}
-                    fallbackIcon={FileText}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                  <Icon3D
-                    src="/icons/3d/users.png" 
-                    alt="Collaboration"
-                    width={60}
-                    height={60}
-                    fallbackIcon={Users}
-                    className="drop-shadow-lg text-odillon-lime"
-                  />
-                  <Icon3D
-                    src="/icons/3d/checkmark.png" 
-                    alt="Vérification"
-                    width={60}
-                    height={60}
-                    fallbackIcon={CheckCircle2}
-                    className="drop-shadow-lg text-odillon-teal"
-                  />
-                </OrbitingCircles>
-              </div>
-            </BlurFade>
+            <FadeIn delay={0.3}>
+              <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+                Notre équipe est à votre disposition pour répondre à vos questions
+                et vous accompagner dans vos projets
+              </p>
+            </FadeIn>
           </div>
         </div>
       </div>
@@ -408,7 +277,27 @@ export function Contact() {
                     </p>
                   </div>
 
-                  <form className="space-y-3 md:space-y-4">
+                  <form ref={formRef} onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                    {/* Messages de statut */}
+                    {submitStatus.type && (
+                      <div
+                        className={`p-3 md:p-4 rounded-lg border ${
+                          submitStatus.type === 'success'
+                            ? 'bg-green-50 border-green-200 text-green-800'
+                            : 'bg-red-50 border-red-200 text-red-800'
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          {submitStatus.type === 'success' ? (
+                            <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                          ) : (
+                            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                          )}
+                          <p className="text-sm font-medium">{submitStatus.message}</p>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Name & Email */}
                     <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
                       <div>
@@ -499,10 +388,20 @@ export function Contact() {
                       <Button
                         type="submit"
                         size="default"
-                        className="w-full bg-odillon-teal hover:bg-odillon-teal/90 text-white group"
+                        disabled={isSubmitting}
+                        className="w-full bg-odillon-teal hover:bg-odillon-teal/90 text-white group disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Envoyer le message
-                        <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                            Envoi en cours...
+                          </>
+                        ) : (
+                          <>
+                            Envoyer le message
+                            <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </>
+                        )}
                       </Button>
                     </div>
                   </form>

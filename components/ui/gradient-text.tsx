@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface GradientTextProps {
@@ -15,11 +15,11 @@ export function GradientText({
   children,
   className,
   animate = true,
-  from = "#1A9B8E", // odillon-teal
+  from = "#39837a", // odillon-teal
   to = "#C4D82E", // odillon-lime
 }: GradientTextProps) {
   return (
-    <motion.span
+    <m.span
       className={cn(
         "bg-clip-text text-transparent bg-gradient-to-r font-bold",
         className
@@ -36,7 +36,7 @@ export function GradientText({
       }}
     >
       {children}
-    </motion.span>
+    </m.span>
   )
 }
 
