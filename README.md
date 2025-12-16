@@ -35,6 +35,77 @@ npm run build
 npm start
 ```
 
+## 🔧 Gestion du dépôt Git
+
+### Configurer `main` comme branche principale
+
+Pour configurer la branche `main` comme branche principale du dépôt :
+
+#### En local
+
+```bash
+# Vérifier la branche actuelle
+git branch
+
+# Passer sur main
+git checkout main
+
+# Récupérer les dernières modifications
+git fetch origin
+
+# Synchroniser avec origin/main
+git pull origin main
+
+# Configurer main comme branche par défaut
+git remote set-head origin main
+git branch --set-upstream-to=origin/main main
+```
+
+#### Depuis la console SSH (Infomaniak)
+
+```bash
+# Se connecter en SSH
+ssh votre-user@odillon.fr
+
+# Aller dans le dossier du site
+cd /chemin/vers/site
+
+# Passer sur main
+git checkout main
+
+# Récupérer et synchroniser
+git fetch origin
+git pull origin main
+
+# Configurer main comme branche par défaut
+git remote set-head origin main
+git branch --set-upstream-to=origin/main main
+```
+
+#### Mise à jour du dépôt sur Infomaniak
+
+```bash
+# Se connecter en SSH
+ssh votre-user@odillon.fr
+
+# Aller dans le dossier du site
+cd /chemin/vers/site
+
+# Récupérer les dernières modifications
+git pull origin main
+
+# Réinstaller si nécessaire
+npm install
+
+# Rebuilder
+npm run build
+
+# Redémarrer l'application (via l'interface Infomaniak ou PM2)
+pm2 restart odillon-site
+```
+
+**Note** : Pour changer la branche par défaut sur GitHub, allez dans **Settings > Branches > Default branch** et sélectionnez `main`.
+
 ## Fonctionnalités
 
 - ✅ Design ultra professionnel et moderne
