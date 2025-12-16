@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useMemo } from "react"
-import { motion, useInView } from "motion/react"
+import { m, useInView } from "framer-motion"
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -79,7 +79,7 @@ export function AnimatedStatCard({
   }, [isInView, value, delay])
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={cn("relative group", className)}
       initial={{ opacity: 0, y: 30 }}
@@ -87,14 +87,14 @@ export function AnimatedStatCard({
       transition={{ duration: 0.6, delay: delay * 0.15, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Outer container with animated border */}
-      <div 
+      <div
         className="relative w-full h-full rounded-2xl p-[2px] overflow-hidden"
         style={{
           background: `linear-gradient(135deg, ${hexToRgba(color, 0.3)}, transparent 50%, ${hexToRgba(color, 0.2)})`,
         }}
       >
         {/* Animated rotating border gradient */}
-        <motion.div
+        <m.div
           className="absolute inset-0 rounded-2xl"
           style={{
             background: `conic-gradient(from 0deg, ${color}, transparent 30%, transparent 70%, ${color})`,
@@ -104,7 +104,7 @@ export function AnimatedStatCard({
         />
 
         {/* Moving halo/dot */}
-        <motion.div
+        <m.div
           className="absolute w-16 h-16 rounded-full blur-2xl z-10"
           style={{ background: hexToRgba(color, 0.4) }}
           animate={{
@@ -130,7 +130,7 @@ export function AnimatedStatCard({
           />
 
           {/* Rotating ray effect */}
-          <motion.div
+          <m.div
             className="absolute top-1/2 left-1/2 w-[200%] h-[50px] -translate-x-1/2 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
             style={{
               background: `linear-gradient(90deg, transparent, ${hexToRgba(color, 0.5)}, transparent)`,
@@ -141,7 +141,7 @@ export function AnimatedStatCard({
           />
 
           {/* Shimmer sweep effect on hover */}
-          <motion.div
+          <m.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100"
             style={{
               background: `linear-gradient(105deg, transparent 40%, ${hexToRgba('#ffffff', 0.6)} 45%, ${hexToRgba('#ffffff', 0.8)} 50%, ${hexToRgba('#ffffff', 0.6)} 55%, transparent 60%)`,
@@ -154,13 +154,13 @@ export function AnimatedStatCard({
           {/* Content */}
           <div className="relative z-10 p-6 md:p-8 text-center flex flex-col items-center justify-center min-h-[200px] md:min-h-[240px]">
             {/* Animated icon container */}
-            <motion.div
+            <m.div
               className="relative mb-4"
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               {/* Icon glow */}
-              <motion.div
+              <m.div
                 className="absolute inset-0 rounded-2xl blur-xl"
                 style={{ background: hexToRgba(color, 0.4) }}
                 animate={{
@@ -184,11 +184,11 @@ export function AnimatedStatCard({
                   style={{ color: color }}
                 />
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Animated value */}
             <div className="relative mb-2">
-              <motion.div
+              <m.div
                 className="text-4xl md:text-5xl lg:text-6xl font-bold"
                 style={{ color: color }}
                 animate={{
@@ -202,7 +202,7 @@ export function AnimatedStatCard({
               >
                 {count}
                 <span className="text-2xl md:text-3xl ml-1">{suffix}</span>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Label */}
@@ -219,7 +219,7 @@ export function AnimatedStatCard({
           </div>
 
           {/* Animated border lines */}
-          <motion.div
+          <m.div
             className="absolute top-4 left-4 right-4 h-[1px]"
             style={{
               background: `linear-gradient(90deg, transparent, ${hexToRgba(color, 0.3)}, transparent)`,
@@ -227,7 +227,7 @@ export function AnimatedStatCard({
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
+          <m.div
             className="absolute bottom-4 left-4 right-4 h-[1px]"
             style={{
               background: `linear-gradient(90deg, transparent, ${hexToRgba(color, 0.3)}, transparent)`,
@@ -238,7 +238,7 @@ export function AnimatedStatCard({
 
           {/* Progress bar at bottom */}
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100/50 overflow-hidden">
-            <motion.div
+            <m.div
               className="h-full"
               style={{
                 background: `linear-gradient(90deg, ${color}, ${hexToRgba(color, 0.6)})`,
@@ -262,7 +262,7 @@ export function AnimatedStatCard({
       </div>
 
       {/* Floating particles */}
-      <motion.div
+      <m.div
         className="absolute w-1 h-1 rounded-full z-20"
         style={{
           background: color,
@@ -281,7 +281,7 @@ export function AnimatedStatCard({
           delay: delay * 0.2,
         }}
       />
-      <motion.div
+      <m.div
         className="absolute w-1.5 h-1.5 rounded-full z-20"
         style={{
           background: color,
@@ -300,7 +300,7 @@ export function AnimatedStatCard({
           delay: delay * 0.2 + 0.5,
         }}
       />
-    </motion.div>
+    </m.div>
   )
 }
 

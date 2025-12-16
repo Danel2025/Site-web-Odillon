@@ -952,6 +952,7 @@ export default function AdminPhotosPage() {
                           <SelectValue placeholder="Sélectionner un thème" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="no-theme">Aucun thème</SelectItem>
                           {MONTHLY_THEMES.map((theme) => (
                             <SelectItem key={theme.id} value={theme.id}>
                               {theme.name}

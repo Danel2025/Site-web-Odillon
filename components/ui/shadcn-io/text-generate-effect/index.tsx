@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, stagger, useAnimate } from 'motion/react';
+import { m, stagger, useAnimate } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 type TextGenerateEffectProps = Omit<React.ComponentProps<'div'>, 'children'> & {
@@ -44,9 +44,9 @@ function TextGenerateEffect({
 
   return (
     <div ref={localRef} className={cn('font-bold', className)} data-slot="text-generate-effect" {...(props as any)}>
-      <motion.div ref={scope}>
+      <m.div ref={scope}>
         {wordsArray.map((word, idx) => (
-          <motion.span
+          <m.span
             key={`${word}-${idx}`}
             className="opacity-0 will-change-transform will-change-opacity will-change-filter"
             style={{
@@ -54,9 +54,9 @@ function TextGenerateEffect({
             }}
           >
             {word}{' '}
-          </motion.span>
+          </m.span>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

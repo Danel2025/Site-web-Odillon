@@ -1,7 +1,7 @@
 "use client"
 
 import { LucideIcon } from "lucide-react"
-import { motion } from "motion/react"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useMemo } from "react"
 
@@ -59,7 +59,7 @@ export function GlassmorphismIcon({
       </svg>
 
       {/* Outer glow layer */}
-      <motion.div
+      <m.div
         className="absolute inset-0 rounded-2xl"
         style={{
           background: `radial-gradient(circle at 50% 50%, ${hexToRgba(color, 0.4)}, transparent 70%)`,
@@ -77,7 +77,7 @@ export function GlassmorphismIcon({
       />
 
       {/* Main container */}
-      <motion.div 
+      <m.div 
         className="relative w-full h-full rounded-2xl overflow-hidden group cursor-pointer"
         style={{
           background: `linear-gradient(135deg, ${hexToRgba(color, 0.15)} 0%, ${hexToRgba(color, 0.05)} 100%)`,
@@ -104,7 +104,7 @@ export function GlassmorphismIcon({
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
         {/* Animated border gradient */}
-        <motion.div
+        <m.div
           className="absolute inset-0 rounded-2xl"
           style={{
             background: `conic-gradient(from 0deg, transparent, ${color}, transparent, ${color}, transparent)`,
@@ -124,7 +124,7 @@ export function GlassmorphismIcon({
         />
 
         {/* Glass shine - sweeping highlight */}
-        <motion.div
+        <m.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100"
           style={{
             background: `linear-gradient(105deg, transparent 40%, ${hexToRgba('#ffffff', 0.4)} 45%, ${hexToRgba('#ffffff', 0.6)} 50%, ${hexToRgba('#ffffff', 0.4)} 55%, transparent 60%)`,
@@ -144,7 +144,7 @@ export function GlassmorphismIcon({
 
         {/* Shimmer particles effect */}
         {variant === "aurora" && (
-          <motion.div
+          <m.div
             className="absolute inset-0 opacity-40"
             style={{
               background: `
@@ -168,7 +168,7 @@ export function GlassmorphismIcon({
         {/* Electric pulse effect */}
         {variant === "electric" && (
           <>
-            <motion.div
+            <m.div
               className="absolute inset-0 rounded-2xl"
               style={{
                 border: `2px solid ${color}`,
@@ -183,7 +183,7 @@ export function GlassmorphismIcon({
                 ease: "easeOut",
               }}
             />
-            <motion.div
+            <m.div
               className="absolute inset-0 rounded-2xl"
               style={{
                 border: `1px solid ${color}`,
@@ -204,7 +204,7 @@ export function GlassmorphismIcon({
 
         {/* Pulse ring effect */}
         {variant === "pulse" && (
-          <motion.div
+          <m.div
             className="absolute inset-0"
             style={{
               background: `radial-gradient(circle at center, ${hexToRgba(color, 0.3)} 0%, transparent 60%)`,
@@ -222,12 +222,12 @@ export function GlassmorphismIcon({
         )}
 
         {/* Icon with glow */}
-        <motion.div 
+        <m.div 
           className="absolute inset-0 flex items-center justify-center"
           whileHover={{ scale: 1.15 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <motion.div
+          <m.div
             animate={{
               filter: [
                 `drop-shadow(0 0 4px ${hexToRgba(color, 0.6)})`,
@@ -250,8 +250,8 @@ export function GlassmorphismIcon({
                 filter: `url(#${filterId})`,
               }}
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Bottom reflection */}
         <div
@@ -260,10 +260,10 @@ export function GlassmorphismIcon({
             background: `linear-gradient(0deg, ${hexToRgba(color, 0.3)} 0%, transparent 100%)`,
           }}
         />
-      </motion.div>
+      </m.div>
 
       {/* Floating particles */}
-      <motion.div
+      <m.div
         className="absolute w-1 h-1 rounded-full"
         style={{
           background: color,
@@ -281,7 +281,7 @@ export function GlassmorphismIcon({
           ease: "easeInOut",
         }}
       />
-      <motion.div
+      <m.div
         className="absolute w-1.5 h-1.5 rounded-full"
         style={{
           background: color,
