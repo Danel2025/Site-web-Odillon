@@ -76,7 +76,7 @@ const trustedCompanies = [
     fullName: "Caisse des Dépôts et Consignations",
     logo: "/images/logos/cdc.webp",
     fallback: "CDC",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   },
   { 
     name: "CAISTAB", 
@@ -90,7 +90,7 @@ const trustedCompanies = [
     fullName: "Société d'Énergie et d'Eau du Gabon",
     logo: "/images/logos/seeg.webp",
     fallback: "SEEG",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   },
   { 
     name: "UBA", 
@@ -104,7 +104,7 @@ const trustedCompanies = [
     fullName: "Société d'Economie Mixte",
     logo: "/images/logos/sem.webp",
     fallback: "SEM",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   },
   { 
     name: "EDG", 
@@ -118,7 +118,7 @@ const trustedCompanies = [
     fullName: "Agence Nationale de l'Aviation Civile",
     logo: "/images/logos/anac.webp",
     fallback: "ANAC",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   },
   { 
     name: "Gabon Télécom", 
@@ -132,7 +132,7 @@ const trustedCompanies = [
     fullName: "Hôpital Privé de Libreville",
     logo: "/images/logos/hpg.webp",
     fallback: "HPG",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   },
   { 
     name: "Trésor", 
@@ -146,7 +146,7 @@ const trustedCompanies = [
     fullName: "SGS Gabon",
     logo: "/images/logos/sgs.webp",
     fallback: "SGS",
-    color: "#1A9B8E" 
+    color: "#39837a" 
   }
 ]
 
@@ -156,7 +156,7 @@ export function TrustedByHome() {
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle, #1A9B8E 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle, #39837a 1px, transparent 1px)`,
           backgroundSize: '32px 32px'
         }} />
       </div>
@@ -173,7 +173,7 @@ export function TrustedByHome() {
             </Badge>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
               Ils nous font{" "}
-              <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#39837a] to-[#C4D82E] bg-clip-text text-transparent">
                 Confiance
               </span>
             </h2>

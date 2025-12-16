@@ -2,7 +2,6 @@
 
 import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { InteractiveGridPattern } from "@/components/ui/shadcn-io/interactive-grid-pattern"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -11,11 +10,11 @@ import {
   Mail, 
   MapPin, 
   Send,
-  Clock,
   ArrowRight,
   MessageSquare
 } from "lucide-react"
 import Link from "next/link"
+import { AnimatedClock } from "@/components/ui/animated-clock"
 
 const contactMethods = [
   {
@@ -24,8 +23,8 @@ const contactMethods = [
     value: "+241 11747574",
     description: "Lun-Ven 8h-17h",
     link: "tel:+24111747574",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 to-[#39837a]/5"
   },
   {
     icon: Mail,
@@ -42,8 +41,8 @@ const contactMethods = [
     value: "Libreville, Gabon",
     description: "BP-13262",
     link: "https://www.google.com/maps/search/?api=1&query=Libreville,+Gabon",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 to-[#39837a]/5"
   }
 ]
 
@@ -55,26 +54,12 @@ const quickActions = [
 export function ContactHome() {
   return (
     <section id="contact" className="relative py-12 md:py-16 lg:py-24 overflow-hidden">
-      {/* Interactive Grid Background */}
-      <div className="absolute inset-0 -z-10 opacity-30">
-        <InteractiveGridPattern
-          width={50}
-          height={50}
-          squares={[80, 80]}
-          className="w-full h-full"
-          squaresClassName="fill-gray-200/2 stroke-gray-300/3 hover:fill-[#1A9B8E]/30 hover:stroke-[#1A9B8E]/70 transition-all duration-300"
-        />
-      </div>
-      
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" />
-      
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left - Contact Info */}
           <div>
             <BlurFade delay={0.1}>
-              <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+              <Badge variant="odillon" className="mb-4 md:mb-6">
                 <Send className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
                 Parlons de votre projet
               </Badge>
@@ -105,10 +90,10 @@ export function ContactHome() {
                       rel={method.icon === MapPin ? "noopener noreferrer" : undefined}
                       className="block group"
                     >
-                      <div className={`bg-gradient-to-r ${method.gradient} border-2 border-gray-200 rounded-xl p-4 md:p-5 hover:border-gray-400 transition-all duration-300 hover:shadow-lg`}>
+                      <div className={`bg-gradient-to-r ${method.gradient} backdrop-blur-md bg-white/60 border-2 border-gray-300/60 rounded p-4 md:p-5 hover:border-odillon-teal/50 transition-all duration-300 hover:shadow-xl shadow-lg`}>
                         <div className="flex items-center gap-3 md:gap-4">
                           <div 
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-lg flex items-center justify-center flex-shrink-0 bg-white shadow-sm group-hover:scale-110 transition-transform duration-300"
+                            className="w-12 h-12 md:w-14 md:h-14 rounded flex items-center justify-center flex-shrink-0 bg-white/80 backdrop-blur-sm border border-white/40 shadow-md group-hover:scale-110 transition-transform duration-300"
                           >
                             <MethodIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: method.color }} />
                           </div>
@@ -171,11 +156,14 @@ export function ContactHome() {
 
           {/* Right - Hours Card */}
           <BlurFade delay={0.4}>
-            <Card className="border-2 border-gray-200 bg-white/90 backdrop-blur-sm hover:border-odillon-teal transition-all duration-300 hover:shadow-2xl">
+            <Card className="border-2 border-gray-300/60 bg-white/70 backdrop-blur-lg hover:border-odillon-teal/50 transition-all duration-300 hover:shadow-2xl shadow-xl">
               <CardContent className="p-6 md:p-8 lg:p-10">
                 <div className="flex items-center justify-center gap-3 mb-6 md:mb-8">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#1A9B8E]/20 to-[#C4D82E]/20 flex items-center justify-center">
-                    <Clock className="w-7 h-7 md:w-8 md:h-8 text-odillon-teal" />
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/60 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-center">
+                    <AnimatedClock 
+                      size={28}
+                      className="md:w-8 md:h-8 w-7 h-7 text-odillon-teal"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl md:text-2xl font-bold text-gray-900">
@@ -185,7 +173,7 @@ export function ContactHome() {
                 </div>
                 
                 <div className="space-y-4 md:space-y-6">
-                  <div className="bg-gray-50 rounded-lg p-4 md:p-6 border-l-4 border-odillon-teal">
+                  <div className="bg-white/50 backdrop-blur-sm rounded p-4 md:p-6 border-l-4 border-odillon-teal border border-gray-300/40 shadow-sm">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm md:text-base font-semibold text-gray-900">Lundi - Vendredi</span>
                       <Badge className="bg-odillon-teal text-white text-xs">Ouvert</Badge>
@@ -195,7 +183,7 @@ export function ContactHome() {
                     </div>
                   </div>
                   
-                  <div className="bg-gray-50 rounded-lg p-4 md:p-6">
+                  <div className="bg-white/50 backdrop-blur-sm rounded p-4 md:p-6 border border-gray-300/40 shadow-sm">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm md:text-base font-semibold text-gray-900">Week-end</span>
                       <Badge variant="outline" className="text-xs">Fermé</Badge>
@@ -207,7 +195,7 @@ export function ContactHome() {
 
                   <div className="pt-4 border-t border-gray-200">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-odillon-lime/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded bg-odillon-lime/20 flex items-center justify-center flex-shrink-0">
                         <MessageSquare className="w-5 h-5 text-odillon-lime" />
                       </div>
                       <div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface HighlightTextProps {
@@ -18,7 +18,7 @@ export function HighlightText({
 }: HighlightTextProps) {
   return (
     <span className={cn("relative inline-block", className)}>
-      <motion.span
+      <m.span
         initial={{ width: "0%" }}
         whileInView={{ width: "100%" }}
         viewport={{ once: true }}

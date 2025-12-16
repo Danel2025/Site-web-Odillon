@@ -60,7 +60,7 @@ export function VideosSection({
       <BlurFade delay={0.1}>
         <div className="text-center mb-8 md:mb-12 px-4">
           {badge && (
-            <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+            <Badge variant="odillon" className="mb-3 md:mb-4">
               {badge}
             </Badge>
           )}
@@ -87,7 +87,7 @@ export function VideosSection({
                 </div>
                 
                 <CardHeader className="px-4 md:px-6 py-4 md:py-5 flex-grow">
-                  <CardTitle className="text-lg md:text-xl mb-2 group-hover:text-[#1A9B8E] transition-colors">
+                  <CardTitle className="text-lg md:text-xl mb-2 group-hover:text-[#39837a] transition-colors">
                     {video.title}
                   </CardTitle>
                   {video.description && (

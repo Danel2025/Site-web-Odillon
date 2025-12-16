@@ -5,18 +5,18 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Phone, Mail, ChevronDown, Home, Briefcase, Award, Users, Send, Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { Phone, Mail, ChevronDown, Home, Briefcase, Award, Users, Send, Menu, X, Image as ImageIcon } from "lucide-react"
+import { m, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 const navigation = [
-  { 
-    name: "Accueil", 
+  {
+    name: "Accueil",
     href: "/",
     icon: "Home"
   },
-  { 
-    name: "Services", 
+  {
+    name: "Services",
     href: "/services",
     icon: "Briefcase",
     submenu: [
@@ -26,18 +26,23 @@ const navigation = [
       { name: "Ressources Humaines", href: "/services/ressources-humaines" },
     ]
   },
-  { 
-    name: "Expertise", 
+  {
+    name: "Expertise",
     href: "/expertise",
     icon: "Award"
   },
-  { 
-    name: "À propos", 
+  {
+    name: "Photothèque",
+    href: "/phototheque",
+    icon: "Image"
+  },
+  {
+    name: "À propos",
     href: "/a-propos",
     icon: "Users"
   },
-  { 
-    name: "Contact", 
+  {
+    name: "Contact",
     href: "/contact",
     icon: "Mail"
   },
@@ -76,21 +81,21 @@ export function HeaderPro() {
       }}
     >
       {/* Top Bar */}
-      <div className="bg-black/95 backdrop-blur-sm text-white">
+      <div className="bg-[#39837a]/95 backdrop-blur-lg border-t-2 border-[#39837a] text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-8 md:h-10 items-center justify-between text-xs md:text-sm">
             <div className="flex items-center space-x-3 md:space-x-6">
-              <a href="tel:+24111747574" className="flex items-center hover:text-odillon-lime transition-colors">
+              <a href="tel:+24111747574" className="flex items-center text-white/90 hover:text-white transition-colors">
                 <Phone className="w-3 h-3 md:w-3.5 md:h-3.5 mr-1 md:mr-1.5" />
                 <span className="hidden sm:inline">+241 11747574</span>
                 <span className="sm:hidden">+241 117...</span>
               </a>
-              <a href="mailto:contact@odillon.fr" className="hidden md:flex items-center hover:text-odillon-lime transition-colors">
+              <a href="mailto:contact@odillon.fr" className="hidden md:flex items-center text-white/90 hover:text-white transition-colors">
                 <Mail className="w-3.5 h-3.5 mr-1.5" />
                 contact@odillon.fr
               </a>
             </div>
-            <div className="text-[10px] md:text-xs text-gray-300">
+            <div className="text-[10px] md:text-xs text-white/80">
               Libreville, Gabon
             </div>
           </div>
@@ -103,7 +108,7 @@ export function HeaderPro() {
           {/* Logo */}
           <Link href="/" className="flex items-center min-w-0">
             <Image
-              src="/Logo plein formatlogo de chronodil pour fond clair.webp"
+              src="/Logo plein format logo de chronodil pour fond clair.webp"
               alt="Odillon - Ingénierie d'Entreprises"
               width={200}
               height={60}
@@ -157,7 +162,7 @@ export function HeaderPro() {
 
                   {/* Submenu */}
                   {item.submenu && activeSubmenu === item.name && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -172,7 +177,7 @@ export function HeaderPro() {
                           {subitem.name}
                         </Link>
                       ))}
-                    </motion.div>
+                    </m.div>
                   )}
                 </div>
               )
@@ -216,7 +221,7 @@ export function HeaderPro() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -291,7 +296,7 @@ export function HeaderPro() {
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

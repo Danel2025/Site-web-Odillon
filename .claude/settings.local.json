@@ -33,7 +33,20 @@
       "Bash(git branch:*)",
       "mcp__next-devtools__browser_eval",
       "Bash(cat:*)",
-      "Bash(git remote add:*)"
+      "Bash(git remote add:*)",
+      "WebSearch",
+      "Bash(npm audit:*)",
+      "mcp__next-devtools__nextjs_index",
+      "mcp__next-devtools__nextjs_call",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "mcp__magic__21st_magic_component_builder",
+      "Bash(mkdir:*)",
+      "Bash(npm outdated:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"(Get-Content ''C:\\Users\\nexon\\Odillon site web\\app\\admin\\photos\\page.tsx'').Length\")",
+      "Bash(copy \"C:\\Users\\nexon\\Odillon site web\\app\\admin\\photos\\page.tsx\" \"C:\\Users\\nexon\\Odillon site web\\app\\admin\\photos\\page.backup.tsx\")",
+      "Bash(del \"C:\\Users\\nexon\\Odillon site web\\app\\admin\\photos\\page-new.tsx\")"
     ],
     "deny": [],
     "ask": []

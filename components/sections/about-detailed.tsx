@@ -1,23 +1,19 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { FadeIn } from "@/components/magicui/fade-in"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { ParticlesBackground } from "@/components/ui/particles-background"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { AboutHeroBackground } from "@/components/ui/about-hero-background"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CountingNumber } from "@/components/ui/counting-number"
+import { AnimatedStatCard } from "@/components/ui/animated-stat-card"
 import { Separator } from "@/components/ui/separator"
-import { DottedMap } from "@/components/ui/dotted-map"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/shadcn-io/marquee"
-import { 
-  Building2, 
-  Users, 
-  Trophy, 
-  Globe, 
-  Target, 
-  Heart, 
-  Lightbulb, 
+import {
+  Users,
+  Target,
+  Heart,
+  Lightbulb,
   Award,
   ArrowRight,
   CheckCircle,
@@ -37,7 +33,7 @@ const stats = [
     suffix: "h",
     label: "Temps de réponse moyen",
     description: "Réactivité garantie",
-    color: "#1A9B8E"
+    color: "#39837a"
   },
   {
     icon: Star,
@@ -53,7 +49,7 @@ const stats = [
     suffix: "+",
     label: "Projets réalisés",
     description: "Missions menées à bien",
-    color: "#1A9B8E"
+    color: "#39837a"
   },
   {
     icon: Users,
@@ -70,7 +66,7 @@ const timeline = [
     year: "2017",
     title: "Fondation",
     description: "Création d'Odillon avec la vision de transformer le paysage entrepreneurial en Afrique Centrale",
-    color: "#1A9B8E",
+    color: "#39837a",
     icon: Sparkles
   },
   {
@@ -84,7 +80,7 @@ const timeline = [
     year: "2022",
     title: "Reconnaissance",
     description: "Obtention de certifications internationales et reconnaissance comme leader régional",
-    color: "#1A9B8E",
+    color: "#39837a",
     icon: Award
   },
   {
@@ -102,7 +98,7 @@ const valeurs = [
     title: "Excellence",
     value: "Standards élevés",
     description: "Nous visons l'excellence dans chaque mission avec une approche rigoureuse et des méthodologies éprouvées.",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+    gradient: "from-[#39837a]/20 to-[#39837a]/5"
   },
   {
     icon: Shield,
@@ -116,7 +112,7 @@ const valeurs = [
     title: "Innovation",
     value: "Approches créatives",
     description: "Combinaison des meilleures pratiques internationales avec adaptation au contexte local unique.",
-    gradient: "from-[#1A9B8E]/20 to-[#1A9B8E]/5"
+    gradient: "from-[#39837a]/20 to-[#39837a]/5"
   },
   {
     icon: Heart,
@@ -156,237 +152,57 @@ const approche = [
 
 export function AboutDetailed() {
   return (
-    <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-to-b from-white/80 via-gray-50/60 to-white/80">
-      {/* Particles Background - Different from Aurora */}
-      <ParticlesBackground 
-        className="absolute inset-0" 
-        quantity={40} 
-        color="rgba(26, 155, 142, 0.2)"
-        staticity={50}
-        ease={50}
-      />
-      
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Hero Section avec Dotted Map */}
-        <div className="relative mb-20">
-          {/* Dotted Map Background - Gabon */}
-          <div className="absolute inset-0 -inset-x-[50vw] left-1/2 -translate-x-1/2 w-screen opacity-40 pointer-events-none -z-10">
-            <DottedMap
-              width={2000}
-              height={1500}
-              mapSamples={25000}
-              markers={[
-                {
-                  lat: 0.8037,
-                  lng: 11.6094,
-                  size: 12,
-                },
-              ]}
-              markerColor="#C4D82E"
-              dotColor="#1A9B8E"
-              dotRadius={0.8}
-              className="w-full h-full"
-            />
-          </div>
+    <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-white">
+      {/* Simple Hero Header */}
+      <div className="relative py-12 md:py-16 lg:py-20 mb-16">
+        {/* Background Pattern */}
+        <AboutHeroBackground />
 
-          {/* Header with AnimatedGradient */}
-          <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16 lg:mb-20 relative z-10 px-4">
-          <BlurFade delay={0.1}>
-            <Badge className="mb-4 md:mb-6 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
-              À Propos de Nous
-            </Badge>
-          </BlurFade>
-          
-          <BlurFade delay={0.2}>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
-              Votre partenaire de confiance en{" "}
-              <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent animate-gradient-x">
-                ingénierie d'entreprises
-              </span>
-            </h1>
-          </BlurFade>
-          
-          <BlurFade delay={0.3}>
-            <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
-              Découvrez qui nous sommes, nos valeurs et notre engagement envers l'excellence
-              et la réussite de nos clients.
-            </p>
-          </BlurFade>
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <FadeIn delay={0.1}>
+              <Badge variant="odillon" className="mb-4 md:mb-6">
+                À Propos de Nous
+              </Badge>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+                Votre partenaire de confiance en{" "}
+                <span className="bg-gradient-to-r from-odillon-teal to-odillon-lime bg-clip-text text-transparent">
+                  ingénierie d'entreprises
+                </span>
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+                Découvrez qui nous sommes, nos valeurs et notre engagement envers l'excellence
+                et la réussite de nos clients.
+              </p>
+            </FadeIn>
           </div>
         </div>
+      </div>
 
-        {/* Stats with Modern Horizontal Layout */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Stats Section */}
         <BlurFade delay={0.4}>
-          <div className="relative">
-            {/* Animated Zigzag Curve Background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1, height: '100%' }}>
-              <svg 
-                className="w-full" 
-                viewBox="0 0 1200 300" 
-                preserveAspectRatio="xMidYMid meet"
-                style={{ position: 'absolute', top: '50%', left: 0, transform: 'translateY(-50%)', width: '100%', height: '300px' }}
-              >
-                {/* Main zigzag curve that tapers - goes from left to right */}
-                <motion.path
-                  d="M 0 150 L 80 130 L 160 170 L 240 110 L 320 190 L 400 90 L 480 210 L 560 70 L 640 230 L 720 50 L 800 250 L 880 30 L 960 270 L 1040 10 L 1120 290 L 1200 -10"
-                  fill="none"
-                  stroke="#1A9B8E"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0, strokeWidth: 3, opacity: 0 }}
-                  animate={{ 
-                    pathLength: 1,
-                    strokeWidth: [3, 0.8, 3],
-                    opacity: [0.4, 0.6, 0.4],
-                  }}
-                  transition={{ 
-                    pathLength: { duration: 5, ease: "easeInOut", repeat: Infinity },
-                    strokeWidth: { duration: 3, ease: "easeInOut", repeat: Infinity },
-                    opacity: { duration: 2, ease: "easeInOut", repeat: Infinity }
-                  }}
+          <div className="mb-16 md:mb-20 lg:mb-24">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {stats.map((stat, idx) => (
+                <AnimatedStatCard
+                  key={stat.label}
+                  icon={stat.icon}
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  label={stat.label}
+                  description={stat.description}
+                  color={stat.color}
+                  delay={idx * 0.1}
                 />
-                {/* Secondary zigzag with different pattern and tapering */}
-                <motion.path
-                  d="M 0 150 L 100 170 L 200 130 L 300 190 L 400 110 L 500 210 L 600 90 L 700 230 L 800 70 L 900 250 L 1000 50 L 1100 270 L 1200 30"
-                  fill="none"
-                  stroke="#C4D82E"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeDasharray="8,4"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ 
-                    pathLength: 1,
-                    opacity: [0.3, 0.5, 0.3],
-                    strokeWidth: [2, 0.5, 2],
-                  }}
-                  transition={{ 
-                    pathLength: { duration: 6, ease: "easeInOut", repeat: Infinity },
-                    opacity: { duration: 2.5, ease: "easeInOut", repeat: Infinity },
-                    strokeWidth: { duration: 4, ease: "easeInOut", repeat: Infinity },
-                    delay: 0.8
-                  }}
-                />
-              </svg>
-            </div>
-            
-            <div className="relative z-10">
-              {/* Desktop: Horizontal layout with separators */}
-              <div className="hidden lg:flex items-center justify-between gap-8 max-w-6xl mx-auto">
-              {stats.map((stat, idx) => {
-                const StatIcon = stat.icon
-                const isLast = idx === stats.length - 1
-                return (
-                  <div key={stat.label} className="flex-1 flex items-center">
-                    <FadeIn delay={0.1 * (idx + 1)} className="flex-1">
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-gray-200/60 hover:border-gray-300/80 hover:shadow-xl transition-all duration-300 group relative overflow-hidden rounded-2xl p-6 md:p-8 text-center">
-                        {/* Gradient overlay on hover */}
-                        <div 
-                          className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
-                          style={{ background: `linear-gradient(135deg, ${stat.color} 0%, transparent 100%)` }}
-                        />
-                        
-                        {/* Icon */}
-                        <div 
-                          className="w-14 h-14 md:w-16 md:h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 relative z-10"
-                          style={{ 
-                            background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                            border: `2px solid ${stat.color}40`
-                          }}
-                        >
-                          <StatIcon className="w-7 h-7 md:w-8 md:h-8" style={{ color: stat.color }} />
-                        </div>
-                        
-                        {/* Value */}
-                        <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 relative z-10" style={{ color: stat.color }}>
-                          <CountingNumber value={stat.value} />
-                          <span className="text-2xl md:text-3xl ml-1">{stat.suffix}</span>
-                        </div>
-                        
-                        {/* Label */}
-                        <div className="text-sm md:text-base font-semibold text-gray-900 mb-1 relative z-10">
-                          {stat.label}
-                        </div>
-                        
-                        {/* Description */}
-                        <div className="text-xs md:text-sm text-gray-600 relative z-10">
-                          {stat.description}
-                        </div>
-                        
-                        {/* Progress bar at bottom */}
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100/50 rounded-b-2xl overflow-hidden">
-                          <div 
-                            className="h-full transition-all duration-1000 ease-out"
-                            style={{ 
-                              width: `${(idx + 1) * 25}%`,
-                              background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)`
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </FadeIn>
-                    
-                    {/* Separator */}
-                    {!isLast && (
-                      <div className="mx-4 flex-shrink-0">
-                        <div 
-                          className="w-px h-24 bg-gradient-to-b from-transparent via-gray-300 to-transparent opacity-50"
-                        />
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-              </div>
-
-              {/* Mobile/Tablet: Grid layout */}
-              <div className="lg:hidden grid grid-cols-2 gap-4 md:gap-6">
-              {stats.map((stat, idx) => {
-                const StatIcon = stat.icon
-                return (
-                  <FadeIn key={stat.label} delay={0.1 * (idx + 1)}>
-                    <div className="bg-white/80 backdrop-blur-sm border-2 border-gray-200/60 hover:border-gray-300/80 hover:shadow-xl transition-all duration-300 group relative overflow-hidden rounded-2xl p-4 md:p-6 text-center">
-                      {/* Gradient overlay on hover */}
-                      <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
-                        style={{ background: `linear-gradient(135deg, ${stat.color} 0%, transparent 100%)` }}
-                      />
-                      
-                      {/* Icon */}
-                      <div 
-                        className="w-12 h-12 md:w-14 md:h-14 rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative z-10"
-                        style={{ 
-                          background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                          border: `2px solid ${stat.color}40`
-                        }}
-                      >
-                        <StatIcon className="w-6 h-6 md:w-7 md:h-7" style={{ color: stat.color }} />
-                      </div>
-                      
-                      {/* Value */}
-                      <div className="text-3xl md:text-4xl font-bold mb-1 relative z-10" style={{ color: stat.color }}>
-                        <CountingNumber value={stat.value} />
-                        <span className="text-xl md:text-2xl ml-1">{stat.suffix}</span>
-                      </div>
-                      
-                      {/* Label */}
-                      <div className="text-xs md:text-sm font-semibold text-gray-900 mb-1 relative z-10 leading-tight">
-                        {stat.label}
-                      </div>
-                      
-                      {/* Progress bar at bottom */}
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100/50 rounded-b-2xl overflow-hidden">
-                        <div 
-                          className="h-full transition-all duration-1000 ease-out"
-                          style={{ 
-                            width: `${(idx + 1) * 25}%`,
-                            background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)`
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </FadeIn>
-                )
-              })}
-              </div>
+              ))}
             </div>
           </div>
         </BlurFade>
@@ -473,7 +289,7 @@ export function AboutDetailed() {
         <BlurFade delay={0.6}>
           <div className="mb-12 md:mb-16 lg:mb-20">
             <div className="text-center mb-8 md:mb-12 px-4">
-              <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+              <Badge variant="odillon" className="mb-3 md:mb-4">
                 Nos Valeurs Fondamentales
               </Badge>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
@@ -487,7 +303,7 @@ export function AboutDetailed() {
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
               {valeurs.map((valeur, idx) => {
                 const ValeurIcon = valeur.icon
-                const color = idx % 2 === 0 ? '#1A9B8E' : '#C4D82E'
+                const color = idx % 2 === 0 ? '#39837a' : '#C4D82E'
                 const bgGradient = `linear-gradient(135deg, ${color}20, ${color}10)`
                 return (
                   <FadeIn key={valeur.title} delay={0.1 * (idx + 1)}>
@@ -508,7 +324,7 @@ export function AboutDetailed() {
                             <ValeurIcon className="w-6 h-6 md:w-8 md:h-8" style={{ color }} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-1 group-hover:text-[#1A9B8E] transition-colors">
+                            <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-1 group-hover:text-[#39837a] transition-colors">
                               {valeur.title}
                             </h3>
                             <div className="text-xs md:text-sm font-semibold mb-2 md:mb-3" style={{ color }}>
@@ -545,7 +361,7 @@ export function AboutDetailed() {
               
               {/* Animated Progress Line */}
               <div 
-                className="absolute top-12 left-0 h-0.5 bg-gradient-to-r from-[#1A9B8E] via-[#C4D82E] to-[#1A9B8E] -translate-y-1/2"
+                className="absolute top-12 left-0 h-0.5 bg-gradient-to-r from-[#39837a] via-[#C4D82E] to-[#39837a] -translate-y-1/2"
                 style={{ 
                   width: '0%',
                   animation: 'progressLine 5s ease-in-out 0.5s infinite'
@@ -554,7 +370,7 @@ export function AboutDetailed() {
               
               {/* Animated Progress Indicator */}
               <div 
-                className="absolute top-12 h-2 w-2 rounded-full bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] -translate-y-1/2 -translate-x-1/2 shadow-lg"
+                className="absolute top-12 h-2 w-2 rounded-full bg-gradient-to-r from-[#39837a] to-[#C4D82E] -translate-y-1/2 -translate-x-1/2 shadow-lg"
                 style={{ 
                   left: '0%',
                   animation: 'progressIndicator 5s ease-in-out 0.5s infinite'
@@ -569,9 +385,9 @@ export function AboutDetailed() {
                       <div className="text-center w-full">
                         <div 
                           className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center relative z-10 bg-white shadow-lg border-4 hover:scale-110 transition-transform duration-300"
-                          style={{ borderColor: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}
+                          style={{ borderColor: idx % 2 === 0 ? '#39837a' : '#C4D82E' }}
                         >
-                          <EtapeIcon className="w-10 h-10" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }} />
+                          <EtapeIcon className="w-10 h-10" style={{ color: idx % 2 === 0 ? '#39837a' : '#C4D82E' }} />
                         </div>
                         <div className="text-sm font-bold text-gray-400 mb-2">{etape.number}</div>
                         <h3 className="text-lg font-bold text-gray-900">{etape.title}</h3>
@@ -591,7 +407,7 @@ export function AboutDetailed() {
                   <MarqueeItem key={`desc-${etape.number}`} className="w-80">
                     <Card className="border border-gray-200 hover:border-gray-300 transition-all h-full">
                       <CardContent className="p-6">
-                        <div className="lg:hidden text-4xl font-bold mb-2 opacity-10" style={{ color: idx % 2 === 0 ? '#1A9B8E' : '#C4D82E' }}>
+                        <div className="lg:hidden text-4xl font-bold mb-2 opacity-10" style={{ color: idx % 2 === 0 ? '#39837a' : '#C4D82E' }}>
                           {etape.number}
                         </div>
                         <h3 className="lg:hidden text-lg font-bold text-gray-900 mb-2">{etape.title}</h3>
@@ -607,10 +423,10 @@ export function AboutDetailed() {
 
         {/* Mission Statement - Centered Hero */}
         <BlurFade delay={0.8}>
-          <Card className="border-2 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden mb-12 md:mb-16 lg:mb-20" style={{ borderColor: '#1A9B8E30' }}>
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#1A9B8E]/10 to-transparent" />
+          <Card className="border-2 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden mb-12 md:mb-16 lg:mb-20" style={{ borderColor: '#39837a30' }}>
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#39837a]/10 to-transparent" />
             <CardContent className="p-6 md:p-10 lg:p-12 text-center relative">
-              <Target className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 text-[#1A9B8E]" />
+              <Target className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 text-[#39837a]" />
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">Notre Mission</h2>
               <p className="text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-6 md:mb-8">
                 Accompagner les entreprises dans leur transformation et leur croissance en apportant 
@@ -620,7 +436,7 @@ export function AboutDetailed() {
               
               <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 text-xs md:text-sm">
                 {['Innovation', 'Excellence', 'Résultats', 'Partenariat'].map((mot, i) => {
-                  const badgeColor = i % 2 === 0 ? '#1A9B8E' : '#C4D82E'
+                  const badgeColor = i % 2 === 0 ? '#39837a' : '#C4D82E'
                   return (
                     <Badge 
                       key={mot}
@@ -656,7 +472,7 @@ export function AboutDetailed() {
                   href="/contact"
                   className="relative inline-flex items-center justify-center gap-2 h-10 md:h-12 px-6 md:px-8 rounded-md text-sm md:text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                   style={{ 
-                    backgroundColor: '#1A9B8E',
+                    backgroundColor: '#39837a',
                     color: '#ffffff'
                   }}
                 >
@@ -668,16 +484,16 @@ export function AboutDetailed() {
                   href="/services"
                   className="relative inline-flex items-center justify-center gap-2 h-10 md:h-12 px-6 md:px-8 rounded-md text-sm md:text-base font-medium border-2 transition-all duration-300 overflow-hidden group w-full sm:w-auto"
                   style={{ 
-                    borderColor: '#1A9B8E',
-                    color: '#1A9B8E'
+                    borderColor: '#39837a',
+                    color: '#39837a'
                   }}
                 >
                   <span 
                     className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                    style={{ backgroundColor: '#1A9B8E' }}
+                    style={{ backgroundColor: '#39837a' }}
                   ></span>
-                  <span className="relative" style={{ color: '#1A9B8E' }}>Nos services</span>
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: '#1A9B8E' }} />
+                  <span className="relative" style={{ color: '#39837a' }}>Nos services</span>
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: '#39837a' }} />
                 </Link>
               </div>
             </CardContent>

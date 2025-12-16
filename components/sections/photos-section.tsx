@@ -58,7 +58,7 @@ export function PhotosSection({
       <BlurFade delay={0.1}>
         <div className="text-center mb-8 md:mb-12 px-4">
           {badge && (
-            <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+            <Badge variant="odillon" className="mb-3 md:mb-4">
               {badge}
             </Badge>
           )}

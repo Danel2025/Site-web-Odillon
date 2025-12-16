@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { useScroll, useTransform, m } from "framer-motion"
 
 interface ParallaxBackgroundProps {
   images: Array<{
@@ -18,43 +19,26 @@ export function ParallaxBackground({
   className = "" 
 }: ParallaxBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [scrollY, setScrollY] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
   const [nextImageIndex, setNextImageIndex] = useState(1)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const scrollPosition = window.scrollY - rect.top
-        setScrollY(scrollPosition)
-        
-        // Vérifier si le conteneur est visible
-        const viewportHeight = window.innerHeight
-        const isInViewport = rect.top < viewportHeight && rect.bottom > 0
-        setIsVisible(isInViewport)
-      }
-    }
+  // Utiliser useScroll de Framer Motion pour une meilleure performance
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
 
-    // Utiliser requestAnimationFrame pour de meilleures performances
-    let rafId: number
-    const optimizedScroll = () => {
-      handleScroll()
-      rafId = requestAnimationFrame(optimizedScroll)
-    }
-
-    window.addEventListener("scroll", optimizedScroll, { passive: true })
-    handleScroll() // Initial call
-
-    return () => {
-      window.removeEventListener("scroll", optimizedScroll)
-      if (rafId) cancelAnimationFrame(rafId)
-    }
-  }, [])
+  // Transformer le scroll progress en valeur de translation fluide
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, -300 * speed],
+    { clamp: false }
+  )
 
   // Rotation des images si plusieurs sont disponibles
+
   useEffect(() => {
     if (images.length > 1) {
       const interval = setInterval(() => {
@@ -84,13 +68,15 @@ export function ParallaxBackground({
       ref={containerRef}
       className={`absolute inset-0 overflow-hidden ${className}`}
     >
-      {/* Image actuelle */}
-      <div
-        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+      {/* Image actuelle avec m.div pour une animation fluide */}
+      <m.div
+        className="absolute inset-0"
         style={{
-          transform: `translateY(${scrollY * speed}px)`,
-          willChange: "transform",
-          opacity: isVisible ? (isTransitioning ? 0 : 1) : 0
+          y,
+          opacity: isTransitioning ? 0 : 1,
+        }}
+        transition={{
+          opacity: { duration: 1, ease: "easeInOut" }
         }}
       >
         <Image
@@ -101,19 +87,24 @@ export function ParallaxBackground({
           priority
           quality={90}
           sizes="100vw"
+          style={{
+            objectPosition: "center",
+          }}
         />
         {/* Overlay léger pour améliorer la lisibilité du texte */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
-      </div>
+      </m.div>
       
       {/* Image suivante pour transition en fondu (si plusieurs images) */}
       {images.length > 1 && (
-        <div
-          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+        <m.div
+          className="absolute inset-0"
           style={{
-            transform: `translateY(${scrollY * speed}px)`,
+            y,
             opacity: isTransitioning ? 1 : 0,
-            willChange: "transform, opacity"
+          }}
+          transition={{
+            opacity: { duration: 1, ease: "easeInOut" }
           }}
           key={`next-${nextImageIndex}`}
         >
@@ -124,9 +115,12 @@ export function ParallaxBackground({
             className="object-cover"
             quality={90}
             sizes="100vw"
+            style={{
+              objectPosition: "center",
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
-        </div>
+        </m.div>
       )}
     </div>
   )

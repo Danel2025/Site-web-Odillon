@@ -19,7 +19,9 @@ export async function GET() {
         settings: {
           id: "main",
           show_videos_section: true,
-          show_photos_section: true
+          show_photos_section: true,
+          services_cta_image_url: null,
+          expertise_image_url: null
         }
       })
     }
@@ -27,7 +29,9 @@ export async function GET() {
     return NextResponse.json({ settings: data || {
       id: "main",
       show_videos_section: true,
-      show_photos_section: true
+      show_photos_section: true,
+      services_cta_image_url: null,
+      expertise_image_url: null
     }})
   } catch (error) {
     console.error("Erreur serveur:", error)
@@ -50,7 +54,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { show_videos_section, show_photos_section } = body
+    const { show_videos_section, show_photos_section, services_cta_image_url, expertise_image_url } = body
 
     // Valider les données
     if (typeof show_videos_section !== "boolean" && show_videos_section !== undefined) {
@@ -67,13 +71,33 @@ export async function PATCH(request: NextRequest) {
       )
     }
 
+    if (services_cta_image_url !== undefined && services_cta_image_url !== null && typeof services_cta_image_url !== "string") {
+      return NextResponse.json(
+        { error: "services_cta_image_url doit être une chaîne de caractères ou null" },
+        { status: 400 }
+      )
+    }
+
+    if (expertise_image_url !== undefined && expertise_image_url !== null && typeof expertise_image_url !== "string") {
+      return NextResponse.json(
+        { error: "expertise_image_url doit être une chaîne de caractères ou null" },
+        { status: 400 }
+      )
+    }
+
     // Construire l'objet de mise à jour
-    const updateData: Record<string, boolean> = {}
+    const updateData: Record<string, boolean | string | null> = {}
     if (show_videos_section !== undefined) {
       updateData.show_videos_section = show_videos_section
     }
     if (show_photos_section !== undefined) {
       updateData.show_photos_section = show_photos_section
+    }
+    if (services_cta_image_url !== undefined) {
+      updateData.services_cta_image_url = services_cta_image_url
+    }
+    if (expertise_image_url !== undefined) {
+      updateData.expertise_image_url = expertise_image_url
     }
 
     // Mettre à jour les paramètres

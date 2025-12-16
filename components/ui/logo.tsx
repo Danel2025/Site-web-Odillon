@@ -17,11 +17,10 @@ export function Logo({
   priority = true,
   alt = "Odillon - Ingénierie d'Entreprises"
 }: LogoProps) {
-  // Utiliser le PNG qui fonctionne dans le footer
-  // Le WebP sera utilisé automatiquement par Next.js si disponible via le srcSet
+  // Utiliser le logo Chronodil pour fond clair
   return (
     <Image
-      src="/logo-odillon.png"
+      src="/Logo plein format logo de chronodil pour fond clair.webp"
       alt={alt}
       width={width}
       height={height}

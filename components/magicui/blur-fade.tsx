@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { m, useInView } from "framer-motion"
 import { useRef } from "react"
 
 interface BlurFadeProps {
@@ -20,7 +20,7 @@ export function BlurFade({
   const isInView = useInView(ref, { once: true, margin: "-50px" })
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, filter: "blur(10px)" }}
       animate={
@@ -36,7 +36,7 @@ export function BlurFade({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 

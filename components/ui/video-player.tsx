@@ -65,6 +65,12 @@ function getVimeoId(url: string): string | null {
   return match ? match[1] : null
 }
 
+// Fonction pour obtenir l'URL du thumbnail YouTube
+function getYouTubeThumbnail(videoId: string): string {
+  // Utilise l'image de qualité maximale disponible
+  return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+}
+
 export function VideoPlayer({
   url,
   type,
@@ -83,6 +89,13 @@ export function VideoPlayer({
   const videoType = type && type !== "direct" ? type : detectedType
   const youtubeId = videoType === "youtube" ? getYouTubeId(url) : null
   const vimeoId = videoType === "vimeo" ? getVimeoId(url) : null
+
+  // Générer automatiquement le thumbnail si manquant ou invalide
+  // Si le thumbnail est une URL vidéo au lieu d'une image, l'ignorer
+  const isValidThumbnail = thumbnail && !thumbnail.includes("youtu.be") && !thumbnail.includes("youtube.com") && !thumbnail.includes("vimeo.com")
+  const effectiveThumbnail = isValidThumbnail
+    ? thumbnail
+    : (youtubeId ? getYouTubeThumbnail(youtubeId) : undefined)
 
   const handlePlay = () => {
     setIsPlaying(true)
@@ -116,16 +129,16 @@ export function VideoPlayer({
           }}
           aria-label={title || "Lire la vidéo"}
         >
-          {thumbnail ? (
+          {effectiveThumbnail ? (
             <Image
-              src={thumbnail}
+              src={effectiveThumbnail}
               alt={title || "Miniature vidéo"}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1A9B8E] to-[#0A1F2C]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#39837a] to-[#0A1F2C]" />
           )}
           
           {/* Overlay sombre */}
@@ -136,7 +149,7 @@ export function VideoPlayer({
             <div className="relative">
               <div className="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-colors" />
               <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Play className="w-6 h-6 md:w-8 md:h-8 text-[#1A9B8E] ml-1" fill="currentColor" />
+                <Play className="w-6 h-6 md:w-8 md:h-8 text-[#39837a] ml-1" fill="currentColor" />
               </div>
             </div>
           </div>

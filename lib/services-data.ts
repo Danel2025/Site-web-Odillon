@@ -23,8 +23,8 @@ export const servicesData: ServiceData[] = [
     id: "gouvernance",
     icon: "Shield",
     title: "Gouvernance d'Entreprise",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 via-[#1A9B8E]/10 to-transparent",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 via-[#39837a]/10 to-transparent",
     tagline: "Bâtissez les fondations de votre excellence organisationnelle",
     description: "Structurez votre organisation avec des mécanismes de gouvernance robustes et transparents qui inspirent confiance et performance.",
     keyBenefits: [
@@ -258,8 +258,8 @@ export const servicesData: ServiceData[] = [
     id: "finances",
     icon: "TrendingUp",
     title: "Conseil Financier",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 via-[#1A9B8E]/10 to-transparent",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 via-[#39837a]/10 to-transparent",
     tagline: "Optimisez votre santé financière et accélérez votre croissance",
     description: "De l'élaboration du business plan à la levée de fonds, structurez votre stratégie financière pour maximiser vos performances.",
     keyBenefits: [

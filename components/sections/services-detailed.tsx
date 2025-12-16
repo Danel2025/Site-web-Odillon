@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { Marquee, MarqueeContent, MarqueeFade, MarqueeItem } from "@/components/ui/shadcn-io/marquee"
+import { CtaBanner } from "@/components/sections/cta-banner"
 import { 
   Shield, 
   Scale, 
@@ -32,8 +33,8 @@ const servicesData = [
     id: "gouvernance",
     icon: Shield,
     title: "Gouvernance d'Entreprise",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 via-[#1A9B8E]/10 to-transparent",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 via-[#39837a]/10 to-transparent",
     tagline: "Bâtissez les fondations de votre excellence organisationnelle",
     description: "Structurez votre organisation avec des mécanismes de gouvernance robustes et transparents qui inspirent confiance et performance.",
     keyBenefits: [
@@ -267,8 +268,8 @@ const servicesData = [
     id: "finances",
     icon: TrendingUp,
     title: "Conseil Financier",
-    color: "#1A9B8E",
-    gradient: "from-[#1A9B8E]/20 via-[#1A9B8E]/10 to-transparent",
+    color: "#39837a",
+    gradient: "from-[#39837a]/20 via-[#39837a]/10 to-transparent",
     tagline: "Optimisez votre santé financière et accélérez votre croissance",
     description: "De l'élaboration du business plan à la levée de fonds, structurez votre stratégie financière pour maximiser vos performances.",
     keyBenefits: [
@@ -530,38 +531,96 @@ export function ServicesDetailed() {
   const activeService = servicesData.find(s => s.id === activeTab)
 
   return (
-    <section className="relative py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-gray-100 [mask-image:linear-gradient(to_bottom,white,transparent,white)] pointer-events-none opacity-5" />
-      
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-        {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-16">
-          <BlurFade delay={0.1}>
-            <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
-              Excellence · Expertise · Innovation
-            </Badge>
-          </BlurFade>
-          
-          <BlurFade delay={0.2}>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight px-4">
-              Des services qui transforment{" "}
-              <span className="bg-gradient-to-r from-[#1A9B8E] to-[#C4D82E] bg-clip-text text-transparent">
-                votre entreprise
-              </span>
-            </h1>
-          </BlurFade>
-          
-          <BlurFade delay={0.3}>
-            <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed px-4">
-              Solutions complètes en ingénierie d'entreprises pour structurer, développer et pérenniser votre organisation.
-              <br className="hidden sm:block" />
-              <span className="text-sm md:text-base text-gray-500 mt-2 inline-block">
-                Chaque service est conçu pour répondre à vos enjeux avec finesse et expertise.
-              </span>
-            </p>
-          </BlurFade>
+    <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-white">
+      {/* Hero Section with Background */}
+      <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-white">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Soft gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-odillon-teal/5 via-white to-odillon-lime/5" />
+
+          {/* Large circle patterns */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 border border-odillon-teal/10 rounded-full" />
+          <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] border border-odillon-lime/10 rounded-full" />
+
+          {/* Smaller decorative circles */}
+          <div className="absolute top-1/4 right-1/3 w-32 h-32 border border-odillon-teal/20 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-1/3 left-1/4 w-24 h-24 border border-odillon-lime/20 rounded-full animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+
+          {/* Simple grid overlay */}
+          <div className="absolute inset-0 opacity-[0.15]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="services-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 50 0 L 0 0 0 50"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
+                    className="text-odillon-teal"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#services-grid)" />
+            </svg>
+          </div>
+
+          {/* Subtle dots pattern */}
+          <div className="absolute inset-0 opacity-[0.08]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="services-dots" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.5" fill="currentColor" className="text-odillon-lime" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#services-dots)" />
+            </svg>
+          </div>
+
+          {/* Floating squares */}
+          <div className="absolute top-1/3 left-1/4 w-20 h-20 border-2 border-odillon-teal/15 transform rotate-12 animate-pulse" style={{ animationDuration: '6s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-16 h-16 border-2 border-odillon-lime/15 transform -rotate-12 animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+
+          {/* Subtle light beams effect */}
+          <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-odillon-teal/10 to-transparent" />
+          <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-odillon-lime/10 to-transparent" />
+
+          {/* Radial fade overlay */}
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-white/30 to-white/80" />
         </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <FadeIn delay={0.1}>
+              <Badge variant="odillon" className="mb-4 md:mb-6">
+                Excellence · Expertise · Innovation
+              </Badge>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+                Des services qui transforment{" "}
+                <span className="bg-gradient-to-r from-odillon-teal to-odillon-lime bg-clip-text text-transparent">
+                  votre entreprise
+                </span>
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+                Solutions complètes en ingénierie d'entreprises pour structurer, développer et pérenniser votre organisation.
+                <br className="hidden sm:block" />
+                <span className="text-sm md:text-base text-gray-500 mt-2 inline-block">
+                  Chaque service est conçu pour répondre à vos enjeux avec finesse et expertise.
+                </span>
+              </p>
+            </FadeIn>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Tabs Navigation */}
         <BlurFade delay={0.4}>
@@ -756,55 +815,13 @@ export function ServicesDetailed() {
                 </FadeIn>
 
                 {/* CTA Section */}
-                <FadeIn delay={0.3}>
-                  <Card className="border-2 bg-gradient-to-br from-gray-50 to-white" style={{ borderColor: `${service.color}30` }}>
-                    <CardContent className="p-6 md:p-8 text-center">
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 px-4">
-                        Prêt à transformer votre {service.title.toLowerCase()} ?
-                      </h3>
-                      <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto px-4">
-                        Discutons de vos enjeux et découvrez comment nos solutions peuvent propulser votre organisation vers l'excellence.
-                      </p>
-                      <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4">
-                        <Link 
-                          href="/contact"
-                          className="relative inline-flex items-center justify-center gap-2 h-10 md:h-11 px-6 md:px-8 rounded-md text-xs md:text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group w-full sm:w-auto"
-                          style={{ 
-                            backgroundColor: service.color,
-                            color: '#ffffff'
-                          }}
-                        >
-                          <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-15 transition-opacity duration-300"></span>
-                          <span 
-                            className="relative" 
-                            style={{ color: '#ffffff' }}
-                          >
-                            Discutons de votre projet
-                          </span>
-                          <ArrowRight 
-                            className="w-4 h-4 md:w-5 md:h-5 relative" 
-                            style={{ color: '#ffffff' }}
-                          />
-                        </Link>
-                        <Link 
-                          href="/#apropos"
-                          className="relative inline-flex items-center justify-center gap-2 h-10 md:h-11 px-6 md:px-8 rounded-md text-xs md:text-sm font-medium border-2 transition-all duration-300 overflow-hidden group w-full sm:w-auto"
-                          style={{ 
-                            borderColor: service.color,
-                            color: service.color
-                          }}
-                        >
-                          <span 
-                            className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                            style={{ backgroundColor: service.color }}
-                          ></span>
-                          <span className="relative" style={{ color: service.color }}>En savoir plus sur nous</span>
-                          <ChevronRight className="w-4 h-4 md:w-5 md:h-5 relative" style={{ color: service.color }} />
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </FadeIn>
+                <CtaBanner
+                  title={`Prêt à transformer votre ${service.title.toLowerCase()} ?`}
+                  description="Discutons de vos enjeux et découvrez comment nos solutions peuvent propulser votre organisation vers l'excellence."
+                  buttonText="Discutons de votre projet"
+                  buttonHref="/contact"
+                  badgeText="Excellence"
+                />
               </TabsContent>
             ))}
           </Tabs>

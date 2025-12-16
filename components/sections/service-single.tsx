@@ -62,7 +62,7 @@ export function ServiceSingle({ service }: ServiceSingleProps) {
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-10 md:mb-16">
           <BlurFade delay={0.1}>
-            <Badge className="mb-3 md:mb-4 bg-[#1A9B8E]/10 border border-[#1A9B8E]/20 text-[#1A9B8E] hover:bg-[#1A9B8E]/15 backdrop-blur-sm text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 font-medium">
+            <Badge variant="odillon" className="mb-3 md:mb-4">
               Excellence · Expertise · Innovation
             </Badge>
           </BlurFade>
@@ -289,6 +289,7 @@ export function ServiceSingle({ service }: ServiceSingleProps) {
     </section>
   )
 }
+
 
 
 

@@ -1,3 +1,4 @@
+import { use } from "react"
 import { HeaderPro } from "@/components/layout/header-pro"
 import { Footer } from "@/components/layout/footer"
 import { ServiceSingle } from "@/components/sections/service-single"
@@ -10,7 +11,16 @@ export const metadata = {
   description: "De la stratégie RH à la gestion des talents, développez une organisation performante centrée sur l'humain.",
 }
 
-export default function RessourcesHumainesPage() {
+export default function RessourcesHumainesPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<Record<string, string>>
+  searchParams: Promise<Record<string, string | string[]>>
+}) {
+  // Unwrap promises to prevent DevTools enumeration warnings
+  use(params)
+  use(searchParams)
   const service = servicesData.find(s => s.id === "ressources-humaines")
   
   if (!service) {
@@ -29,6 +39,7 @@ export default function RessourcesHumainesPage() {
     </>
   )
 }
+
 
 
 

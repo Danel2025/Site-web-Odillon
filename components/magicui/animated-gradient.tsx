@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface AnimatedGradientProps {
@@ -10,7 +10,7 @@ interface AnimatedGradientProps {
 
 export function AnimatedGradient({ children, className }: AnimatedGradientProps) {
   return (
-    <motion.div
+    <m.div
       className={cn("relative overflow-hidden", className)}
       initial={{ backgroundPosition: "0% 50%" }}
       animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -20,12 +20,12 @@ export function AnimatedGradient({ children, className }: AnimatedGradientProps)
         repeat: Infinity,
       }}
       style={{
-        background: "linear-gradient(90deg, rgba(26, 155, 142, 0.1), rgba(196, 216, 46, 0.1), rgba(26, 155, 142, 0.1))",
+        background: "linear-gradient(90deg, rgba(57, 131, 122, 0.1), rgba(196, 216, 46, 0.1), rgba(57, 131, 122, 0.1))",
         backgroundSize: "200% 200%",
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 

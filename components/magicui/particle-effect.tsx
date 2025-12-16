@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 
 interface Particle {
   x: number
@@ -22,7 +22,7 @@ export function ParticleEffect({
   className = "absolute inset-0",
   quantity = 30,
   staticity = 40,
-  color = "rgba(26, 155, 142, 0.3)"
+  color = "rgba(57, 131, 122, 0.3)"
 }: ParticleEffectProps = {}) {
   const [particles, setParticles] = useState<Particle[]>([])
   const [mounted, setMounted] = useState(false)
@@ -48,7 +48,7 @@ export function ParticleEffect({
   return (
     <div className={`${className} overflow-hidden pointer-events-none`}>
       {particles.map((particle, i) => (
-        <motion.div
+        <m.div
           key={i}
           className="absolute w-1 h-1 rounded-full"
           style={{ backgroundColor: color }}
